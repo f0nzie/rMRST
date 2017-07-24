@@ -1,11 +1,13 @@
 Package: rMRST
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Interface from R to Octave based Matlab Reservoir Simulation Toolbox
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Author: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
+Maintainer: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Depends: R (>= 3.2)     
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
