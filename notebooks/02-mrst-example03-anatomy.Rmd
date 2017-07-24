@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "MRST Example 03 book - anatomy in R"
 output: html_notebook
 ---
 
@@ -8,12 +8,10 @@ library(RcppOctave)
 .CallOctave("version")
 ```
 
-```{r}
-.CallOctave("TPFA")
-```
-
 
 ```{r}
+library(RcppOctave)
+
 o.TPFA <- OctaveFunction("
 function [P,V] = TPFA(Grid, K, q)
     % Compute transmissibilities by harmonic averaging.
@@ -137,7 +135,7 @@ function S = Upstream(Grid,S,Fluid,V,q,T)
 ```
 
 
-## Set-up
+## Set-up example 3
 
 ```{r}
 o.runExample <- OctaveFunction("
