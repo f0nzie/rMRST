@@ -1,0 +1,235 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(RcppOctave)
+.CallOctave("version")
+```
+
+```{r}
+.CallOctave("TPFA")
+```
+
+
+```{r}
+o.TPFA <- OctaveFunction("
+function [P,V] = TPFA(Grid, K, q)
+    % Compute transmissibilities by harmonic averaging.
+    Nx=Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
+    
+    hx=Grid.hx; hy=Grid.hy; hz=Grid.hz;
+    L = K.^(-1);
+    tx = 2*hy*hz/hx; TX = zeros(Nx+1,Ny,Nz);
+    ty = 2*hx*hz/hy; TY = zeros(Nx,Ny+1,Nz);
+    tz = 2*hx*hy/hz; TZ = zeros(Nx,Ny,Nz+1);
+    TX(2:Nx,:,:) = tx./(L(1,1:Nx-1,:,:)+L(1,2:Nx ,:,:));
+    TY(:,2:Ny,:) = ty./(L (2,:,1: Ny-1,:)+L(2,:,2:Ny,:));
+    TZ (:,:,2: Nz) = tz./(L (3,:,:,1: Nz-1)+L(3,:,:,2:Nz));
+    % Assemble TPFA discretization matrix.
+    x1 = reshape(TX(1:Nx,:,:),N,1); x2 = reshape(TX(2:Nx+1,:,:),N,1);
+    y1 = reshape(TY(:,1:Ny,:),N,1); y2 = reshape(TY(:,2:Ny+1,:),N,1);
+    z1 = reshape(TZ(:,:,1:Nz),N,1); z2 = reshape(TZ(:,:,2:Nz+1),N,1);
+    DiagVecs = [-z2,-y2,-x2,x1+x2+y1+y2+z1+z2,-x1,-y1,-z1];
+    DiagIndx = [-Nx*Ny,-Nx,-1,0,1,Nx,Nx*Ny];
+    
+    A = spdiags(DiagVecs,DiagIndx,N,N);
+    A(1,1) = A(1,1)+sum(Grid.K(:,1,1,1));
+    
+    % Solve linear system and extract interface ﬂuxes.
+    u = A\\q;
+    
+    P = reshape(u,Nx,Ny,Nz);
+    V.x = zeros(Nx+1,Ny,Nz);
+    V.y = zeros(Nx,Ny+1,Nz);
+    V.z = zeros(Nx,Ny,Nz+1);
+    V.x(2:Nx ,:,:) = (P(1:Nx-1,:,:)-P(2:Nx,:,:)).*TX(2:Nx,:,:);
+    V.y (:,2:Ny,:) = (P(:,1:Ny-1,:)-P(:,2:Ny,:)).*TY(:,2:Ny,:);
+    V.z (:,:,2: Nz) = (P (:,:,1: Nz-1)-P(:,:,2:Nz)).*TZ(:,:,2:Nz);
+")
+
+# TPFA <- o.TPFA(Grid, K, q)
+
+o.GenA <- OctaveFunction("
+function A = GenA(Grid,V,q)
+    Nx=Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
+    N=Nx*Ny*Nz; % number of unknowns
+    
+    fp=min(q,0); % production
+    
+    XN=min(V.x,0); x1=reshape(XN(1:Nx,:,:),N,1); % separate ﬂux into
+    YN=min(V.y,0); y1=reshape(YN(:,1:Ny,:),N,1); % − ﬂow in positive coordinate
+    
+    ZN=min(V.z,0); z1=reshape(ZN(:,:,1:Nz),N,1); % direction (XP,YP,ZP)
+    XP=max(V.x,0); x2=reshape(XP(2:Nx+1,:,:),N,1); % − ﬂow in negative coordinate
+    
+    YP=max(V.y,0); y2=reshape(YP(:,2:Ny+1,:),N,1); % direction (XN,YN,ZN)
+    ZP=max(V.z,0); z2=reshape(ZP(:,:,2:Nz+1),N,1); %
+    DiagVecs=[z2,y2,x2,fp+x1-x2+y1-y2+z1-z2,-x1,-y1,-z1]; % diagonal vectors
+    DiagIndx=[-Nx*Ny,-Nx,-1,0,1,Nx,Nx*Ny]; % diagonal index
+    
+    A=spdiags(DiagVecs,DiagIndx,N,N); % matrix with upwind FV stencil
+")
+
+# GenA <- o.GenA(Grid, V, q)
+
+
+
+o.RelPerm <- OctaveFunction("
+function [Mw,Mo,dMw,dMo] = RelPerm(s,Fluid)
+    S = (s-Fluid.swc)/(1-Fluid.swc-Fluid.sor); % Rescale saturations
+    
+    Mw = S.^2/Fluid.vw; % Water mobility
+    Mo =(1-S).^2/Fluid.vo; % Oil mobility
+    if (nargout==4)
+    dMw = 2*S/Fluid.vw/(1-Fluid.swc-Fluid.sor);
+    dMo = -2*(1-S)/Fluid.vo/(1-Fluid.swc-Fluid.sor);
+end                          
+")
+
+# RelPerm <- o.RelPerm(s, Fluid)
+
+
+o.Pres <- OctaveFunction("
+function [P,V] = Pres(Grid,S,Fluid,q)
+    % Compute K∗lambda(S)
+    
+    [Mw,Mo] = RelPerm(S,Fluid);
+    Mt = Mw+Mo;
+    KM = reshape([Mt,Mt,Mt]',3,Grid.Nx,Grid.Ny,Grid.Nz).*Grid.K;
+    % Compute pressure and extract ﬂuxes
+    [P,V] = TPFA(Grid,KM,q);
+")
+# Pres <- o.Pres(Grid, S, Fluid, q)
+
+
+o.Upstream <- OctaveFunction("
+function S = Upstream(Grid,S,Fluid,V,q,T)
+
+    Nx=Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; % number of grid points
+    N=Nx*Ny*Nz; % number of unknowns
+    pv = Grid.V(:).*Grid.por(:); % pore volume=cell volume∗porosity
+    fi =max(q,0); % inﬂow from wells
+    XP=max(V.x,0); XN=min(V.x,0); % inﬂux and outﬂux, x−faces
+    YP=max(V.y,0); YN=min(V.y,0); % inﬂux and outﬂux, y−faces
+    ZP=max(V.z,0); ZN=min(V.z,0); % inﬂux and outﬂux, z−faces
+    Vi = XP(1:Nx,:,:)+YP(:,1:Ny,:)+ZP(:,:,1:Nz)-... % total ﬂux into
+    XN(2:Nx+1,:,:)-YN(:,2:Ny+1,:)-ZN(:,:,2:Nz+1); % each gridblock
+    
+    pm = min(pv./(Vi(:)+fi)); % estimate of inﬂux
+    cfl = ((1-Fluid.swc-Fluid.sor)/3)*pm; % CFL restriction
+    
+    Nts = ceil(T/cfl); % number of local time steps
+    dtx = (T/Nts)./pv; % local time steps
+    
+    A = GenA(Grid,V,q); % system matrix
+    A=spdiags(dtx,0,N,N)*A; % A ∗ dt/|Omega i|
+    fi =max(q,0).*dtx; % injection
+    for t=1:Nts
+    [mw,mo]=RelPerm(S,Fluid); % compute mobilities
+    fw = mw./(mw+mo); % compute fractional ﬂow
+    S = S+(A*fw+fi); % update saturation
+    
+    end                           
+")
+# Upstream <- o.Upstream(Grid, S, Fluid, V, q, TT)
+```
+
+
+## Set-up
+
+```{r}
+o.runExample <- OctaveFunction("
+function [Grid, N, S, Fluid, Q] = runExample()
+
+    Grid.Nx=64; Dx=1; Grid.hx = Dx/Grid.Nx; % Dimension in x−direction
+    Grid.Ny=64; Dy=1; Grid.hy = Dy/Grid.Ny; % Dimension in y−direction
+    Grid.Nz=1; Dz=1; Grid.hz = Dz/Grid.Nz; % Dimension in z−direction
+    N = Grid.Nx*Grid.Ny;                    % Total number of grid blocks
+    Grid.V = Grid.hx*Grid.hy*Grid.hz;        % Cell volumes
+     
+    Grid.K = ones(3,Grid.Nx,Grid.Ny,Grid.Nz); % Unit permeability
+    Grid.por = ones(Grid.Nx,Grid.Ny,Grid.Nz); % Unit porosity
+    Q = zeros(N,1); Q([1 N])=[1 -1]; % Production/injection
+    Fluid.vw = 1.0; Fluid.vo=1.0; % Viscosities
+    Fluid.swc = 0.0; Fluid.sor=0.0; % Irreducible saturations
+
+    S = zeros(N,1);             % Initial saturation
+
+    nt = 25; dt = 0.7/nt; % Time steps
+    for t=1:nt
+        [P,V]=Pres(Grid,S,Fluid,Q); % pressure solver
+        S=Upstream(Grid,S,Fluid,V,Q,dt); % saturation solver
+      % plot ﬁlled contours at the midpoints of the grid cells
+      contourf(linspace(Grid.hx/2,Dx-Grid.hx/2,Grid.Nx),...
+      linspace(Grid.hy/2,Dy-Grid.hy/2,Grid.Ny),...
+      reshape(S,Grid.Nx,Grid.Ny),11,'k');
+      axis square; caxis([0 1]); % equal axes and color
+      drawnow; % force update of plot
+    end
+")
+
+runExample <- o.runExample()
+
+```
+
+
+```{r}
+runExample <- o.runExample()
+N <- runExample$N
+N
+dim(runExample$Q)
+names(runExample$Grid)
+
+# Grid
+Grid <- runExample$Grid
+Grid["Nx"]
+Grid["hx"]
+Grid["V"]
+
+dim(Grid[["por"]])    # porosity: array 64x64
+dim(Grid[["K"]])      # permeability: array 3x64x64
+
+# Fluid
+cat("Fluid \n")
+Fluid <- runExample$Fluid
+Fluid
+
+# Rates
+Q <- runExample$Q
+dim(Q)                # rate: column vector of 4096x1
+
+# Saturations
+S <- runExample$S
+dim(S)
+```
+
+```{r}
+o.PV <- OctaveFunction("
+function [P, V] = getPV(N, Grid, S, Fluid, Q)
+    nt = 25; dt = 0.7/nt;              % Time steps
+    for t = 1:nt
+        [P,V] = Pres(Grid, S, Fluid, Q);    % pressure solver
+        S = Upstream(Grid, S, Fluid, V, Q, dt); % saturation solver
+
+    end
+")
+```
+
+
+```{r}
+PV <- o.PV(N, Grid, S, Fluid, Q)
+```
+
+```{r}
+o.PV <- OctaveFunction("
+function [P, V] = getPV(N, Grid, S, Fluid, Q)
+                % Pres(Grid,S,Fluid,q)
+        [P,V] = Pres(Grid, S, Fluid, Q);    % pressure solver
+
+")
+
+PV <- o.PV(N, Grid, S, Fluid, Q)
+```
+

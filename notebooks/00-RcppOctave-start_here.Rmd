@@ -1,0 +1,414 @@
+---
+title: "R Notebook"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+```{r setup, include=FALSE, error=TRUE, message=FALSE}
+# Set knitr options for knitting code into the report:
+# - Don't print out code (echo)
+# - Save results so that code blocks aren't re-run unless code changes (cache),
+# _or_ a relevant earlier code block changed (autodep), but don't re-run if the
+# only thing that changed was the comments (cache.comments)
+# - Don't clutter R output with messages or warnings (message, warning)
+  # This _will_ leave error messages showing up in the knitted report
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      cache = TRUE,
+                      autodep = TRUE,
+                      cache.comments = FALSE,
+                      message = FALSE,
+                      warning = FALSE,
+                      error = TRUE,
+                      comment = NA)
+```
+
+
+```{r}
+library(RcppOctave)
+
+.CallOctave("version")
+
+.CallOctave("sqrt", 10)
+
+.CallOctave("eye", 3)
+
+.CallOctave("eye", 3, 2)
+
+```
+
+
+```
+% single output variable: eigen values only
+S = svd(A);
+
+% 3 output variables: complete SVD decomposition
+[U, S, V] = svd(A);
+```
+Examples in ex_function.m belong to RcppOctave package.
+```{r}
+# source example function definitions from RcppOctave installation
+sourceExamples("ex_functions.m")
+
+# several functions are now defined
+o_ls()
+```
+
+```{r}
+# single output value
+.CallOctave("fun1")
+```
+
+```{r}
+# 3 output values
+.CallOctave("fun2")
+```
+
+```{r}
+# no output value
+.CallOctave("fun_noargout", 1)
+
+## % Printed from Octave: x= 1
+
+.CallOctave("fun_noargout", "abc")
+
+# variable number of arguments
+.CallOctave("fun_varargin")
+
+
+.CallOctave("fun_varargin", 1, 2, 3)
+```
+
+```{r}
+.CallOctave("fun_varargout")
+```
+
+```{r}
+.CallOctave("fun_varargout", argout = 1)
+```
+
+
+```{r}
+# single output variable: result is S
+.CallOctave("svd", matrix(1:4, 2))
+```
+
+```{r}
+# 3 output variables: results is [U,S,V]
+.CallOctave("svd", matrix(1:4, 2), argout = 3)
+```
+
+```{r}
+# specify output names (and therefore number of output variables)
+.CallOctave("svd", matrix(1:4, 2), argout = c("U", "S", "V"))
+```
+
+```{r}
+.O
+
+## <Octave Interface>
+## - Use `$x` to call Octave function or get variable x.
+## - Use `$x <- val` to assign a value val to the Octave variable x.
+
+.O$version()
+
+## [1] "3.6.4"
+
+.O$eye(3)
+
+
+.O$svd(matrix(1:4, 2))
+
+# argout can still be specified
+.O$svd(matrix(1:4, 2), argout = 3)
+```
+
+## Manipulating variables
+
+```{r}
+# define a variable
+.O$myvar <- 1:5
+
+# retrieve value
+.O$myvar
+```
+
+```{r}
+# assign and retrieve new value
+.O$myvar <- 10
+.O$myvar
+```
+
+```{r}
+# remove
+.O$myvar <- NULL
+
+# this should now throw an error since 'myvar' does not exist anymore
+try(.O$myvar)
+```
+
+## Calling functions
+
+```{r}
+# density of x=5 for Poisson(2)
+.O$poisspdf(5, 2)
+
+# E.g. compare with R own function
+dpois(5, 2)
+```
+
+```{r}
+# retrieve Octave function
+f <- .O$poisspdf
+f
+
+## <OctaveFunction::`poisspdf`>
+
+# call (in Octave)
+f(5, 2)
+```
+
+
+```{r}
+## ASSIGN
+o_assign(a = 1)
+o_assign(a = 10, b = 20)
+o_assign(list(a = 5, b = 6, aaa = 7, aab = list(1, 2, 3)))
+
+```
+
+
+```{r}
+## GET get all variables
+str(o_get())
+```
+
+```{r}
+# selected variables
+o_get("a")
+
+## [1] 5
+
+o_get("a", "b")
+
+
+# rename on the fly
+o_get(c = "a", d = "b")
+```
+
+```{r}
+# get a function
+f <- o_get("svd")
+f
+```
+
+## Evaluate single statements
+
+```{r}
+# assign variable 'a'
+o_eval("a=1")
+```
+
+```{r}
+o_eval("a") # or .O£a
+```
+
+```{r}
+o_eval("a=svd(rand(3))")
+```
+
+```{r}
+.O$a
+```
+
+
+```{r}
+# eval a list of statements
+l <- o_eval("a=rand(1, 2)", "b=randn(1, 2)", "rand(1, 3)")
+l
+```
+
+```{r}
+# variables 'a' and 'b' were assigned the new values
+identical(list(.O$a, .O$b), l[1:2])
+```
+
+```{r}
+# multiple statements are not supported by o_eval
+try(o_eval("a=1; b=2"))
+```
+
+```{r}
+.O$a
+```
+
+```{r}
+# argument CATCH allows for recovering from errors in statement
+o_eval("a=usage('ERROR: stop here')", CATCH = "c=3")
+```
+
+```{r}
+# argument CATCH allows for recovering from errors in statement
+o_eval("a=print_usage('ERROR: stop here')", CATCH = "c=3")
+```
+
+```{r}
+.O$a
+```
+
+```{r}
+.O$c
+```
+
+## Source .m files
+
+```{r}
+# clear all session
+o_clear(all = TRUE)
+o_ls()
+
+## character(0)
+
+# source example file from RcppOctave installation
+mfile <- system.file("scripts/ex_source.m", package = "RcppOctave")
+cat(readLines(mfile), sep = "\n")
+```
+
+```{r}
+o_source(mfile)
+```
+
+
+```{r}
+# Now objects 'a', 'b', and 'c' as well as the function 'abc' should be defined:
+o_ls(long = TRUE)
+```
+
+```{r}
+#
+o_eval("abc(2, 4, 6)")
+```
+
+```{r}
+o_eval("abc(a, b, c)")
+```
+
+```{r}
+o_source(text = "clear a b c; a=100; a*sin(123)")
+
+# last statement is stored in automatic variable 'ans'
+o_get("a", "ans")
+```
+
+## List objects
+
+```{r}
+o_ls()
+```
+```{r}
+o_ls(long = TRUE)
+```
+
+```{r}
+# clear all (variables + functions)
+o_clear(all = TRUE)
+o_ls()
+```
+
+## Help
+
+```{r}
+o_help(std)
+```
+
+
+## Errors
+
+```{r}
+# error
+res <- try(.CallOctave("error", "this is an error in Octave"))
+```
+
+
+```{r}
+geterrmessage()
+```
+
+```{r}
+# warning
+res <- .CallOctave("warning", "this is a warning in Octave")
+res
+```
+
+## Comparing R and Octave functions
+
+```{r}
+o_svd <- function(x) {
+  # ask for the complete decomposition
+  res <- .O$svd(x, argout = c("u", "d", "v"))
+  # reformat/reorder result
+  res$d <- diag(res$d)
+  res[c(2, 1, 3)]
+}
+
+# define random data
+X <- matrix(runif(25), 5)
+
+# run SVD in R
+svd.R <- svd(X)
+
+# run SVD in Octave
+svd.O <- o_svd(X)
+str(svd.O)
+```
+
+```{r}
+# check results
+all.equal(svd.R, svd.O)
+```
+
+```{r}
+# but not exactly identical
+all.equal(svd.R, svd.O, tol = 10^-16)
+```
+
+## Random computations
+In order to ensure reproducibility of results and facilitate the comparability of implementations between R and Octave , RcppOctave ships a custom Octave module that redeﬁne Octave standard random number generator functions rand, randn, rande and randg, so that they call R corresponding functions runif, rnorm, rexp and rgamma. This module is loaded when the RcppOctave package is itself loaded. As a result, random computation – that use these functions – can be seeded in both Octave and R, using R standard function set.seed. This facilitates, in particular, the validation of ports of stochastic algorithms (e.g. simulations, MCMC-based estimations):
+
+```{r}
+Rf <- function() {
+  x <- matrix(runif(100), 10)
+  y <- matrix(rnorm(100), 10)
+  
+  (x * y) %*% (x / y)
+}
+
+Of <- {
+# define Octave function
+o_source(text="
+  function [res] = test()
+    x = rand(10);
+    y = randn(10);
+    res = (x .* y) * (x ./ y);
+  end
+")
+  
+# return the function
+.O$test
+}
+
+# run both computations with a common seed
+set.seed(1234); res.R <- Rf()
+set.seed(1234); res.O <- Of()
+
+# compare results
+identical(res.R, res.O)
+```
+
+```{r}
+# not seeding the second computation would give different results
+set.seed(1234);
+identical(Rf(), Of())
+```
+
