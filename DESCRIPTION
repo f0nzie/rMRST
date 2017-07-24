@@ -6,7 +6,8 @@ Author: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
 Maintainer: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-Depends: R (>= 3.2)     
+Depends: R (>= 3.2)  
+Imports: RcppOctave
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

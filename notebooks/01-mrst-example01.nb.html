@@ -173,8 +173,139 @@ $(document).ready(function () {
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbmxpYnJhcnkodGliYmxlKVxuR3JpZC5OeCA9ODsgR3JpZC5oeD0xL0dyaWQuTng7XG5HcmlkLk55ID04OyBHcmlkLmh5PTEvR3JpZC5OeTtcbkdyaWQuTnogPTE7IEdyaWQuaHo9MS9HcmlkLk56O1xuR3JpZC5LID0gbS5vbmVzKDMsIEdyaWQuTngsIEdyaWQuTnkpO1xuZGltKEdyaWQuSylcbmBgYCJ9 -->
+<pre class="r"><code>library(rMRST)
+library(tibble)
+Grid.Nx =8; Grid.hx=1/Grid.Nx;
+Grid.Ny =8; Grid.hy=1/Grid.Ny;
+Grid.Nz =1; Grid.hz=1/Grid.Nz;
+Grid.K = m.ones(3, Grid.Nx, Grid.Ny);
+dim(Grid.K)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDMgOCA4XG4ifQ== -->
+<pre><code>[1] 3 8 8</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTiA8LSAgR3JpZC5OeCAqIEdyaWQuTnkgKiBHcmlkLk56XG5OXG5gYGAifQ== -->
+<pre class="r"><code>N &lt;-  Grid.Nx * Grid.Ny * Grid.Nz
+N</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0XG4ifQ== -->
+<pre><code>[1] 64</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucSA9IG0uemVyb3MoTiwgMSkgXG5xW2MoTiwgMSldID0gYygxLCAtMSlcbmRpbShxKVxuYGBgIn0= -->
+<pre class="r"><code>q = m.zeros(N, 1) 
+q[c(N, 1)] = c(1, -1)
+dim(q)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0ICAxXG4ifQ== -->
+<pre><code>[1] 64  1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShxKVxuYGBgIn0= -->
+<pre class="r"><code>summary(q)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIFYxICAgIFxuIE1pbi4gICA6LTEgIFxuIDFzdCBRdS46IDAgIFxuIE1lZGlhbiA6IDAgIFxuIE1lYW4gICA6IDAgIFxuIDNyZCBRdS46IDAgIFxuIE1heC4gICA6IDEgIFxuIn0= -->
+<pre><code>       V1    
+ Min.   :-1  
+ 1st Qu.: 0  
+ Median : 0  
+ Mean   : 0  
+ 3rd Qu.: 0  
+ Max.   : 1  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="build-the-grid" class="section level2">
+<h2>Build the grid</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShSY3BwT2N0YXZlKVxuIyBmdW5jdGlvbiB0byBidWlsZCB0aGUgR3JpZFxuby5idWlsZEdyaWQgPC0gT2N0YXZlRnVuY3Rpb24oXCJcbmZ1bmN0aW9uW0dyaWRdID0gYnVpbGRHcmlkKE54LCBOeSwgTnosIEspXG4gICAgR3JpZC5OeCA9IE54OyBHcmlkLmh4PTEvR3JpZC5OeDtcbiAgICBHcmlkLk55ID0gTnk7IEdyaWQuaHk9MS9HcmlkLk55O1xuICAgIEdyaWQuTnogPSBOejsgR3JpZC5oej0xL0dyaWQuTno7XG4gICAgR3JpZC5LID0gS1xuXCIpXG5OeCA8LSA4XG5OeSA8LSA4XG5OeiA8LSAxXG4jIHBlcm1lYWJpbGl0eVxuSyA9IG0ub25lcygzLCBOeCwgTnkpO1xuIyBidWlsZCB0aGUgZ3JpZFxuR3JpZCA8LSBvLmJ1aWxkR3JpZChOeCwgTnksIE56LCBLKVxuYGBgIn0= -->
+<pre class="r"><code>library(RcppOctave)
+# function to build the Grid
+o.buildGrid &lt;- OctaveFunction(&quot;
+function[Grid] = buildGrid(Nx, Ny, Nz, K)
+    Grid.Nx = Nx; Grid.hx=1/Grid.Nx;
+    Grid.Ny = Ny; Grid.hy=1/Grid.Ny;
+    Grid.Nz = Nz; Grid.hz=1/Grid.Nz;
+    Grid.K = K
+&quot;)
+Nx &lt;- 8
+Ny &lt;- 8
+Nz &lt;- 1
+# permeability
+K = m.ones(3, Nx, Ny);
+# build the grid
+Grid &lt;- o.buildGrid(Nx, Ny, Nz, K)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiR3JpZCA9XG5cbiAgc2NhbGFyIHN0cnVjdHVyZSBjb250YWluaW5nIHRoZSBmaWVsZHM6XG5cbiAgICBOeCA9ICA4XG4gICAgaHggPSAgMC4xMjUwMFxuICAgIE55ID0gIDhcbiAgICBoeSA9ICAwLjEyNTAwXG4gICAgTnogPSAgMVxuICAgIGh6ID0gIDFcbiAgICBLID1cblxuICAgICBDb2x1bW5zIDEgdGhyb3VnaCAxOTpcblxuICAgICAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDFcblxuICAgICBDb2x1bW5zIDIwIHRocm91Z2ggMzg6XG5cbiAgICAgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxXG5cbiAgICAgQ29sdW1ucyAzOSB0aHJvdWdoIDU3OlxuXG4gICAgICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMVxuXG4gICAgIENvbHVtbnMgNTggdGhyb3VnaCA3NjpcblxuICAgICAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDFcblxuICAgICBDb2x1bW5zIDc3IHRocm91Z2ggOTU6XG5cbiAgICAgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxXG5cbiAgICAgQ29sdW1ucyA5NiB0aHJvdWdoIDExNDpcblxuICAgICAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDFcblxuICAgICBDb2x1bW5zIDExNSB0aHJvdWdoIDEzMzpcblxuICAgICAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDFcblxuICAgICBDb2x1bW5zIDEzNCB0aHJvdWdoIDE1MjpcblxuICAgICAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDFcblxuICAgICBDb2x1bW5zIDE1MyB0aHJvdWdoIDE3MTpcblxuICAgICAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDFcblxuICAgICBDb2x1bW5zIDE3MiB0aHJvdWdoIDE5MDpcblxuICAgICAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDEgICAxICAgMSAgIDFcblxuICAgICBDb2x1bW5zIDE5MSBhbmQgMTkyOlxuXG4gICAgICAgMSAgIDFcbiJ9 -->
+<pre><code>Grid =
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoK</div>
+  scalar structure containing the fields:
+
+    Nx =  8
+    hx =  0.12500
+    Ny =  8
+    hy =  0.12500
+    Nz =  1
+    hz =  1
+    K =
+
+     Columns 1 through 19:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 20 through 38:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 39 through 57:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 58 through 76:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 77 through 95:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 96 through 114:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 115 through 133:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 134 through 152:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 153 through 171:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 172 through 190:
+
+       1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+
+     Columns 191 and 192:
+
+       1   1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMoR3JpZClcbmBgYCJ9 -->
+<pre class="r"><code>names(Grid)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTnhcIiBcImh4XCIgXCJOeVwiIFwiaHlcIiBcIk56XCIgXCJoelwiIFwiS1wiIFxuIn0= -->
+<pre><code>[1] &quot;Nx&quot; &quot;hx&quot; &quot;Ny&quot; &quot;hy&quot; &quot;Nz&quot; &quot;hz&quot; &quot;K&quot; </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkock1SU1QpCmxpYnJhcnkodGliYmxlKQoKR3JpZC5OeCA9ODsgR3JpZC5oeD0xL0dyaWQuTng7CkdyaWQuTnkgPTg7IEdyaWQuaHk9MS9HcmlkLk55OwpHcmlkLk56ID0xOyBHcmlkLmh6PTEvR3JpZC5OejsKCkdyaWQuSyA9IG0ub25lcygzLCBHcmlkLk54LCBHcmlkLk55KTsKZGltKEdyaWQuSykKTiA8LSAgR3JpZC5OeCAqIEdyaWQuTnkgKiBHcmlkLk56Ck4KcSA9IG0uemVyb3MoTiwgMSkgCnFbYyhOLCAxKV0gPSBjKDEsIC0xKQpkaW0ocSkKc3VtbWFyeShxKQpgYGAKCiMjIEJ1aWxkIHRoZSBncmlkCgpgYGB7cn0KbGlicmFyeShSY3BwT2N0YXZlKQoKIyBmdW5jdGlvbiB0byBidWlsZCB0aGUgR3JpZApvLmJ1aWxkR3JpZCA8LSBPY3RhdmVGdW5jdGlvbigiCmZ1bmN0aW9uW0dyaWRdID0gYnVpbGRHcmlkKE54LCBOeSwgTnosIEspCiAgICBHcmlkLk54ID0gTng7IEdyaWQuaHg9MS9HcmlkLk54OwogICAgR3JpZC5OeSA9IE55OyBHcmlkLmh5PTEvR3JpZC5OeTsKICAgIEdyaWQuTnogPSBOejsgR3JpZC5oej0xL0dyaWQuTno7CiAgICBHcmlkLksgPSBLCiIpCgpOeCA8LSA4Ck55IDwtIDgKTnogPC0gMQojIHBlcm1lYWJpbGl0eQpLID0gbS5vbmVzKDMsIE54LCBOeSk7CiMgYnVpbGQgdGhlIGdyaWQKR3JpZCA8LSBvLmJ1aWxkR3JpZChOeCwgTnksIE56LCBLKQpuYW1lcyhHcmlkKQpgYGAKCg==</div>
 
 
 

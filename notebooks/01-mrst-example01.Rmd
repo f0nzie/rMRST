@@ -3,3 +3,45 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+```{r}
+library(rMRST)
+library(tibble)
+
+Grid.Nx =8; Grid.hx=1/Grid.Nx;
+Grid.Ny =8; Grid.hy=1/Grid.Ny;
+Grid.Nz =1; Grid.hz=1/Grid.Nz;
+
+Grid.K = m.ones(3, Grid.Nx, Grid.Ny);
+dim(Grid.K)
+N <-  Grid.Nx * Grid.Ny * Grid.Nz
+N
+q = m.zeros(N, 1) 
+q[c(N, 1)] = c(1, -1)
+dim(q)
+summary(q)
+```
+
+## Build the grid
+
+```{r}
+library(RcppOctave)
+
+# function to build the Grid
+o.buildGrid <- OctaveFunction("
+function[Grid] = buildGrid(Nx, Ny, Nz, K)
+    Grid.Nx = Nx; Grid.hx=1/Grid.Nx;
+    Grid.Ny = Ny; Grid.hy=1/Grid.Ny;
+    Grid.Nz = Nz; Grid.hz=1/Grid.Nz;
+    Grid.K = K
+")
+
+Nx <- 8
+Ny <- 8
+Nz <- 1
+# permeability
+K = m.ones(3, Nx, Ny);
+# build the grid
+Grid <- o.buildGrid(Nx, Ny, Nz, K)
+names(Grid)
+```
+
