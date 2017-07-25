@@ -2,4 +2,5 @@
 
 export(m.ones)
 export(m.zeros)
+export(zeros)
 importFrom(RcppOctave,.CallOctave)

@@ -30,9 +30,10 @@ function [P,V] = TPFA(Grid, K, q)
     tx = 2*hy*hz/hx; TX = zeros(Nx+1,Ny,Nz);
     ty = 2*hx*hz/hy; TY = zeros(Nx,Ny+1,Nz);
     tz = 2*hx*hy/hz; TZ = zeros(Nx,Ny,Nz+1);
-    TX(2:Nx,:,:) = tx./(L(1,1:Nx-1,:,:)+L(1,2:Nx ,:,:));
-    TY(:,2:Ny,:) = ty./(L (2,:,1: Ny-1,:)+L(2,:,2:Ny,:));
+    TX(2:Nx,:,:) = tx./(L(1,1:Nx-1,:,:) + L(1,2:Nx ,:,:));
+    TY(:,2:Ny,:) = ty./(L (2,:,1: Ny-1,:) + L(2,:,2:Ny,:));
     TZ (:,:,2: Nz) = tz./(L (3,:,:,1: Nz-1)+L(3,:,:,2:Nz));
+
     % Assemble TPFA discretization matrix.
     x1 = reshape(TX(1:Nx,:,:),N,1); x2 = reshape(TX(2:Nx+1,:,:),N,1);
     y1 = reshape(TY(:,1:Ny,:),N,1); y2 = reshape(TY(:,2:Ny+1,:),N,1);

@@ -28,11 +28,11 @@ library(RcppOctave)
 
 # function to build the Grid
 o.buildGrid <- OctaveFunction("
-function[Grid] = buildGrid(Nx, Ny, Nz, K)
+function[Grid] = buildGrid(Nx, Ny, Nz)
     Grid.Nx = Nx; Grid.hx=1/Grid.Nx;
     Grid.Ny = Ny; Grid.hy=1/Grid.Ny;
     Grid.Nz = Nz; Grid.hz=1/Grid.Nz;
-    Grid.K = K
+    % Grid.K = K
 ")
 
 Nx <- 8
@@ -41,7 +41,46 @@ Nz <- 1
 # permeability
 K = m.ones(3, Nx, Ny);
 # build the grid
-Grid <- o.buildGrid(Nx, Ny, Nz, K)
-names(Grid)
+Grid <- o.buildGrid(Nx, Ny, Nz)
+# names(Grid)
+q = m.zeros(N, 1) 
+q[c(N, 1)] = c(1, -1)
+```
+
+```{r}
+TPFA <- function(Grid, K, q) {
+    with(as.list(Grid), {
+        # Compute transmissibilities by harmonic averaging.
+        Nx = Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
+        hx = Grid.hx; hy=Grid.hy; hz=Grid.hz;
+        
+        L <- K^(-1)      # 3x8x8 array
+        
+        tx = 2*hy*hz/hx; TX <- m.zeros(Nx+1,Ny,Nz);
+        ty = 2*hx*hz/hy; TY = m.zeros(Nx,Ny+1,Nz);
+        tz = 2*hx*hy/hz; TZ = m.zeros(Nx,Ny,Nz+1);
+        
+        TX[2:Nx, ,]    = tx / (L[1, 1:(Nx-1), ] + L[1, 2:Nx, ])
+        TY[, 2:Ny]    = ty / (L[2, , 1:Ny-1] + L[2, ,2:Ny])
+        TZ[ , , 0] = tz / (L[3,,0]   + L[3, ,0])
+        TX
+    })
+}
+
+TPFA(Grid, K, q)
+```
+
+
+
+```{r}
+o.TPFA <- OctaveFunction("
+function [P,V] = TPFA(Grid, K, q)
+    % Compute transmissibilities by harmonic averaging.
+    Nx=Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
+    
+    hx=Grid.hx; hy=Grid.hy; hz=Grid.hz;
+")
+
+TPFA <- o.TPFA(Grid, K, q)
 ```
 
