@@ -1,0 +1,50 @@
+unnamed-chunk-1	.CallOctave	library
+unnamed-chunk-2	o_ls	sourceExamples
+unnamed-chunk-3	.CallOctave
+unnamed-chunk-4	.CallOctave
+unnamed-chunk-5	.CallOctave
+unnamed-chunk-6	.CallOctave
+unnamed-chunk-7	.CallOctave
+unnamed-chunk-8	.CallOctave	matrix
+unnamed-chunk-9	.CallOctave	matrix
+unnamed-chunk-10	c	.CallOctave	matrix
+unnamed-chunk-11	$	matrix	.O
+unnamed-chunk-12	$	$<-
+unnamed-chunk-13	$	$<-
+unnamed-chunk-14	$	$<-	try
+unnamed-chunk-15	$	dpois	.O
+unnamed-chunk-16	$	.O
+unnamed-chunk-17	list	o_assign
+unnamed-chunk-18	o_get	str
+unnamed-chunk-19	o_get
+unnamed-chunk-20	o_get
+unnamed-chunk-21	o_eval
+unnamed-chunk-22	o_eval
+unnamed-chunk-23	o_eval
+unnamed-chunk-24	$	.O
+unnamed-chunk-25	o_eval
+unnamed-chunk-26	$	identical	l	list	.O
+unnamed-chunk-27	o_eval	try
+unnamed-chunk-28	$	.O
+unnamed-chunk-29	o_eval
+unnamed-chunk-30	o_eval
+unnamed-chunk-31	$	.O
+unnamed-chunk-32	$	.O
+unnamed-chunk-33	cat	o_clear	o_ls	readLines	system.file
+unnamed-chunk-34	mfile	o_source
+unnamed-chunk-35	o_ls
+unnamed-chunk-36	o_eval
+unnamed-chunk-37	o_eval
+unnamed-chunk-38	o_get	o_source
+unnamed-chunk-39	o_ls
+unnamed-chunk-40	o_ls
+unnamed-chunk-41	o_clear	o_ls
+unnamed-chunk-42	o_help	std
+unnamed-chunk-43	.CallOctave	try
+unnamed-chunk-44	geterrmessage
+unnamed-chunk-45	.CallOctave
+unnamed-chunk-46	$	$<-	c	diag	matrix	.O	runif	str	svd
+unnamed-chunk-47	all.equal	svd.O	svd.R
+unnamed-chunk-48	^	all.equal	svd.O	svd.R
+unnamed-chunk-49	$	identical	matrix	.O	o_source	rnorm	runif	set.seed
+unnamed-chunk-50	identical	Of	Rf	set.seed
