@@ -174,53 +174,32 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbmxpYnJhcnkodGliYmxlKVxuR3JpZC5OeCA9ODsgR3JpZC5oeD0xL0dyaWQuTng7XG5HcmlkLk55ID04OyBHcmlkLmh5PTEvR3JpZC5OeTtcbkdyaWQuTnogPTE7IEdyaWQuaHo9MS9HcmlkLk56O1xuR3JpZC5LID0gbS5vbmVzKDMsIEdyaWQuTngsIEdyaWQuTnkpO1xuZGltKEdyaWQuSylcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbmxpYnJhcnkodGliYmxlKVxuXG5HcmlkLk54ID04OyBHcmlkLmh4PTEvR3JpZC5OeDtcbkdyaWQuTnkgPTg7IEdyaWQuaHk9MS9HcmlkLk55O1xuR3JpZC5OeiA9MTsgR3JpZC5oej0xL0dyaWQuTno7XG5cbkdyaWQuSyA9IG0ub25lcygzLCBHcmlkLk54LCBHcmlkLk55KTtcbmRpbShHcmlkLkspXG5OIDwtICBHcmlkLk54ICogR3JpZC5OeSAqIEdyaWQuTnpcbk5cbnEgPSBtLnplcm9zKE4sIDEpIFxucVtjKE4sIDEpXSA9IGMoMSwgLTEpXG5kaW0ocSlcbnN1bW1hcnkocSlcbmBgYCJ9 -->
 <pre class="r"><code>library(rMRST)
 library(tibble)
+
 Grid.Nx =8; Grid.hx=1/Grid.Nx;
 Grid.Ny =8; Grid.hy=1/Grid.Ny;
 Grid.Nz =1; Grid.hz=1/Grid.Nz;
+
 Grid.K = m.ones(3, Grid.Nx, Grid.Ny);
-dim(Grid.K)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDMgOCA4XG4ifQ== -->
-<pre><code>[1] 3 8 8</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTiA8LSAgR3JpZC5OeCAqIEdyaWQuTnkgKiBHcmlkLk56XG5OXG5gYGAifQ== -->
-<pre class="r"><code>N &lt;-  Grid.Nx * Grid.Ny * Grid.Nz
-N</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0XG4ifQ== -->
-<pre><code>[1] 64</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucSA9IG0uemVyb3MoTiwgMSkgXG5xW2MoTiwgMSldID0gYygxLCAtMSlcbmRpbShxKVxuYGBgIn0= -->
-<pre class="r"><code>q = m.zeros(N, 1) 
+dim(Grid.K)
+N &lt;-  Grid.Nx * Grid.Ny * Grid.Nz
+N
+q = m.zeros(N, 1) 
 q[c(N, 1)] = c(1, -1)
-dim(q)</code></pre>
+dim(q)
+summary(q)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0ICAxXG4ifQ== -->
-<pre><code>[1] 64  1</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShxKVxuYGBgIn0= -->
-<pre class="r"><code>summary(q)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIFYxICAgIFxuIE1pbi4gICA6LTEgIFxuIDFzdCBRdS46IDAgIFxuIE1lZGlhbiA6IDAgIFxuIE1lYW4gICA6IDAgIFxuIDNyZCBRdS46IDAgIFxuIE1heC4gICA6IDEgIFxuIn0= -->
-<pre><code>       V1    
- Min.   :-1  
- 1st Qu.: 0  
- Median : 0  
- Mean   : 0  
- 3rd Qu.: 0  
- Max.   : 1  </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="build-the-grid" class="section level2">
 <h2>Build the grid</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShSY3BwT2N0YXZlKVxuIyBmdW5jdGlvbiB0byBidWlsZCB0aGUgR3JpZFxuby5idWlsZEdyaWQgPC0gT2N0YXZlRnVuY3Rpb24oXCJcbmZ1bmN0aW9uW0dyaWRdID0gYnVpbGRHcmlkKE54LCBOeSwgTnopXG4gICAgR3JpZC5OeCA9IE54OyBHcmlkLmh4PTEvR3JpZC5OeDtcbiAgICBHcmlkLk55ID0gTnk7IEdyaWQuaHk9MS9HcmlkLk55O1xuICAgIEdyaWQuTnogPSBOejsgR3JpZC5oej0xL0dyaWQuTno7XG4gICAgJSBHcmlkLksgPSBLXG5cIilcbk54IDwtIDhcbk55IDwtIDhcbk56IDwtIDFcbiMgcGVybWVhYmlsaXR5XG5LID0gbS5vbmVzKDMsIE54LCBOeSk7XG4jIGJ1aWxkIHRoZSBncmlkXG5HcmlkIDwtIG8uYnVpbGRHcmlkKE54LCBOeSwgTnopXG4jIG5hbWVzKEdyaWQpXG5xID0gbS56ZXJvcyhOLCAxKSBcbnFbYyhOLCAxKV0gPSBjKDEsIC0xKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShSY3BwT2N0YXZlKVxuXG4jIGZ1bmN0aW9uIHRvIGJ1aWxkIHRoZSBHcmlkXG5vLmJ1aWxkR3JpZCA8LSBPY3RhdmVGdW5jdGlvbihcIlxuZnVuY3Rpb25bR3JpZF0gPSBidWlsZEdyaWQoTngsIE55LCBOeilcbiAgICBHcmlkLk54ID0gTng7IEdyaWQuaHg9MS9HcmlkLk54O1xuICAgIEdyaWQuTnkgPSBOeTsgR3JpZC5oeT0xL0dyaWQuTnk7XG4gICAgR3JpZC5OeiA9IE56OyBHcmlkLmh6PTEvR3JpZC5OejtcbiAgICAlIEdyaWQuSyA9IEtcblwiKVxuXG5OeCA8LSA4XG5OeSA8LSA4XG5OeiA8LSAxXG4jIHBlcm1lYWJpbGl0eVxuSyA9IG0ub25lcygzLCBOeCwgTnkpO1xuIyBidWlsZCB0aGUgZ3JpZFxuR3JpZCA8LSBvLmJ1aWxkR3JpZChOeCwgTnksIE56KVxuIyBuYW1lcyhHcmlkKVxucSA9IG0uemVyb3MoTiwgMSkgXG5xW2MoTiwgMSldID0gYygxLCAtMSlcbmBgYCJ9 -->
 <pre class="r"><code>library(RcppOctave)
+
 # function to build the Grid
 o.buildGrid &lt;- OctaveFunction(&quot;
 function[Grid] = buildGrid(Nx, Ny, Nz)
@@ -229,6 +208,7 @@ function[Grid] = buildGrid(Nx, Ny, Nz)
     Grid.Nz = Nz; Grid.hz=1/Grid.Nz;
     % Grid.K = K
 &quot;)
+
 Nx &lt;- 8
 Ny &lt;- 8
 Nz &lt;- 1
@@ -244,8 +224,9 @@ q[c(N, 1)] = c(1, -1)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbiMgVFBGQSA8LSBmdW5jdGlvbihHcmlkLCBLLCBxKSB7XG4gICAgd2l0aChhcy5saXN0KEdyaWQpLCB7XG4gICAgICAgICMgQ29tcHV0ZSB0cmFuc21pc3NpYmlsaXRpZXMgYnkgaGFybW9uaWMgYXZlcmFnaW5nLlxuICAgICAgICBOeCA9IEdyaWQuTng7IE55PUdyaWQuTnk7IE56PUdyaWQuTno7IE49TngqTnkqTno7XG4gICAgICAgIGh4ID0gR3JpZC5oeDsgaHk9R3JpZC5oeTsgaHo9R3JpZC5oejtcbiAgICAgICAgXG4gICAgICAgIEwgPC0gS14oLTEpICAgICAgIyAzeDh4OCBhcnJheVxuICAgICAgICBcbiAgICAgICAgdHggPSAyKmh5Kmh6L2h4OyBUWCA8LSB6ZXJvcyhOeCsxLE55LE56KTtcbiAgICAgICAgdHkgPSAyKmh4Kmh6L2h5OyBUWSA9IHplcm9zKE54LE55KzEsTnopO1xuICAgICAgICB0eiA9IDIqaHgqaHkvaHo7IFRaID0gemVyb3MoTngsTnksTnorMSk7XG4gICAgICAgIFxuICAgICAgICBUWFsyOk54LCxdID0gdHggLyAoTFsxLCAxOihOeC0xKSwgXSArIExbMSwgMjpOeCwgXSlcbiAgICAgICAgVFlbLDI6TnksXSA9IHR5IC8gKExbMiwgLCAxOk55LTFdICsgTFsyLCAsMjpOeV0pXG4gICAgICAgIFRaWywsMjpOel0gPSB0eiAvIChMWzMsLDE6KE56LTEpXSAgICsgTFszLCAsMjpOel0pXG4gICAgICAgIFxuICAgICAgICB4MSA9IHByYWNtYTo6UmVzaGFwZShUWFsxOk54LCxdLE4sMSk7IHgyID0gcHJhY21hOjpSZXNoYXBlKFRYWzI6KE54KzEpLCxdLE4sMSk7XG4gICAgICAgIHkxID0gcHJhY21hOjpSZXNoYXBlKFRZWywxOk55LF0sTiwxKTsgeTIgPSBwcmFjbWE6OlJlc2hhcGUoVFlbLDI6KE55KzEpLF0sTiwxKTtcbiAgICAgICAgejEgPSBwcmFjbWE6OlJlc2hhcGUoVFpbLCwxOk56XSxOLDEpOyB6MiA9IHByYWNtYTo6UmVzaGFwZShUWlssLDI6KE56KzEpXSxOLDEpO1xuICAgICAgICBcbiAgICAgICAgRGlhZ1ZlY3MgPSBjKC16MiwteTIsLXgyLHgxK3gyK3kxK3kyK3oxK3oyLC14MSwteTEsLXoxKVxuICAgICAgICBEaWFnSW5keCA9IGMoLU54Kk55LC1OeCwtMSwwLDEsTngsTngqTnkpXG4gICAgICAgIFxuICAgICAgICBBID0gbS5zcGRpYWdzKERpYWdWZWNzLERpYWdJbmR4LE4sTik7XG4gICAgICAgIEEgPSBtLnNwZGlhZ3MoTixOKTtcbiAgICAgICAgIyBBWzEsMV0gPSBBWzEsMV0rc3VtKEdyaWQuSyg6LDEsMSwxKSk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gICAgfSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcblxuIyBUUEZBIDwtIGZ1bmN0aW9uKEdyaWQsIEssIHEpIHtcbiAgICB3aXRoKGFzLmxpc3QoR3JpZCksIHtcbiAgICAgICAgIyBDb21wdXRlIHRyYW5zbWlzc2liaWxpdGllcyBieSBoYXJtb25pYyBhdmVyYWdpbmcuXG4gICAgICAgIE54ID0gR3JpZC5OeDsgTnk9R3JpZC5OeTsgTno9R3JpZC5OejsgTj1OeCpOeSpOejtcbiAgICAgICAgaHggPSBHcmlkLmh4OyBoeT1HcmlkLmh5OyBoej1HcmlkLmh6O1xuICAgICAgICBcbiAgICAgICAgTCA8LSBLXigtMSkgICAgICAjIDN4OHg4IGFycmF5XG4gICAgICAgIFxuICAgICAgICB0eCA9IDIqaHkqaHovaHg7IFRYIDwtIHplcm9zKE54KzEsTnksTnopO1xuICAgICAgICB0eSA9IDIqaHgqaHovaHk7IFRZID0gemVyb3MoTngsTnkrMSxOeik7XG4gICAgICAgIHR6ID0gMipoeCpoeS9oejsgVFogPSB6ZXJvcyhOeCxOeSxOeisxKTtcbiAgICAgICAgXG4gICAgICAgIFRYWzI6TngsLF0gPSB0eCAvIChMWzEsIDE6KE54LTEpLCBdICsgTFsxLCAyOk54LCBdKVxuICAgICAgICBUWVssMjpOeSxdID0gdHkgLyAoTFsyLCAsIDE6TnktMV0gKyBMWzIsICwyOk55XSlcbiAgICAgICAgVFpbLCwyOk56XSA9IHR6IC8gKExbMywsMTooTnotMSldICAgKyBMWzMsICwyOk56XSlcbiAgICAgICAgXG4gICAgICAgIHgxID0gcHJhY21hOjpSZXNoYXBlKFRYWzE6TngsLF0sTiwxKTsgeDIgPSBwcmFjbWE6OlJlc2hhcGUoVFhbMjooTngrMSksLF0sTiwxKTtcbiAgICAgICAgeTEgPSBwcmFjbWE6OlJlc2hhcGUoVFlbLDE6TnksXSxOLDEpOyB5MiA9IHByYWNtYTo6UmVzaGFwZShUWVssMjooTnkrMSksXSxOLDEpO1xuICAgICAgICB6MSA9IHByYWNtYTo6UmVzaGFwZShUWlssLDE6TnpdLE4sMSk7IHoyID0gcHJhY21hOjpSZXNoYXBlKFRaWywsMjooTnorMSldLE4sMSk7XG4gICAgICAgIFxuICAgICAgICBEaWFnVmVjcyA9IGMoLXoyLC15MiwteDIseDEreDIreTEreTIrejErejIsLXgxLC15MSwtejEpXG4gICAgICAgIERpYWdJbmR4ID0gYygtTngqTnksLU54LC0xLDAsMSxOeCxOeCpOeSlcbiAgICAgICAgXG4gICAgICAgICMgQSA9IG0uc3BkaWFncyhEaWFnVmVjcyxEaWFnSW5keCxOLE4pO1xuICAgICAgICAjIEEgPSBtLnNwZGlhZ3MoTixOKTtcbiAgICAgICAgIyBBWzEsMV0gPSBBWzEsMV0rc3VtKEdyaWQuSyg6LDEsMSwxKSk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gICAgfSlcbiMgfVxuXG4jIFRQRkEoR3JpZCwgSywgcSlcbmBgYCJ9 -->
 <pre class="r"><code>library(rMRST)
+
 # TPFA &lt;- function(Grid, K, q) {
     with(as.list(Grid), {
         # Compute transmissibilities by harmonic averaging.
@@ -269,24 +250,20 @@ q[c(N, 1)] = c(1, -1)</code></pre>
         DiagVecs = c(-z2,-y2,-x2,x1+x2+y1+y2+z1+z2,-x1,-y1,-z1)
         DiagIndx = c(-Nx*Ny,-Nx,-1,0,1,Nx,Nx*Ny)
         
-        A = m.spdiags(DiagVecs,DiagIndx,N,N);
-        A = m.spdiags(N,N);
+        # A = m.spdiags(DiagVecs,DiagIndx,N,N);
+        # A = m.spdiags(N,N);
         # A[1,1] = A[1,1]+sum(Grid.K(:,1,1,1));
                                                                    
-    })</code></pre>
+    })
+# }
+
+# TPFA(Grid, K, q)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gLkNhbGxPY3RhdmUoXCJzcGRpYWdzXCIsIGEsIGIsIGMsIGQpIDogXG4gIFJjcHBPY3RhdmUgLSBlcnJvciBpbiBPY3RhdmUgZnVuY3Rpb24gYHNwZGlhZ3NgOlxuICBzcGRpYWdzOiBBKEkpOiBpbmRleCBvdXQgb2YgYm91bmRzOyB2YWx1ZSA0NDggb3V0IG9mIGJvdW5kIDdcbmNhbGxlZCBmcm9tXG5pYWdzIGF0IGxpbmUgMTE5IGNvbHVtbiA3XG4ifQ== -->
-<pre><code>Error in .CallOctave(&quot;spdiags&quot;, a, b, c, d) : 
-  RcppOctave - error in Octave function `spdiags`:
-  spdiags: A(I): index out of bounds; value 448 out of bound 7
-called from
-iags at line 119 column 7</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuby5UUEZBIDwtIE9jdGF2ZUZ1bmN0aW9uKFwiXG5mdW5jdGlvbiBbUCxWXSA9IFRQRkEoR3JpZCwgSywgcSlcbiAgICAlIENvbXB1dGUgdHJhbnNtaXNzaWJpbGl0aWVzIGJ5IGhhcm1vbmljIGF2ZXJhZ2luZy5cbiAgICBOeD1HcmlkLk54OyBOeT1HcmlkLk55OyBOej1HcmlkLk56OyBOPU54Kk55Kk56O1xuICAgIFxuICAgIGh4PUdyaWQuaHg7IGh5PUdyaWQuaHk7IGh6PUdyaWQuaHo7XG5cIilcblRQRkEgPC0gby5UUEZBKEdyaWQsIEssIHEpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuby5UUEZBIDwtIE9jdGF2ZUZ1bmN0aW9uKFwiXG5mdW5jdGlvbiBbUCxWXSA9IFRQRkEoR3JpZCwgSywgcSlcbiAgICAlIENvbXB1dGUgdHJhbnNtaXNzaWJpbGl0aWVzIGJ5IGhhcm1vbmljIGF2ZXJhZ2luZy5cbiAgICBOeD1HcmlkLk54OyBOeT1HcmlkLk55OyBOej1HcmlkLk56OyBOPU54Kk55Kk56O1xuICAgIFxuICAgIGh4PUdyaWQuaHg7IGh5PUdyaWQuaHk7IGh6PUdyaWQuaHo7XG5cIilcblxuVFBGQSA8LSBvLlRQRkEoR3JpZCwgSywgcSlcbmBgYCJ9 -->
 <pre class="r"><code>o.TPFA &lt;- OctaveFunction(&quot;
 function [P,V] = TPFA(Grid, K, q)
     % Compute transmissibilities by harmonic averaging.
@@ -294,19 +271,16 @@ function [P,V] = TPFA(Grid, K, q)
     
     hx=Grid.hx; hy=Grid.hy; hz=Grid.hz;
 &quot;)
+
 TPFA &lt;- o.TPFA(Grid, K, q)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgIFRQRkEgYXQgbGluZSA4IGNvbHVtbiAyXG5UUEZBOiBzb21lIGVsZW1lbnRzIGluIGxpc3Qgb2YgcmV0dXJuIHZhbHVlcyBhcmUgdW5kZWZpbmVkXG5jYWxsZWQgZnJvbVxuIn0= -->
-<pre><code>    TPFA at line 8 column 2
-TPFA: some elements in list of return values are undefined
-called from</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbkE9cmJpbmQoYygwLCA1LCAwLCAxMCwgMCwgMCksXG5jKDAsIDAsIDYsIDAsIDExLCAwKSxcbmMoMywgMCwgMCwgNywgMCwgMTIpLFxuYygxLCA0LCAwLCAwLCA4LCAwKSxcbmMoMCwgMiwgNSwgMCwgMCwgOSlcbilcbkFcbmBgYCJ9 -->
-<pre class="r"><code>library(rMRST)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBleGFtcGxlIDFcbmxpYnJhcnkock1SU1QpXG5BPXJiaW5kKGMoMCwgNSwgMCwgMTAsIDAsIDApLFxuYygwLCAwLCA2LCAwLCAxMSwgMCksXG5jKDMsIDAsIDAsIDcsIDAsIDEyKSxcbmMoMSwgNCwgMCwgMCwgOCwgMCksXG5jKDAsIDIsIDUsIDAsIDAsIDkpXG4pXG5BXG5gYGAifQ== -->
+<pre class="r"><code># example 1
+library(rMRST)
 A=rbind(c(0, 5, 0, 10, 0, 0),
 c(0, 0, 6, 0, 11, 0),
 c(3, 0, 0, 7, 0, 12),
@@ -346,38 +320,18 @@ $d
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBleGFtcGxlIDJcbmxpYnJhcnkock1SU1QpXG5uIDwtIDVcbmUgPC0gbS5vbmVzKG4sIDEpXG5lNXgzIDwtIGNiaW5kKGUsIC0yKmUsIGUpXG5lNXgzXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBleGFtcGxlIDJcbmxpYnJhcnkock1SU1QpXG5uIDwtIDVcbmUgPC0gbS5vbmVzKG4sIDEpXG5cbmU1eDMgPC0gY2JpbmQoZSwgLTIqZSwgZSlcbmU1eDNcblxuQiA8LSBtLnNwZGlhZ3MoZTV4MywgLTE6MSwgbiwgbilcbkJcbmBgYCJ9 -->
 <pre class="r"><code># example 2
 library(rMRST)
 n &lt;- 5
 e &lt;- m.ones(n, 1)
+
 e5x3 &lt;- cbind(e, -2*e, e)
-e5x3</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgICAxICAgLTIgICAgMVxuWzIsXSAgICAxICAgLTIgICAgMVxuWzMsXSAgICAxICAgLTIgICAgMVxuWzQsXSAgICAxICAgLTIgICAgMVxuWzUsXSAgICAxICAgLTIgICAgMVxuIn0= -->
-<pre><code>     [,1] [,2] [,3]
-[1,]    1   -2    1
-[2,]    1   -2    1
-[3,]    1   -2    1
-[4,]    1   -2    1
-[5,]    1   -2    1</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQiA8LSBtLnNwZGlhZ3MoZTV4MywgLTE6MSwgbiwgbilcbkJcbmBgYCJ9 -->
-<pre class="r"><code>B &lt;- m.spdiags(e5x3, -1:1, n, n)
+e5x3
+
+B &lt;- m.spdiags(e5x3, -1:1, n, n)
 B</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJEJcbiAgICAgWywxXSBbLDJdIFssM10gWyw0XSBbLDVdXG5bMSxdICAgLTIgICAgMSAgICAwICAgIDAgICAgMFxuWzIsXSAgICAxICAgLTIgICAgMSAgICAwICAgIDBcblszLF0gICAgMCAgICAxICAgLTIgICAgMSAgICAwXG5bNCxdICAgIDAgICAgMCAgICAxICAgLTIgICAgMVxuWzUsXSAgICAwICAgIDAgICAgMCAgICAxICAgLTJcblxuJGRcblsxXSAtMSAgMCAgMVxuIn0= -->
-<pre><code>$B
-     [,1] [,2] [,3] [,4] [,5]
-[1,]   -2    1    0    0    0
-[2,]    1   -2    1    0    0
-[3,]    0    1   -2    1    0
-[4,]    0    0    1   -2    1
-[5,]    0    0    0    1   -2
-
-$d
-[1] -1  0  1</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
