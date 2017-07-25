@@ -3,7 +3,7 @@
 rMRST
 =====
 
-The goal of rMRST is to ...
+The goal of rMRST is to provide an interface to operate MRST (Matlab Rservoir Simulation Toolbox) from R to analyze and plot results.
 
 Installation
 ------------
