@@ -244,8 +244,9 @@ q[c(N, 1)] = c(1, -1)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVFBGQSA8LSBmdW5jdGlvbihHcmlkLCBLLCBxKSB7XG4gICAgd2l0aChhcy5saXN0KEdyaWQpLCB7XG4gICAgICAgICMgQ29tcHV0ZSB0cmFuc21pc3NpYmlsaXRpZXMgYnkgaGFybW9uaWMgYXZlcmFnaW5nLlxuICAgICAgICBOeCA9IEdyaWQuTng7IE55PUdyaWQuTnk7IE56PUdyaWQuTno7IE49TngqTnkqTno7XG4gICAgICAgIGh4ID0gR3JpZC5oeDsgaHk9R3JpZC5oeTsgaHo9R3JpZC5oejtcbiAgICAgICAgXG4gICAgICAgIEwgPC0gS14oLTEpICAgICAgIyAzeDh4OCBhcnJheVxuICAgICAgICBcbiAgICAgICAgdHggPSAyKmh5Kmh6L2h4OyBUWCA8PC0gbS56ZXJvcyhOeCsxLE55LE56KTtcbiAgICAgICAgdHkgPSAyKmh4Kmh6L2h5OyBUWSA9IG0uemVyb3MoTngsTnkrMSxOeik7XG4gICAgICAgIHR6ID0gMipoeCpoeS9oejsgVFogPSBtLnplcm9zKE54LE55LE56KzEpO1xuICAgICAgICBcbiAgICAgICAgVFhbMjpOeCwgLF0gICAgPSB0eCAvIChMWzEsIDE6KE54LTEpLCBdICsgTFsxLCAyOk54LCBdKVxuICAgICAgICBUWVssIDI6TnldICAgID0gdHkgLyAoTFsyLCAsIDE6TnktMV0gKyBMWzIsICwyOk55XSlcbiAgICAgICAgVFpbICwgLCAwXSA9IHR6IC8gKExbMywsMF0gICArIExbMywgLDBdKVxuICAgICAgICBUWFxuICAgIH0pXG59XG5UUEZBKEdyaWQsIEssIHEpXG5gYGAifQ== -->
-<pre class="r"><code>TPFA &lt;- function(Grid, K, q) {
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbiMgVFBGQSA8LSBmdW5jdGlvbihHcmlkLCBLLCBxKSB7XG4gICAgd2l0aChhcy5saXN0KEdyaWQpLCB7XG4gICAgICAgICMgQ29tcHV0ZSB0cmFuc21pc3NpYmlsaXRpZXMgYnkgaGFybW9uaWMgYXZlcmFnaW5nLlxuICAgICAgICBOeCA9IEdyaWQuTng7IE55PUdyaWQuTnk7IE56PUdyaWQuTno7IE49TngqTnkqTno7XG4gICAgICAgIGh4ID0gR3JpZC5oeDsgaHk9R3JpZC5oeTsgaHo9R3JpZC5oejtcbiAgICAgICAgXG4gICAgICAgIEwgPC0gS14oLTEpICAgICAgIyAzeDh4OCBhcnJheVxuICAgICAgICBcbiAgICAgICAgdHggPSAyKmh5Kmh6L2h4OyBUWCA8LSB6ZXJvcyhOeCsxLE55LE56KTtcbiAgICAgICAgdHkgPSAyKmh4Kmh6L2h5OyBUWSA9IHplcm9zKE54LE55KzEsTnopO1xuICAgICAgICB0eiA9IDIqaHgqaHkvaHo7IFRaID0gemVyb3MoTngsTnksTnorMSk7XG4gICAgICAgIFxuICAgICAgICBUWFsyOk54LCxdID0gdHggLyAoTFsxLCAxOihOeC0xKSwgXSArIExbMSwgMjpOeCwgXSlcbiAgICAgICAgVFlbLDI6TnksXSA9IHR5IC8gKExbMiwgLCAxOk55LTFdICsgTFsyLCAsMjpOeV0pXG4gICAgICAgIFRaWywsMjpOel0gPSB0eiAvIChMWzMsLDE6KE56LTEpXSAgICsgTFszLCAsMjpOel0pXG4gICAgICAgIFxuICAgICAgICB4MSA9IHByYWNtYTo6UmVzaGFwZShUWFsxOk54LCxdLE4sMSk7IHgyID0gcHJhY21hOjpSZXNoYXBlKFRYWzI6KE54KzEpLCxdLE4sMSk7XG4gICAgICAgIHkxID0gcHJhY21hOjpSZXNoYXBlKFRZWywxOk55LF0sTiwxKTsgeTIgPSBwcmFjbWE6OlJlc2hhcGUoVFlbLDI6KE55KzEpLF0sTiwxKTtcbiAgICAgICAgejEgPSBwcmFjbWE6OlJlc2hhcGUoVFpbLCwxOk56XSxOLDEpOyB6MiA9IHByYWNtYTo6UmVzaGFwZShUWlssLDI6KE56KzEpXSxOLDEpO1xuICAgICAgICBcbiAgICAgICAgRGlhZ1ZlY3MgPSBjKC16MiwteTIsLXgyLHgxK3gyK3kxK3kyK3oxK3oyLC14MSwteTEsLXoxKVxuICAgICAgICBEaWFnSW5keCA9IGMoLU54Kk55LC1OeCwtMSwwLDEsTngsTngqTnkpXG4gICAgICAgIFxuICAgICAgICBBID0gbS5zcGRpYWdzKERpYWdWZWNzLERpYWdJbmR4LE4sTik7XG4gICAgICAgIEEgPSBtLnNwZGlhZ3MoTixOKTtcbiAgICAgICAgIyBBWzEsMV0gPSBBWzEsMV0rc3VtKEdyaWQuSyg6LDEsMSwxKSk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gICAgfSlcbmBgYCJ9 -->
+<pre class="r"><code>library(rMRST)
+# TPFA &lt;- function(Grid, K, q) {
     with(as.list(Grid), {
         # Compute transmissibilities by harmonic averaging.
         Nx = Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
@@ -253,21 +254,33 @@ q[c(N, 1)] = c(1, -1)</code></pre>
         
         L &lt;- K^(-1)      # 3x8x8 array
         
-        tx = 2*hy*hz/hx; TX &lt;&lt;- m.zeros(Nx+1,Ny,Nz);
-        ty = 2*hx*hz/hy; TY = m.zeros(Nx,Ny+1,Nz);
-        tz = 2*hx*hy/hz; TZ = m.zeros(Nx,Ny,Nz+1);
+        tx = 2*hy*hz/hx; TX &lt;- zeros(Nx+1,Ny,Nz);
+        ty = 2*hx*hz/hy; TY = zeros(Nx,Ny+1,Nz);
+        tz = 2*hx*hy/hz; TZ = zeros(Nx,Ny,Nz+1);
         
-        TX[2:Nx, ,]    = tx / (L[1, 1:(Nx-1), ] + L[1, 2:Nx, ])
-        TY[, 2:Ny]    = ty / (L[2, , 1:Ny-1] + L[2, ,2:Ny])
-        TZ[ , , 0] = tz / (L[3,,0]   + L[3, ,0])
-        TX
-    })
-}
-TPFA(Grid, K, q)</code></pre>
+        TX[2:Nx,,] = tx / (L[1, 1:(Nx-1), ] + L[1, 2:Nx, ])
+        TY[,2:Ny,] = ty / (L[2, , 1:Ny-1] + L[2, ,2:Ny])
+        TZ[,,2:Nz] = tz / (L[3,,1:(Nz-1)]   + L[3, ,2:Nz])
+        
+        x1 = pracma::Reshape(TX[1:Nx,,],N,1); x2 = pracma::Reshape(TX[2:(Nx+1),,],N,1);
+        y1 = pracma::Reshape(TY[,1:Ny,],N,1); y2 = pracma::Reshape(TY[,2:(Ny+1),],N,1);
+        z1 = pracma::Reshape(TZ[,,1:Nz],N,1); z2 = pracma::Reshape(TZ[,,2:(Nz+1)],N,1);
+        
+        DiagVecs = c(-z2,-y2,-x2,x1+x2+y1+y2+z1+z2,-x1,-y1,-z1)
+        DiagIndx = c(-Nx*Ny,-Nx,-1,0,1,Nx,Nx*Ny)
+        
+        A = m.spdiags(DiagVecs,DiagIndx,N,N);
+        A = m.spdiags(N,N);
+        # A[1,1] = A[1,1]+sum(Grid.K(:,1,1,1));
+                                                                   
+    })</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gVFhbMjpOeCwgLCBdID0gdHgvKExbMSwgMTooTnggLSAxKSwgXSArIExbMSwgMjpOeCwgXSkgOiBcbiAgaW5jb3JyZWN0IG51bWJlciBvZiBzdWJzY3JpcHRzXG4ifQ== -->
-<pre><code>Error in TX[2:Nx, , ] = tx/(L[1, 1:(Nx - 1), ] + L[1, 2:Nx, ]) : 
-  incorrect number of subscripts</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gLkNhbGxPY3RhdmUoXCJzcGRpYWdzXCIsIGEsIGIsIGMsIGQpIDogXG4gIFJjcHBPY3RhdmUgLSBlcnJvciBpbiBPY3RhdmUgZnVuY3Rpb24gYHNwZGlhZ3NgOlxuICBzcGRpYWdzOiBBKEkpOiBpbmRleCBvdXQgb2YgYm91bmRzOyB2YWx1ZSA0NDggb3V0IG9mIGJvdW5kIDdcbmNhbGxlZCBmcm9tXG5pYWdzIGF0IGxpbmUgMTE5IGNvbHVtbiA3XG4ifQ== -->
+<pre><code>Error in .CallOctave(&quot;spdiags&quot;, a, b, c, d) : 
+  RcppOctave - error in Octave function `spdiags`:
+  spdiags: A(I): index out of bounds; value 448 out of bound 7
+called from
+iags at line 119 column 7</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -291,9 +304,86 @@ called from</code></pre>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbkE9cmJpbmQoYygwLCA1LCAwLCAxMCwgMCwgMCksXG5jKDAsIDAsIDYsIDAsIDExLCAwKSxcbmMoMywgMCwgMCwgNywgMCwgMTIpLFxuYygxLCA0LCAwLCAwLCA4LCAwKSxcbmMoMCwgMiwgNSwgMCwgMCwgOSlcbilcbkFcbmBgYCJ9 -->
+<pre class="r"><code>library(rMRST)
+A=rbind(c(0, 5, 0, 10, 0, 0),
+c(0, 0, 6, 0, 11, 0),
+c(3, 0, 0, 7, 0, 12),
+c(1, 4, 0, 0, 8, 0),
+c(0, 2, 5, 0, 0, 9)
+)
+A</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV0gWyw2XVxuWzEsXSAgICAwICAgIDUgICAgMCAgIDEwICAgIDAgICAgMFxuWzIsXSAgICAwICAgIDAgICAgNiAgICAwICAgMTEgICAgMFxuWzMsXSAgICAzICAgIDAgICAgMCAgICA3ICAgIDAgICAxMlxuWzQsXSAgICAxICAgIDQgICAgMCAgICAwICAgIDggICAgMFxuWzUsXSAgICAwICAgIDIgICAgNSAgICAwICAgIDAgICAgOVxuIn0= -->
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    0    5    0   10    0    0
+[2,]    0    0    6    0   11    0
+[3,]    3    0    0    7    0   12
+[4,]    1    4    0    0    8    0
+[5,]    0    2    5    0    0    9</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubS5zcGRpYWdzKEEpXG5gYGAifQ== -->
+<pre class="r"><code>m.spdiags(A)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJEJcbiAgICAgWywxXSBbLDJdIFssM10gWyw0XVxuWzEsXSAgICAwICAgIDAgICAgNSAgIDEwXG5bMixdICAgIDAgICAgMCAgICA2ICAgMTFcblszLF0gICAgMCAgICAzICAgIDcgICAxMlxuWzQsXSAgICAxICAgIDQgICAgOCAgICAwXG5bNSxdICAgIDIgICAgNSAgICA5ICAgIDBcblxuJGRcbiAgICAgWywxXVxuWzEsXSAgIC0zXG5bMixdICAgLTJcblszLF0gICAgMVxuWzQsXSAgICAzXG4ifQ== -->
+<pre><code>$B
+     [,1] [,2] [,3] [,4]
+[1,]    0    0    5   10
+[2,]    0    0    6   11
+[3,]    0    3    7   12
+[4,]    1    4    8    0
+[5,]    2    5    9    0
+
+$d
+     [,1]
+[1,]   -3
+[2,]   -2
+[3,]    1
+[4,]    3</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBleGFtcGxlIDJcbmxpYnJhcnkock1SU1QpXG5uIDwtIDVcbmUgPC0gbS5vbmVzKG4sIDEpXG5lNXgzIDwtIGNiaW5kKGUsIC0yKmUsIGUpXG5lNXgzXG5gYGAifQ== -->
+<pre class="r"><code># example 2
+library(rMRST)
+n &lt;- 5
+e &lt;- m.ones(n, 1)
+e5x3 &lt;- cbind(e, -2*e, e)
+e5x3</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgICAxICAgLTIgICAgMVxuWzIsXSAgICAxICAgLTIgICAgMVxuWzMsXSAgICAxICAgLTIgICAgMVxuWzQsXSAgICAxICAgLTIgICAgMVxuWzUsXSAgICAxICAgLTIgICAgMVxuIn0= -->
+<pre><code>     [,1] [,2] [,3]
+[1,]    1   -2    1
+[2,]    1   -2    1
+[3,]    1   -2    1
+[4,]    1   -2    1
+[5,]    1   -2    1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQiA8LSBtLnNwZGlhZ3MoZTV4MywgLTE6MSwgbiwgbilcbkJcbmBgYCJ9 -->
+<pre class="r"><code>B &lt;- m.spdiags(e5x3, -1:1, n, n)
+B</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJEJcbiAgICAgWywxXSBbLDJdIFssM10gWyw0XSBbLDVdXG5bMSxdICAgLTIgICAgMSAgICAwICAgIDAgICAgMFxuWzIsXSAgICAxICAgLTIgICAgMSAgICAwICAgIDBcblszLF0gICAgMCAgICAxICAgLTIgICAgMSAgICAwXG5bNCxdICAgIDAgICAgMCAgICAxICAgLTIgICAgMVxuWzUsXSAgICAwICAgIDAgICAgMCAgICAxICAgLTJcblxuJGRcblsxXSAtMSAgMCAgMVxuIn0= -->
+<pre><code>$B
+     [,1] [,2] [,3] [,4] [,5]
+[1,]   -2    1    0    0    0
+[2,]    1   -2    1    0    0
+[3,]    0    1   -2    1    0
+[4,]    0    0    1   -2    1
+[5,]    0    0    0    1   -2
+
+$d
+[1] -1  0  1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkock1SU1QpCmxpYnJhcnkodGliYmxlKQoKR3JpZC5OeCA9ODsgR3JpZC5oeD0xL0dyaWQuTng7CkdyaWQuTnkgPTg7IEdyaWQuaHk9MS9HcmlkLk55OwpHcmlkLk56ID0xOyBHcmlkLmh6PTEvR3JpZC5OejsKCkdyaWQuSyA9IG0ub25lcygzLCBHcmlkLk54LCBHcmlkLk55KTsKZGltKEdyaWQuSykKTiA8LSAgR3JpZC5OeCAqIEdyaWQuTnkgKiBHcmlkLk56Ck4KcSA9IG0uemVyb3MoTiwgMSkgCnFbYyhOLCAxKV0gPSBjKDEsIC0xKQpkaW0ocSkKc3VtbWFyeShxKQpgYGAKCiMjIEJ1aWxkIHRoZSBncmlkCgpgYGB7cn0KbGlicmFyeShSY3BwT2N0YXZlKQoKIyBmdW5jdGlvbiB0byBidWlsZCB0aGUgR3JpZApvLmJ1aWxkR3JpZCA8LSBPY3RhdmVGdW5jdGlvbigiCmZ1bmN0aW9uW0dyaWRdID0gYnVpbGRHcmlkKE54LCBOeSwgTnopCiAgICBHcmlkLk54ID0gTng7IEdyaWQuaHg9MS9HcmlkLk54OwogICAgR3JpZC5OeSA9IE55OyBHcmlkLmh5PTEvR3JpZC5OeTsKICAgIEdyaWQuTnogPSBOejsgR3JpZC5oej0xL0dyaWQuTno7CiAgICAlIEdyaWQuSyA9IEsKIikKCk54IDwtIDgKTnkgPC0gOApOeiA8LSAxCiMgcGVybWVhYmlsaXR5CksgPSBtLm9uZXMoMywgTngsIE55KTsKIyBidWlsZCB0aGUgZ3JpZApHcmlkIDwtIG8uYnVpbGRHcmlkKE54LCBOeSwgTnopCiMgbmFtZXMoR3JpZCkKcSA9IG0uemVyb3MoTiwgMSkgCnFbYyhOLCAxKV0gPSBjKDEsIC0xKQpgYGAKCmBgYHtyfQpUUEZBIDwtIGZ1bmN0aW9uKEdyaWQsIEssIHEpIHsKICAgIHdpdGgoYXMubGlzdChHcmlkKSwgewogICAgICAgICMgQ29tcHV0ZSB0cmFuc21pc3NpYmlsaXRpZXMgYnkgaGFybW9uaWMgYXZlcmFnaW5nLgogICAgICAgIE54ID0gR3JpZC5OeDsgTnk9R3JpZC5OeTsgTno9R3JpZC5OejsgTj1OeCpOeSpOejsKICAgICAgICBoeCA9IEdyaWQuaHg7IGh5PUdyaWQuaHk7IGh6PUdyaWQuaHo7CiAgICAgICAgCiAgICAgICAgTCA8LSBLXigtMSkgICAgICAjIDN4OHg4IGFycmF5CiAgICAgICAgCiAgICAgICAgdHggPSAyKmh5Kmh6L2h4OyBUWCA8LSBtLnplcm9zKE54KzEsTnksTnopOwogICAgICAgIHR5ID0gMipoeCpoei9oeTsgVFkgPSBtLnplcm9zKE54LE55KzEsTnopOwogICAgICAgIHR6ID0gMipoeCpoeS9oejsgVFogPSBtLnplcm9zKE54LE55LE56KzEpOwogICAgICAgIAogICAgICAgIFRYWzI6TngsICxdICAgID0gdHggLyAoTFsxLCAxOihOeC0xKSwgXSArIExbMSwgMjpOeCwgXSkKICAgICAgICBUWVssIDI6TnldICAgID0gdHkgLyAoTFsyLCAsIDE6TnktMV0gKyBMWzIsICwyOk55XSkKICAgICAgICBUWlsgLCAsIDBdID0gdHogLyAoTFszLCwwXSAgICsgTFszLCAsMF0pCiAgICAgICAgVFgKICAgIH0pCn0KClRQRkEoR3JpZCwgSywgcSkKYGBgCgoKCmBgYHtyfQpvLlRQRkEgPC0gT2N0YXZlRnVuY3Rpb24oIgpmdW5jdGlvbiBbUCxWXSA9IFRQRkEoR3JpZCwgSywgcSkKICAgICUgQ29tcHV0ZSB0cmFuc21pc3NpYmlsaXRpZXMgYnkgaGFybW9uaWMgYXZlcmFnaW5nLgogICAgTng9R3JpZC5OeDsgTnk9R3JpZC5OeTsgTno9R3JpZC5OejsgTj1OeCpOeSpOejsKICAgIAogICAgaHg9R3JpZC5oeDsgaHk9R3JpZC5oeTsgaHo9R3JpZC5oejsKIikKClRQRkEgPC0gby5UUEZBKEdyaWQsIEssIHEpCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkock1SU1QpCmxpYnJhcnkodGliYmxlKQoKR3JpZC5OeCA9ODsgR3JpZC5oeD0xL0dyaWQuTng7CkdyaWQuTnkgPTg7IEdyaWQuaHk9MS9HcmlkLk55OwpHcmlkLk56ID0xOyBHcmlkLmh6PTEvR3JpZC5OejsKCkdyaWQuSyA9IG0ub25lcygzLCBHcmlkLk54LCBHcmlkLk55KTsKZGltKEdyaWQuSykKTiA8LSAgR3JpZC5OeCAqIEdyaWQuTnkgKiBHcmlkLk56Ck4KcSA9IG0uemVyb3MoTiwgMSkgCnFbYyhOLCAxKV0gPSBjKDEsIC0xKQpkaW0ocSkKc3VtbWFyeShxKQpgYGAKCiMjIEJ1aWxkIHRoZSBncmlkCgpgYGB7cn0KbGlicmFyeShSY3BwT2N0YXZlKQoKIyBmdW5jdGlvbiB0byBidWlsZCB0aGUgR3JpZApvLmJ1aWxkR3JpZCA8LSBPY3RhdmVGdW5jdGlvbigiCmZ1bmN0aW9uW0dyaWRdID0gYnVpbGRHcmlkKE54LCBOeSwgTnopCiAgICBHcmlkLk54ID0gTng7IEdyaWQuaHg9MS9HcmlkLk54OwogICAgR3JpZC5OeSA9IE55OyBHcmlkLmh5PTEvR3JpZC5OeTsKICAgIEdyaWQuTnogPSBOejsgR3JpZC5oej0xL0dyaWQuTno7CiAgICAlIEdyaWQuSyA9IEsKIikKCk54IDwtIDgKTnkgPC0gOApOeiA8LSAxCiMgcGVybWVhYmlsaXR5CksgPSBtLm9uZXMoMywgTngsIE55KTsKIyBidWlsZCB0aGUgZ3JpZApHcmlkIDwtIG8uYnVpbGRHcmlkKE54LCBOeSwgTnopCiMgbmFtZXMoR3JpZCkKcSA9IG0uemVyb3MoTiwgMSkgCnFbYyhOLCAxKV0gPSBjKDEsIC0xKQpgYGAKCmBgYHtyfQpsaWJyYXJ5KHJNUlNUKQoKIyBUUEZBIDwtIGZ1bmN0aW9uKEdyaWQsIEssIHEpIHsKICAgIHdpdGgoYXMubGlzdChHcmlkKSwgewogICAgICAgICMgQ29tcHV0ZSB0cmFuc21pc3NpYmlsaXRpZXMgYnkgaGFybW9uaWMgYXZlcmFnaW5nLgogICAgICAgIE54ID0gR3JpZC5OeDsgTnk9R3JpZC5OeTsgTno9R3JpZC5OejsgTj1OeCpOeSpOejsKICAgICAgICBoeCA9IEdyaWQuaHg7IGh5PUdyaWQuaHk7IGh6PUdyaWQuaHo7CiAgICAgICAgCiAgICAgICAgTCA8LSBLXigtMSkgICAgICAjIDN4OHg4IGFycmF5CiAgICAgICAgCiAgICAgICAgdHggPSAyKmh5Kmh6L2h4OyBUWCA8LSB6ZXJvcyhOeCsxLE55LE56KTsKICAgICAgICB0eSA9IDIqaHgqaHovaHk7IFRZID0gemVyb3MoTngsTnkrMSxOeik7CiAgICAgICAgdHogPSAyKmh4Kmh5L2h6OyBUWiA9IHplcm9zKE54LE55LE56KzEpOwogICAgICAgIAogICAgICAgIFRYWzI6TngsLF0gPSB0eCAvIChMWzEsIDE6KE54LTEpLCBdICsgTFsxLCAyOk54LCBdKQogICAgICAgIFRZWywyOk55LF0gPSB0eSAvIChMWzIsICwgMTpOeS0xXSArIExbMiwgLDI6TnldKQogICAgICAgIFRaWywsMjpOel0gPSB0eiAvIChMWzMsLDE6KE56LTEpXSAgICsgTFszLCAsMjpOel0pCiAgICAgICAgCiAgICAgICAgeDEgPSBwcmFjbWE6OlJlc2hhcGUoVFhbMTpOeCwsXSxOLDEpOyB4MiA9IHByYWNtYTo6UmVzaGFwZShUWFsyOihOeCsxKSwsXSxOLDEpOwogICAgICAgIHkxID0gcHJhY21hOjpSZXNoYXBlKFRZWywxOk55LF0sTiwxKTsgeTIgPSBwcmFjbWE6OlJlc2hhcGUoVFlbLDI6KE55KzEpLF0sTiwxKTsKICAgICAgICB6MSA9IHByYWNtYTo6UmVzaGFwZShUWlssLDE6TnpdLE4sMSk7IHoyID0gcHJhY21hOjpSZXNoYXBlKFRaWywsMjooTnorMSldLE4sMSk7CiAgICAgICAgCiAgICAgICAgRGlhZ1ZlY3MgPSBjKC16MiwteTIsLXgyLHgxK3gyK3kxK3kyK3oxK3oyLC14MSwteTEsLXoxKQogICAgICAgIERpYWdJbmR4ID0gYygtTngqTnksLU54LC0xLDAsMSxOeCxOeCpOeSkKICAgICAgICAKICAgICAgICAjIEEgPSBtLnNwZGlhZ3MoRGlhZ1ZlY3MsRGlhZ0luZHgsTixOKTsKICAgICAgICAjIEEgPSBtLnNwZGlhZ3MoTixOKTsKICAgICAgICAjIEFbMSwxXSA9IEFbMSwxXStzdW0oR3JpZC5LKDosMSwxLDEpKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgfSkKIyB9CgojIFRQRkEoR3JpZCwgSywgcSkKYGBgCgoKCmBgYHtyfQpvLlRQRkEgPC0gT2N0YXZlRnVuY3Rpb24oIgpmdW5jdGlvbiBbUCxWXSA9IFRQRkEoR3JpZCwgSywgcSkKICAgICUgQ29tcHV0ZSB0cmFuc21pc3NpYmlsaXRpZXMgYnkgaGFybW9uaWMgYXZlcmFnaW5nLgogICAgTng9R3JpZC5OeDsgTnk9R3JpZC5OeTsgTno9R3JpZC5OejsgTj1OeCpOeSpOejsKICAgIAogICAgaHg9R3JpZC5oeDsgaHk9R3JpZC5oeTsgaHo9R3JpZC5oejsKIikKClRQRkEgPC0gby5UUEZBKEdyaWQsIEssIHEpCmBgYAoKCmBgYHtyfQojIGV4YW1wbGUgMQpsaWJyYXJ5KHJNUlNUKQoKQT1yYmluZChjKDAsIDUsIDAsIDEwLCAwLCAwKSwKYygwLCAwLCA2LCAwLCAxMSwgMCksCmMoMywgMCwgMCwgNywgMCwgMTIpLApjKDEsIDQsIDAsIDAsIDgsIDApLApjKDAsIDIsIDUsIDAsIDAsIDkpCikKQQptLnNwZGlhZ3MoQSkKYGBgCgpgYGB7cn0KIyBleGFtcGxlIDIKbGlicmFyeShyTVJTVCkKbiA8LSA1CmUgPC0gbS5vbmVzKG4sIDEpCgplNXgzIDwtIGNiaW5kKGUsIC0yKmUsIGUpCmU1eDMKCkIgPC0gbS5zcGRpYWdzKGU1eDMsIC0xOjEsIG4sIG4pCkIKYGBgCgo=</div>
 
 
 

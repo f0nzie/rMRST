@@ -1,9 +1,15 @@
+#' Fills an array with zeros (Octave)
+#' @param x 1-D dimension
+#' @param ... additional parameters
 #' @export
 #' @importFrom RcppOctave .CallOctave
 m.zeros <- function(x, ...) {
     .CallOctave("zeros", x, ...)
 }
 
+#' Fills an array with zeros
+#' @param x 1-D dimension
+#' @param ... additional parameters
 #' @export
 zeros <- function(x, ...) {
     stopifnot(is.numeric(x))
@@ -17,9 +23,3 @@ zeros <- function(x, ...) {
 }
 
 
-# zeros <- function(x, y, z=NULL) {
-#     if (is.null(z)) array(0, dim=c(x, y))
-#     if (missing(y)) array(0, dim=c(x, z))
-#     if (missing(x)) array(0, dim=c(y, z))
-#     array(0, dim=c(x, y, z))
-# }
