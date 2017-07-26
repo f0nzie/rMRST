@@ -1,0 +1,70 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+setClass("xyloc", representation(x="numeric", y="numeric"))
+setClass("fungi", representation("xyloc", species="character"))
+
+field1 <- new("fungi", x = runif(25), y = runif(25),
+              species = sample(letters[1:5], 25, rep=T))
+
+# constructor
+fungi <- function(x, y, species)
+  new("fungi", x=x, y=y, species=species)
+
+validFungi <- function(object)
+{
+  len <- length(object@x)
+  if(length(object@y) != len || length(object@species) != len)
+    return("mismatch in lengths of slots")
+  else return(TRUE)
+}
+
+setValidity("fungi", validFungi)
+
+# dumpClass("fungi")
+# !cat fungi.class.q
+
+getSlots("fungi")
+slotNames("fungi")
+# hasSlot(field1, "x")
+
+# new("fungi")
+field2 <- fungi(x = runif(25), y = runif(25),
+              species = sample(letters[1:5], 25, rep=T))
+```
+
+
+```{r}
+
+show.fungi <- function(object) {
+  tmp <- rbind(x = format(round(object@x, 2)),
+               y = format(round(object@y, 2)),
+               species = object@species)
+  dimnames(tmp)[[2]] <- rep("", length(object@x))
+  print(tmp, quote=F)
+  invisible(object)
+}
+setMethod("show", "fungi", show.fungi)
+
+removeMethod("show", "fungi")
+
+print.fungi <- function(x, digits=2) {
+  tmp <- rbind(x = format(round(x@x, digits)),
+               y = format(round(x@y, digits)),
+               species = x@species)
+  if(!is.null(tmp)) {
+    dimnames(tmp)[[2]] = rep("", length(x@x))
+    print(tmp, quote=F)
+  } else cat("empty object of class fungi\n")
+  invisible(x)
+}
+
+setMethod("show", "fungi", function(object) print.fungi(object))
+
+show(field1)
+
+```
+

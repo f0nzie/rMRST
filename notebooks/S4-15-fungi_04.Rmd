@@ -1,0 +1,60 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+setClass("xyloc", representation(x="numeric", y="numeric"))
+setClass("population", representation(n="numeric"))
+setClass("fungi", representation(
+    "xyloc", 
+    "population", 
+    species="character")
+    )
+
+setMethod("initialize", "fungi", function(.Object, n) {
+    .Object@n <- n 
+    .Object@x <- runif(n) 
+    .Object@y <- runif(n)
+    .Object@species <-  sample(letters[1:5], n, rep=T)
+    .Object
+})
+
+validFungi <- function(object)
+{
+  len <- length(object@x)
+  if(length(object@y) != len || length(object@species) != len)
+    return("mismatch in lengths of slots")
+  else return(TRUE)
+}
+setValidity("fungi", validFungi)
+
+# show method
+show.fungi <- function(object) {
+  tmp <- rbind(x = format(round(object@x, 2)),
+               y = format(round(object@y, 2)),
+               species = object@species)
+  # dimnames(tmp)[[2]] <- rep("", length(object@x))
+  print(tmp, quote=F)
+  cat(sprintf("%5s %3d","n =" ,object@n))
+  invisible(object)
+}
+setMethod("show", "fungi", show.fungi)
+
+# constructor
+fungi <- function(n) {
+    new("fungi", n = n)
+}
+
+
+fgi <- fungi(8)
+fgi
+```
+
+
+
+
+
+
+
+

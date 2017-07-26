@@ -1,7 +1,49 @@
 ---
-title: "R Notebook"
+title: "Example 01"
 output: html_notebook
 ---
+
+
+```{r}
+library(R6)
+library(rMRST)
+
+Grid <- R6Class("Grid",
+    public = list(
+        Nx = 0, Ny = 0, Nz = 0,
+        hx = 0, hy = 0, hz = 0,
+        K  = NA,
+        N  = NA,
+    initialize = function(Nx, Ny, Nz) { 
+        self$Nx = Nx
+        self$Ny = Ny
+        self$Nz = Nz
+        self$hx = 1 / self$Nx
+        self$hy = 1 / self$Ny
+        self$hz = 1 / self$Nz
+        self$K  = array(1, c(3, self$Nx, self$Ny))
+        self$N  = self$Nx * self$Ny * self$Nz
+        cat(sprintf("Grid of %dx%dx%d \n", self$Nx, self$Ny, self$Nz))
+    },
+    getN = function() { self$N },
+    getK = function() { self$K }
+    )
+)
+
+grid <- Grid$new(8, 8, 1)
+
+N <- grid$getN()
+K <- grid$getK()
+
+q = m.zeros(N, 1) 
+q[c(N, 1)] = c(1, -1)
+dim(q)
+```
+
+
+
+
+
 
 ```{r}
 library(rMRST)
@@ -38,6 +80,7 @@ function[Grid] = buildGrid(Nx, Ny, Nz)
 Nx <- 8
 Ny <- 8
 Nz <- 1
+N=Nx*Ny*Nz;
 # permeability
 K = m.ones(3, Nx, Ny);
 # build the grid
@@ -45,6 +88,7 @@ Grid <- o.buildGrid(Nx, Ny, Nz)
 # names(Grid)
 q = m.zeros(N, 1) 
 q[c(N, 1)] = c(1, -1)
+Grid
 ```
 
 ```{r}
@@ -86,42 +130,30 @@ library(rMRST)
 
 
 ```{r}
+library(RcppOctave)
+
 o.TPFA <- OctaveFunction("
 function [P,V] = TPFA(Grid, K, q)
     % Compute transmissibilities by harmonic averaging.
     Nx=Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
     
     hx=Grid.hx; hy=Grid.hy; hz=Grid.hz;
+    L = K.^(-1);
+    tx = 2*hy*hz/hx; TX = zeros(Nx+1,Ny,Nz);
+    ty = 2*hx*hz/hy; TY = zeros(Nx,Ny+1,Nz);
+    tz = 2*hx*hy/hz; TZ = zeros(Nx,Ny,Nz+1);
+    size(K)
+    %TX(2:Nx,:,:) = tx./(L(1,1:Nx-1,:,:)+L(1,2:Nx ,:,:));
+    P=1
+    V=1
 ")
 
-TPFA <- o.TPFA(Grid, K, q)
+
+lGrid <- list(Nx =3, Ny = 8, Nz = 8, hx = 1, hy = 1, hz =1, K = K)
+
+TPFA <- o.TPFA(lGrid, lGrid$K, q)
 ```
 
 
-```{r}
-# example 1
-library(rMRST)
 
-A=rbind(c(0, 5, 0, 10, 0, 0),
-c(0, 0, 6, 0, 11, 0),
-c(3, 0, 0, 7, 0, 12),
-c(1, 4, 0, 0, 8, 0),
-c(0, 2, 5, 0, 0, 9)
-)
-A
-m.spdiags(A)
-```
-
-```{r}
-# example 2
-library(rMRST)
-n <- 5
-e <- m.ones(n, 1)
-
-e5x3 <- cbind(e, -2*e, e)
-e5x3
-
-B <- m.spdiags(e5x3, -1:1, n, n)
-B
-```
 
