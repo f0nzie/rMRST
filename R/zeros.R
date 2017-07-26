@@ -15,7 +15,7 @@ zeros <- function(x, ...) {
     stopifnot(is.numeric(x))
     args <- list(...)
     if (length(args)) {
-        stopifnot(is.numeric(args[[1]]), is.numeric(args[[2]]))
+        stopifnot(sapply(args,  is.numeric))
         array(0, dim=c(x, ...))
     } else {
         array(0, dim=x)
