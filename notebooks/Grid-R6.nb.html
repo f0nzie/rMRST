@@ -174,24 +174,21 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShSNilcbiMgYW4gZW1wdHkgY2xhc3NcbkdyaWQgPC0gUjZDbGFzcyhcIkdyaWRcIilcbiMgaW5zdGFudGlhdGUgY2xhc3NcbmcgPC0gR3JpZCRuZXcoKVxuZ1xuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShSNilcblxuIyBhbiBlbXB0eSBjbGFzc1xuR3JpZCA8LSBSNkNsYXNzKFwiR3JpZFwiKVxuXG4jIGluc3RhbnRpYXRlIGNsYXNzXG5nIDwtIEdyaWQkbmV3KClcbmdcbmBgYCJ9 -->
 <pre class="r"><code>library(R6)
+
 # an empty class
 Grid &lt;- R6Class(&quot;Grid&quot;)
+
 # instantiate class
 g &lt;- Grid$new()
 g</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPEdyaWQ+XG4gIFB1YmxpYzpcbiAgICBjbG9uZTogZnVuY3Rpb24gKGRlZXAgPSBGQUxTRSkgXG4ifQ== -->
-<pre><code>&lt;Grid&gt;
-  Public:
-    clone: function (deep = FALSE) </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsIFxuICAgICAgICAgICAgICAgcHVibGljID0gbGlzdCggXG4gICAgICAgICAgICAgICAgICAgaW5pdGlhbGl6ZSA9IGZ1bmN0aW9uKG5hbWUpIHsgXG4gICAgICAgICAgICAgICAgICAgICAgIHByaW50KHBhc3RlKFwiQSBuZXcgR3JpZCB3aXRoIG5hbWUgJ1wiLCBuYW1lLCBcIidcIikpIFxuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgIClcbmcxIDwtIEdyaWRcbmcxXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsIFxuICAgICAgICAgICAgICAgcHVibGljID0gbGlzdCggXG4gICAgICAgICAgICAgICAgICAgaW5pdGlhbGl6ZSA9IGZ1bmN0aW9uKG5hbWUpIHsgXG4gICAgICAgICAgICAgICAgICAgICAgIHByaW50KHBhc3RlKFwiQSBuZXcgR3JpZCB3aXRoIG5hbWUgJ1wiLCBuYW1lLCBcIidcIikpIFxuICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgIClcblxuZzEgPC0gR3JpZFxuZzFcbmBgYCJ9 -->
 <pre class="r"><code>Grid = R6Class(&quot;Grid&quot;, 
                public = list( 
                    initialize = function(name) { 
@@ -199,19 +196,10 @@ g</code></pre>
                    }
                    )
                  )
+
 g1 &lt;- Grid
 g1</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPEdyaWQ+IG9iamVjdCBnZW5lcmF0b3JcbiAgUHVibGljOlxuICAgIGluaXRpYWxpemU6IGZ1bmN0aW9uIChuYW1lKSBcbiAgICBjbG9uZTogZnVuY3Rpb24gKGRlZXAgPSBGQUxTRSkgXG4gIFBhcmVudCBlbnY6IDxlbnZpcm9ubWVudDogUl9HbG9iYWxFbnY+XG4gIExvY2tlZCBvYmplY3RzOiBUUlVFXG4gIExvY2tlZCBjbGFzczogRkFMU0VcbiAgUG9ydGFibGU6IFRSVUVcbiJ9 -->
-<pre><code>&lt;Grid&gt; object generator
-  Public:
-    initialize: function (name) 
-    clone: function (deep = FALSE) 
-  Parent env: &lt;environment: R_GlobalEnv&gt;
-  Locked objects: TRUE
-  Locked class: FALSE
-  Portable: TRUE</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -220,39 +208,27 @@ g1</code></pre>
 <pre class="r"><code># iniialize the class with a name
 g2 &lt;- Grid$new(&quot;grid 2&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQSBuZXcgR3JpZCB3aXRoIG5hbWUgJyBncmlkIDIgJ1wiXG4ifQ== -->
-<pre><code>[1] &quot;A new Grid with name ' grid 2 '&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="putting-the-variable-in-a-field" class="section level2">
 <h2>Putting the variable in a field</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsXG4gICAgICAgICAgICAgICAgXG4gICAgICAgICAgICAgICAgIHB1YmxpYyA9IGxpc3QoXG4gICAgICAgICAgICAgICAgICAgTmFtZSA9IE5BLFxuICAgICAgICAgICAgICAgICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihuYW1lKSBcbiAgICAgICAgICAgICAgICAgICAgICAge3NlbGYkTmFtZSA9IG5hbWUgfVxuICAgICAgICAgICAgICAgICAgIClcbiAgICAgICAgICAgICAgICAgKVxuIyBuZXcgaW5zdGFuY2VcbmcgPSBHcmlkJG5ldyhcIkdyaWQgIzFcIilcbnBhc3RlKFwiVGhpcyBncmlkIGlzIGNhbGxlZFwiLCBnJE5hbWUpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsXG4gICAgIHB1YmxpYyA9IGxpc3QoXG4gICAgICAgTmFtZSA9IE5BLFxuICAgICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihuYW1lKSBcbiAgICAgICAgICAge3NlbGYkTmFtZSA9IG5hbWUgfVxuICAgICAgIClcbilcbiMgbmV3IGluc3RhbmNlXG5nID0gR3JpZCRuZXcoXCJHcmlkICMxXCIpXG5wYXN0ZShcIlRoaXMgZ3JpZCBpcyBjYWxsZWRcIiwgZyROYW1lKVxuIyBjaGFuZ2UgaXRcbmckTmFtZSA9IFwiR3JpZCAjMlwiXG5wYXN0ZShcIlRoaXMgZ3JpZCBpcyBub3cgY2FsbGVkXCIsIGckTmFtZSlcbmBgYCJ9 -->
 <pre class="r"><code>Grid = R6Class(&quot;Grid&quot;,
-                
-                 public = list(
-                   Name = NA,
-                   initialize = function(name) 
-                       {self$Name = name }
-                   )
-                 )
+     public = list(
+       Name = NA,
+       initialize = function(name) 
+           {self$Name = name }
+       )
+)
 # new instance
 g = Grid$new(&quot;Grid #1&quot;)
-paste(&quot;This grid is called&quot;, g$Name)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhpcyBncmlkIGlzIGNhbGxlZCBHcmlkICMxXCJcbiJ9 -->
-<pre><code>[1] &quot;This grid is called Grid #1&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjaGFuZ2UgaXRcbmckTmFtZSA9IFwiR3JpZCAjMlwiXG5wYXN0ZShcIlRoaXMgZ3JpZCBpcyBub3cgY2FsbGVkXCIsIGckTmFtZSlcbmBgYCJ9 -->
-<pre class="r"><code># change it
+paste(&quot;This grid is called&quot;, g$Name)
+# change it
 g$Name = &quot;Grid #2&quot;
 paste(&quot;This grid is now called&quot;, g$Name)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhpcyBncmlkIGlzIG5vdyBjYWxsZWQgR3JpZCAjMlwiXG4ifQ== -->
-<pre><code>[1] &quot;This grid is now called Grid #2&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -261,7 +237,7 @@ paste(&quot;This grid is now called&quot;, g$Name)</code></pre>
 <p>If you want to have getter-setter method you need to use the so-called <strong>active bindings</strong>. This is a get-set just like in JavaScript which returns the field if no value is provided but sets the field if one is given. If the method has no argument it’s presumed a read-only property.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsXG4gICAgICAgICAgICAgICAgcHJpdmF0ZSA9IGxpc3QoXG4gICAgICAgICAgICAgICAgICBuYW1lID0gTkFcbiAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgYWN0aXZlID0gbGlzdChcbiAgICAgICAgICAgICAgICAgIE5hbWUgPSBmdW5jdGlvbihuYW1lKXtcbiAgICAgICAgICAgICAgICAgICAgaWYobWlzc2luZyhuYW1lKSkgcmV0dXJuKHByaXZhdGUkbmFtZSlcbiAgICAgICAgICAgICAgICAgICAgcHJpdmF0ZSRuYW1lID0gbmFtZVxuICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICBwdWJsaWMgPSBsaXN0KCAgICAgICAgICAgICAgICAgIFxuICAgICAgICAgICAgICAgICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihuYW1lKSB7XG4gICAgICAgICAgICAgICAgICAgICAgIHByaXZhdGUkbmFtZSA9IG5hbWUgfVxuICAgICAgICAgICAgICAgICAgIClcbilcbiMgbmV3IGluc3RhbmNlXG5nID0gR3JpZCRuZXcoXCJHcmlkICMxXCIpXG5wYXN0ZShcIlRoaXMgZ3JpZCBpcyBjYWxsZWRcIiwgZyROYW1lKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsXG4gICAgICAgICAgICAgICAgcHJpdmF0ZSA9IGxpc3QoXG4gICAgICAgICAgICAgICAgICBuYW1lID0gTkFcbiAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgYWN0aXZlID0gbGlzdChcbiAgICAgICAgICAgICAgICAgIE5hbWUgPSBmdW5jdGlvbihuYW1lKXtcbiAgICAgICAgICAgICAgICAgICAgaWYobWlzc2luZyhuYW1lKSkgcmV0dXJuKHByaXZhdGUkbmFtZSlcbiAgICAgICAgICAgICAgICAgICAgcHJpdmF0ZSRuYW1lID0gbmFtZVxuICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgKSxcbiAgICAgICAgICAgICAgICBwdWJsaWMgPSBsaXN0KCAgICAgICAgICAgICAgICAgIFxuICAgICAgICAgICAgICAgICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihuYW1lKSB7XG4gICAgICAgICAgICAgICAgICAgICAgIHByaXZhdGUkbmFtZSA9IG5hbWUgfVxuICAgICAgICAgICAgICAgICAgIClcbilcbiMgbmV3IGluc3RhbmNlXG5nID0gR3JpZCRuZXcoXCJHcmlkICMxXCIpXG5wYXN0ZShcIlRoaXMgZ3JpZCBpcyBjYWxsZWRcIiwgZyROYW1lKVxuIyBjaGFuZ2UgaXRcbmckTmFtZSA9IFwiR3JpZCAjMlwiXG5wYXN0ZShcIlRoaXMgZ3JpZCBpcyBub3cgY2FsbGVkXCIsIGckTmFtZSlcblxuYGBgIn0= -->
 <pre class="r"><code>Grid = R6Class(&quot;Grid&quot;,
                 private = list(
                   name = NA
@@ -279,19 +255,12 @@ paste(&quot;This grid is now called&quot;, g$Name)</code></pre>
 )
 # new instance
 g = Grid$new(&quot;Grid #1&quot;)
-paste(&quot;This grid is called&quot;, g$Name)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhpcyBncmlkIGlzIGNhbGxlZCBHcmlkICMxXCJcbiJ9 -->
-<pre><code>[1] &quot;This grid is called Grid #1&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjaGFuZ2UgaXRcbmckTmFtZSA9IFwiR3JpZCAjMlwiXG5wYXN0ZShcIlRoaXMgZ3JpZCBpcyBub3cgY2FsbGVkXCIsIGckTmFtZSlcbmBgYCJ9 -->
-<pre class="r"><code># change it
+paste(&quot;This grid is called&quot;, g$Name)
+# change it
 g$Name = &quot;Grid #2&quot;
-paste(&quot;This grid is now called&quot;, g$Name)</code></pre>
+paste(&quot;This grid is now called&quot;, g$Name)
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhpcyBncmlkIGlzIG5vdyBjYWxsZWQgR3JpZCAjMlwiXG4ifQ== -->
-<pre><code>[1] &quot;This grid is now called Grid #2&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -299,7 +268,7 @@ paste(&quot;This grid is now called&quot;, g$Name)</code></pre>
 <h2>Adding methods</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsXG4gICAgICAgICAgICAgICAgcHJpdmF0ZSA9IGxpc3QoXG4gICAgICAgICAgICAgICAgICBuYW1lID0gTkEsXG4gICAgICAgICAgICAgICAgICBzcGVha0ludGVybmFsID0gZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAgICAgICAgICAgcHJpbnQoXCJBIHByaXZhdGUgbWVzc2FnZS5cIil9XG4gICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgIGFjdGl2ZSA9IGxpc3QoXG4gICAgICAgICAgICAgICAgICBOYW1lID0gZnVuY3Rpb24obmFtZSl7XG4gICAgICAgICAgICAgICAgICAgIGlmKG1pc3NpbmcobmFtZSkpIHJldHVybihwcml2YXRlJG5hbWUpXG4gICAgICAgICAgICAgICAgICAgIHByaXZhdGUkbmFtZSA9IG5hbWVcbiAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgcHVibGljID0gbGlzdCggICAgICAgICAgICAgICAgICBcbiAgICAgICAgICAgICAgICAgICBpbml0aWFsaXplID0gZnVuY3Rpb24obmFtZSl7cHJpdmF0ZSRuYW1lID0gbmFtZSB9LFxuICAgICAgICAgICAgICAgICAgIFNwZWFrID0gZnVuY3Rpb24oKXsgXG4gICAgICAgICAgICAgICAgICAgICAgIHByaW50KFwiQSBzdGFuZGFyZCBncmlkLlwiKX1cbiAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgIClcbmcgPSBHcmlkJG5ldyhcImdyaWQgIzNcIilcbmckU3BlYWsoKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA9IFI2Q2xhc3MoXCJHcmlkXCIsXG4gICAgICAgICAgICAgICAgcHJpdmF0ZSA9IGxpc3QoXG4gICAgICAgICAgICAgICAgICBuYW1lID0gTkEsXG4gICAgICAgICAgICAgICAgICBzcGVha0ludGVybmFsID0gZnVuY3Rpb24oKSB7XG4gICAgICAgICAgICAgICAgICAgICAgcHJpbnQoXCJBIHByaXZhdGUgbWVzc2FnZS5cIil9XG4gICAgICAgICAgICAgICAgICApLFxuICAgICAgICAgICAgICAgIGFjdGl2ZSA9IGxpc3QoXG4gICAgICAgICAgICAgICAgICBOYW1lID0gZnVuY3Rpb24obmFtZSl7XG4gICAgICAgICAgICAgICAgICAgIGlmKG1pc3NpbmcobmFtZSkpIHJldHVybihwcml2YXRlJG5hbWUpXG4gICAgICAgICAgICAgICAgICAgIHByaXZhdGUkbmFtZSA9IG5hbWVcbiAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICksXG4gICAgICAgICAgICAgICAgcHVibGljID0gbGlzdCggICAgICAgICAgICAgICAgICBcbiAgICAgICAgICAgICAgICAgICBpbml0aWFsaXplID0gZnVuY3Rpb24obmFtZSl7cHJpdmF0ZSRuYW1lID0gbmFtZSB9LFxuICAgICAgICAgICAgICAgICAgIFNwZWFrID0gZnVuY3Rpb24oKXsgXG4gICAgICAgICAgICAgICAgICAgICAgIHByaW50KFwiQSBzdGFuZGFyZCBncmlkLlwiKX1cbiAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICAgICAgICAgIClcbmcgPSBHcmlkJG5ldyhcImdyaWQgIzNcIilcbmckU3BlYWsoKVxuZyQuX19lbmNsb3NfZW52X18kcHJpdmF0ZSRzcGVha0ludGVybmFsKClcbmBgYCJ9 -->
 <pre class="r"><code>Grid = R6Class(&quot;Grid&quot;,
                 private = list(
                   name = NA,
@@ -319,17 +288,9 @@ paste(&quot;This grid is now called&quot;, g$Name)</code></pre>
                    )
                  )
 g = Grid$new(&quot;grid #3&quot;)
-g$Speak()</code></pre>
+g$Speak()
+g$.__enclos_env__$private$speakInternal()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQSBzdGFuZGFyZCBncmlkLlwiXG4ifQ== -->
-<pre><code>[1] &quot;A standard grid.&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZyQuX19lbmNsb3NfZW52X18kcHJpdmF0ZSRzcGVha0ludGVybmFsKClcbmBgYCJ9 -->
-<pre class="r"><code>g$.__enclos_env__$private$speakInternal()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQSBwcml2YXRlIG1lc3NhZ2UuXCJcbiJ9 -->
-<pre><code>[1] &quot;A private message.&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -337,16 +298,14 @@ g$Speak()</code></pre>
 <h2>Inheritance</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ29tcGxleEdyaWQgPC0gUjZDbGFzcyhcIkNvbXBsZXhHcmlkXCIsXG4gICAgICAgICAgICAgICAgICAgICAgIGluaGVyaXQgPSBHcmlkXG4gICAgICAgICAgICAgICAgICAgICAgIClcbmNnIDwtIENvbXBsZXhHcmlkJG5ldyhcImEgY29tcGxleCBncmlkXCIpXG5jZyRTcGVhaygpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ29tcGxleEdyaWQgPC0gUjZDbGFzcyhcIkNvbXBsZXhHcmlkXCIsXG4gICAgICAgICAgICAgICAgICAgICAgIGluaGVyaXQgPSBHcmlkXG4gICAgICAgICAgICAgICAgICAgICAgIClcblxuY2cgPC0gQ29tcGxleEdyaWQkbmV3KFwiYSBjb21wbGV4IGdyaWRcIilcbmNnJFNwZWFrKClcbmBgYCJ9 -->
 <pre class="r"><code>ComplexGrid &lt;- R6Class(&quot;ComplexGrid&quot;,
                        inherit = Grid
                        )
+
 cg &lt;- ComplexGrid$new(&quot;a complex grid&quot;)
 cg$Speak()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQSBzdGFuZGFyZCBncmlkLlwiXG4ifQ== -->
-<pre><code>[1] &quot;A standard grid.&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -354,7 +313,7 @@ cg$Speak()</code></pre>
 <h2>Calling the parent method</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ29tcGxleEdyaWQgPSBSNkNsYXNzKFwiQ29tcGxleEdyaWRcIixcbiAgICAgICAgICAgICAgIGluaGVyaXQgPSBHcmlkLFxuICAgICAgICAgICAgICAgcHVibGljID0gbGlzdChcbiAgICAgICAgICAgICAgICAgaW5pdGlhbGl6ZSA9IGZ1bmN0aW9uKCl7XG4gICAgICAgICAgICAgICAgICAgc3VwZXIkaW5pdGlhbGl6ZShcImFub3RoZXIgY29tcGxleCBncmlkXCIpXG4gICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgKVxuICAgICAgICAgICAgICAgKVxuY2cgPC0gQ29tcGxleEdyaWQkbmV3KClcbmNnJFNwZWFrKClcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ29tcGxleEdyaWQgPSBSNkNsYXNzKFwiQ29tcGxleEdyaWRcIixcbiAgICAgICAgICAgICAgIGluaGVyaXQgPSBHcmlkLFxuICAgICAgICAgICAgICAgcHVibGljID0gbGlzdChcbiAgICAgICAgICAgICAgICAgaW5pdGlhbGl6ZSA9IGZ1bmN0aW9uKCl7XG4gICAgICAgICAgICAgICAgICAgc3VwZXIkaW5pdGlhbGl6ZShcImFub3RoZXIgY29tcGxleCBncmlkXCIpXG4gICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgKVxuICAgICAgICAgICAgICAgKVxuXG5jZyA8LSBDb21wbGV4R3JpZCRuZXcoKVxuXG5jZyRTcGVhaygpXG5gYGAifQ== -->
 <pre class="r"><code>ComplexGrid = R6Class(&quot;ComplexGrid&quot;,
                inherit = Grid,
                public = list(
@@ -363,12 +322,11 @@ cg$Speak()</code></pre>
                  }
                  )
                )
+
 cg &lt;- ComplexGrid$new()
+
 cg$Speak()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQSBzdGFuZGFyZCBncmlkLlwiXG4ifQ== -->
-<pre><code>[1] &quot;A standard grid.&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -392,10 +350,6 @@ cg$Speak()</code></pre>
 cg &lt;- ComplexGrid$new()
 cg$Speak()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhpcyBpcyBhIGNvbXBsZXggZ3JpZCBldmVuIGlmIHRoZSBiYXNlLWNsYXNzIHNheXMsXCJcblsxXSBcIkEgc3RhbmRhcmQgZ3JpZC5cIlxuIn0= -->
-<pre><code>[1] &quot;This is a complex grid even if the base-class says,&quot;
-[1] &quot;A standard grid.&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -403,59 +357,45 @@ cg$Speak()</code></pre>
 <h2>Adding methods on the fly</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjYW5ub3QgcnVuIHRoaXMgbGluZXMgdHdpY2VcbkNvbXBsZXhHcmlkJHNldChcInB1YmxpY1wiLCBcIkdyaWQzMFwiLCBmdW5jdGlvbigpe1wiMzB4MzAgZ3JpZFwifSlcbiMgRXJyb3IgaW4gQ29tcGxleEdyaWQkc2V0KFwicHVibGljXCIsIFwiR3JpZDMwXCIsIGZ1bmN0aW9uKCkgeyA6IENhbid0IGFkZCBHcmlkMzAgYmVjYXVzZSBpdCBhbHJlYWR5IHByZXNlbnQgaW4gQ29tcGxleEdyaWQgZ2VuZXJhdG9yLlxuY2cyIDwtIENvbXBsZXhHcmlkJG5ldygpXG5jZzIkR3JpZDMwKClcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjYW5ub3QgcnVuIHRoaXMgbGluZXMgdHdpY2VcbkNvbXBsZXhHcmlkJHNldChcInB1YmxpY1wiLCBcIkdyaWQzMFwiLCBmdW5jdGlvbigpe1wiMzB4MzAgZ3JpZFwifSlcblxuIyBFcnJvciBpbiBDb21wbGV4R3JpZCRzZXQoXCJwdWJsaWNcIiwgXCJHcmlkMzBcIiwgZnVuY3Rpb24oKSB7IDogQ2FuJ3QgYWRkIEdyaWQzMCBiZWNhdXNlIGl0IGFscmVhZHkgcHJlc2VudCBpbiBDb21wbGV4R3JpZCBnZW5lcmF0b3IuXG5cbmNnMiA8LSBDb21wbGV4R3JpZCRuZXcoKVxuY2cyJEdyaWQzMCgpXG5gYGAifQ== -->
 <pre class="r"><code># cannot run this lines twice
 ComplexGrid$set(&quot;public&quot;, &quot;Grid30&quot;, function(){&quot;30x30 grid&quot;})
+
 # Error in ComplexGrid$set(&quot;public&quot;, &quot;Grid30&quot;, function() { : Can't add Grid30 because it already present in ComplexGrid generator.
+
 cg2 &lt;- ComplexGrid$new()
 cg2$Grid30()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMzB4MzAgZ3JpZFwiXG4ifQ== -->
-<pre><code>[1] &quot;30x30 grid&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUmVzZXJ2b2lyID0gUjZDbGFzcyhcIlJlc2Vydm9pclwiLCBwdWJsaWMgPSBsaXN0KFxuICAgIE9yaWVudCA9IEdyaWQkbmV3KFwiR3JpZC1FYXN0XCIpXG4gICkpXG5yZXNlcnZvaXIxID0gUmVzZXJ2b2lyJG5ldygpXG5wcmludChwYXN0ZShcIlRoZSBvcmllbnRhdGlvbiBpbiByZXNlcnZvaXIgMSBpcyBcIiwgcmVzZXJ2b2lyMSRPcmllbnQkTmFtZSkpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUmVzZXJ2b2lyID0gUjZDbGFzcyhcIlJlc2Vydm9pclwiLCBwdWJsaWMgPSBsaXN0KFxuICAgIE9yaWVudCA9IEdyaWQkbmV3KFwiR3JpZC1FYXN0XCIpXG4gICkpXG5cbnJlc2Vydm9pcjEgPSBSZXNlcnZvaXIkbmV3KClcbnByaW50KHBhc3RlKFwiVGhlIG9yaWVudGF0aW9uIGluIHJlc2Vydm9pciAxIGlzIFwiLCByZXNlcnZvaXIxJE9yaWVudCROYW1lKSlcbnJlc2Vydm9pcjEgPSBSZXNlcnZvaXIkbmV3KClcbnByaW50KHBhc3RlKFwiVGhlIG9yaWVudGF0aW9uIGluIHJlc2Vydm9pciAyIGlzIGFsc29cIiwgcmVzZXJ2b2lyMSRPcmllbnQkTmFtZSkpXG5gYGAifQ== -->
 <pre class="r"><code>Reservoir = R6Class(&quot;Reservoir&quot;, public = list(
     Orient = Grid$new(&quot;Grid-East&quot;)
   ))
+
 reservoir1 = Reservoir$new()
-print(paste(&quot;The orientation in reservoir 1 is &quot;, reservoir1$Orient$Name))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhlIG9yaWVudGF0aW9uIGluIHJlc2Vydm9pciAxIGlzICBHcmlkLUVhc3RcIlxuIn0= -->
-<pre><code>[1] &quot;The orientation in reservoir 1 is  Grid-East&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVzZXJ2b2lyMSA9IFJlc2Vydm9pciRuZXcoKVxucHJpbnQocGFzdGUoXCJUaGUgb3JpZW50YXRpb24gaW4gcmVzZXJ2b2lyIDIgaXMgYWxzb1wiLCByZXNlcnZvaXIxJE9yaWVudCROYW1lKSlcbmBgYCJ9 -->
-<pre class="r"><code>reservoir1 = Reservoir$new()
+print(paste(&quot;The orientation in reservoir 1 is &quot;, reservoir1$Orient$Name))
+reservoir1 = Reservoir$new()
 print(paste(&quot;The orientation in reservoir 2 is also&quot;, reservoir1$Orient$Name))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhlIG9yaWVudGF0aW9uIGluIHJlc2Vydm9pciAyIGlzIGFsc28gR3JpZC1FYXN0XCJcbiJ9 -->
-<pre><code>[1] &quot;The orientation in reservoir 2 is also Grid-East&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUmVzZXJ2b2lyID0gUjZDbGFzcyhcIlJlc2Vydm9pclwiLCBwdWJsaWMgPSBsaXN0KFxuICAgIE9yaWVudCA9IE5BLFxuICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihuYW1lKXtzZWxmJE9yaWVudCA9ICBHcmlkJG5ldyhuYW1lKSAgfVxuICApKVxucmVzZXJ2b2lyMSA9IFJlc2Vydm9pciRuZXcoXCJXZXN0XCIpXG5wcmludChwYXN0ZShcIlRoZSBvcmllbnRhdGlvbiBpbiByZXNlcnZvaXIgMSBpc1wiLCByZXNlcnZvaXIxJE9yaWVudCROYW1lKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUmVzZXJ2b2lyID0gUjZDbGFzcyhcIlJlc2Vydm9pclwiLCBwdWJsaWMgPSBsaXN0KFxuICAgIE9yaWVudCA9IE5BLFxuICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihuYW1lKXtzZWxmJE9yaWVudCA9ICBHcmlkJG5ldyhuYW1lKSAgfVxuICApKVxuXG5yZXNlcnZvaXIxID0gUmVzZXJ2b2lyJG5ldyhcIldlc3RcIilcbnByaW50KHBhc3RlKFwiVGhlIG9yaWVudGF0aW9uIGluIHJlc2Vydm9pciAxIGlzXCIsIHJlc2Vydm9pcjEkT3JpZW50JE5hbWUpKVxuXG5yZXNlcnZvaXIyID0gUmVzZXJ2b2lyJG5ldyhcIlNvdXRoXCIpXG5wcmludChwYXN0ZShcIlRoZSBvcmllbnRhdGlvbiBpbiByZXNlcnZvaXIgMiBpc1wiLCByZXNlcnZvaXIyJE9yaWVudCROYW1lKSlcbmBgYCJ9 -->
 <pre class="r"><code>Reservoir = R6Class(&quot;Reservoir&quot;, public = list(
     Orient = NA,
     initialize = function(name){self$Orient =  Grid$new(name)  }
   ))
+
 reservoir1 = Reservoir$new(&quot;West&quot;)
-print(paste(&quot;The orientation in reservoir 1 is&quot;, reservoir1$Orient$Name))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhlIG9yaWVudGF0aW9uIGluIHJlc2Vydm9pciAxIGlzIFdlc3RcIlxuIn0= -->
-<pre><code>[1] &quot;The orientation in reservoir 1 is West&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVzZXJ2b2lyMiA9IFJlc2Vydm9pciRuZXcoXCJTb3V0aFwiKVxucHJpbnQocGFzdGUoXCJUaGUgb3JpZW50YXRpb24gaW4gcmVzZXJ2b2lyIDIgaXNcIiwgcmVzZXJ2b2lyMiRPcmllbnQkTmFtZSkpXG5gYGAifQ== -->
-<pre class="r"><code>reservoir2 = Reservoir$new(&quot;South&quot;)
+print(paste(&quot;The orientation in reservoir 1 is&quot;, reservoir1$Orient$Name))
+
+reservoir2 = Reservoir$new(&quot;South&quot;)
 print(paste(&quot;The orientation in reservoir 2 is&quot;, reservoir2$Orient$Name))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGhlIG9yaWVudGF0aW9uIGluIHJlc2Vydm9pciAyIGlzIFNvdXRoXCJcbiJ9 -->
-<pre><code>[1] &quot;The orientation in reservoir 2 is South&quot;</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Source: <a href="http://www.orbifold.net/default/2015/04/24/r6-classes/" class="uri">http://www.orbifold.net/default/2015/04/24/r6-classes/</a></p>
@@ -464,7 +404,7 @@ print(paste(&quot;The orientation in reservoir 2 is&quot;, reservoir2$Orient$Nam
 <h1>Another example</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA8LSBSNkNsYXNzKFwiR3JpZFwiLFxuICBwdWJsaWMgPSBsaXN0KFxuICAgIHggPSBOVUxMLFxuICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbih4ID0gMSkgc2VsZiR4IDwtIHgsXG4gICAgZ2V0eCA9IGZ1bmN0aW9uKCkgc2VsZiR4LFxuICAgIGluYyAgPSBmdW5jdGlvbihuID0gMSkgc2VsZiR4IDwtIHNlbGYkeCArIG5cbiAgKVxuKVxuZyA8LSBHcmlkJG5ldygpXG5nJGdldHgoKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZCA8LSBSNkNsYXNzKFwiR3JpZFwiLFxuICBwdWJsaWMgPSBsaXN0KFxuICAgIHggPSBOVUxMLFxuICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbih4ID0gMSkgc2VsZiR4IDwtIHgsXG4gICAgZ2V0eCA9IGZ1bmN0aW9uKCkgc2VsZiR4LFxuICAgIGluYyAgPSBmdW5jdGlvbihuID0gMSkgc2VsZiR4IDwtIHNlbGYkeCArIG5cbiAgKVxuKVxuXG5nIDwtIEdyaWQkbmV3KClcbmckZ2V0eCgpXG5nJGluYygpXG5nJGdldHgoKVxuXG5nJGluYygxMClcbmckZ2V0eCgpXG5gYGAifQ== -->
 <pre class="r"><code>Grid &lt;- R6Class(&quot;Grid&quot;,
   public = list(
     x = NULL,
@@ -473,33 +413,22 @@ print(paste(&quot;The orientation in reservoir 2 is&quot;, reservoir2$Orient$Nam
     inc  = function(n = 1) self$x &lt;- self$x + n
   )
 )
+
 g &lt;- Grid$new()
+g$getx()
+g$inc()
+g$getx()
+
+g$inc(10)
 g$getx()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDFcbiJ9 -->
-<pre><code>[1] 1</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZyRpbmMoKVxuZyRnZXR4KClcbmBgYCJ9 -->
-<pre class="r"><code>g$inc()
-g$getx()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDJcbiJ9 -->
-<pre><code>[1] 2</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZyRpbmMoMTApXG5nJGdldHgoKVxuYGBgIn0= -->
-<pre class="r"><code>g$inc(10)
-g$getx()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyXG4ifQ== -->
-<pre><code>[1] 12</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="private-and-public-members" class="section level2">
 <h2>Private and public members</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZFByaXZhdGUgPC0gUjZDbGFzcyhcIkdyaWRQcml2YXRlXCIsXG4gIHByaXZhdGUgPSBsaXN0KHggPSBOVUxMKSxcbiAgcHVibGljID0gbGlzdChcbiAgICBpbml0aWFsaXplID0gZnVuY3Rpb24oeCA9IDEpIHByaXZhdGUkeCA8LSB4LFxuICAgIGdldHggPSBmdW5jdGlvbigpIHByaXZhdGUkeCxcbiAgICBpbmMgPSBmdW5jdGlvbihuID0gMSkgcHJpdmF0ZSR4IDwtIHByaXZhdGUkeCArIG5cbiAgKVxuKVxuZ3AgPC0gR3JpZFByaXZhdGUkbmV3KClcbmdwJGdldHgoKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR3JpZFByaXZhdGUgPC0gUjZDbGFzcyhcIkdyaWRQcml2YXRlXCIsXG4gIHByaXZhdGUgPSBsaXN0KHggPSBOVUxMKSxcbiAgcHVibGljID0gbGlzdChcbiAgICBpbml0aWFsaXplID0gZnVuY3Rpb24oeCA9IDEpIHByaXZhdGUkeCA8LSB4LFxuICAgIGdldHggPSBmdW5jdGlvbigpIHByaXZhdGUkeCxcbiAgICBpbmMgPSBmdW5jdGlvbihuID0gMSkgcHJpdmF0ZSR4IDwtIHByaXZhdGUkeCArIG5cbiAgKVxuKVxuXG5ncCA8LSBHcmlkUHJpdmF0ZSRuZXcoKVxuZ3AkZ2V0eCgpXG5ncCRpbmMoKVxuZ3AkZ2V0eCgpXG5gYGAifQ== -->
 <pre class="r"><code>GridPrivate &lt;- R6Class(&quot;GridPrivate&quot;,
   private = list(x = NULL),
   public = list(
@@ -508,19 +437,12 @@ g$getx()</code></pre>
     inc = function(n = 1) private$x &lt;- private$x + n
   )
 )
+
 gp &lt;- GridPrivate$new()
+gp$getx()
+gp$inc()
 gp$getx()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDFcbiJ9 -->
-<pre><code>[1] 1</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ3AkaW5jKClcbmdwJGdldHgoKVxuYGBgIn0= -->
-<pre class="r"><code>gp$inc()
-gp$getx()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDJcbiJ9 -->
-<pre><code>[1] 2</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -539,7 +461,7 @@ Grid.K = m.ones(3, Grid.Nx, Grid.Ny);</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbkdyaWQgPC0gUjZDbGFzcyhcIkdyaWRcIixcbiAgICBwdWJsaWMgPSBsaXN0KFxuICAgICAgICBOeCA9IDAsIE55ID0gMCwgTnogPSAwLFxuICAgICAgICBoeCA9IDAsIGh5ID0gMCwgaHogPSAwLFxuICAgICAgICBLICA9IE5BLFxuICAgICAgICBOICA9IE5BLFxuICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihOeCwgTnksIE56KSB7IFxuICAgICAgICBzZWxmJE54ID0gTnhcbiAgICAgICAgc2VsZiROeSA9IE55XG4gICAgICAgIHNlbGYkTnogPSBOelxuICAgICAgICBzZWxmJGh4ID0gMSAvIHNlbGYkTnhcbiAgICAgICAgc2VsZiRoeSA9IDEgLyBzZWxmJE55XG4gICAgICAgIHNlbGYkaHogPSAxIC8gc2VsZiROelxuICAgICAgICBzZWxmJEsgID0gYXJyYXkoMSwgYygzLCBzZWxmJE54LCBzZWxmJE55KSlcbiAgICAgICAgc2VsZiROICA9IHNlbGYkTnggKiBzZWxmJE55ICogc2VsZiROelxuICAgICAgICBjYXQoc3ByaW50ZihcIkdyaWQgb2YgJWR4JWR4JWRcIiwgc2VsZiROeCwgc2VsZiROeSwgc2VsZiROeikpXG4gICAgICAgIGltYWdlKHNlbGYkS1sxLCxdKVxuICAgICAgICB9XG4gICAgKVxuKVxuZ3JpZCA8LSBHcmlkJG5ldyg4LCA4LCAxKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyTVJTVClcbkdyaWQgPC0gUjZDbGFzcyhcIkdyaWRcIixcbiAgICBwdWJsaWMgPSBsaXN0KFxuICAgICAgICBOeCA9IDAsIE55ID0gMCwgTnogPSAwLFxuICAgICAgICBoeCA9IDAsIGh5ID0gMCwgaHogPSAwLFxuICAgICAgICBLICA9IE5BLFxuICAgICAgICBOICA9IE5BLFxuICAgIGluaXRpYWxpemUgPSBmdW5jdGlvbihOeCwgTnksIE56KSB7IFxuICAgICAgICBzZWxmJE54ID0gTnhcbiAgICAgICAgc2VsZiROeSA9IE55XG4gICAgICAgIHNlbGYkTnogPSBOelxuICAgICAgICBzZWxmJGh4ID0gMSAvIHNlbGYkTnhcbiAgICAgICAgc2VsZiRoeSA9IDEgLyBzZWxmJE55XG4gICAgICAgIHNlbGYkaHogPSAxIC8gc2VsZiROelxuICAgICAgICBzZWxmJEsgID0gYXJyYXkoMSwgYygzLCBzZWxmJE54LCBzZWxmJE55KSlcbiAgICAgICAgc2VsZiROICA9IHNlbGYkTnggKiBzZWxmJE55ICogc2VsZiROelxuICAgICAgICBjYXQoc3ByaW50ZihcIkdyaWQgb2YgJWR4JWR4JWRcIiwgc2VsZiROeCwgc2VsZiROeSwgc2VsZiROeikpXG4gICAgICAgIGltYWdlKHNlbGYkS1sxLCxdKVxuICAgICAgICB9XG4gICAgKVxuKVxuYGBgIn0= -->
 <pre class="r"><code>library(rMRST)
 Grid &lt;- R6Class(&quot;Grid&quot;,
     public = list(
@@ -560,24 +482,18 @@ Grid &lt;- R6Class(&quot;Grid&quot;,
         image(self$K[1,,])
         }
     )
-)
-grid &lt;- Grid$new(8, 8, 1)</code></pre>
+)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiR3JpZCBvZiA4eDh4MVxuIn0= -->
-<pre><code>Grid of 8x8x1</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gUjZDbGFzcyhcIkdyaWRcIiwgcHVibGljID0gbGlzdChOeCA9IDAsIE55ID0gMCwgTnogPSAwLCBoeCA9IDAsICA6IFxuICBjb3VsZCBub3QgZmluZCBmdW5jdGlvbiBcIlI2Q2xhc3NcIlxuIn0= -->
+<pre><code>Error in R6Class(&quot;Grid&quot;, public = list(Nx = 0, Ny = 0, Nz = 0, hx = 0,  : 
+  could not find function &quot;R6Class&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MzIuNjMyOSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjcwMH0= -->
-<p><img src="data:image/png;base64,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" /></p>
-<!-- rnb-plot-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBHcmlkIG9mIDh4OHgxXG5gYGAifQ== -->
-<pre class="r"><code># Grid of 8x8x1</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Source: <a href="https://rpubs.com/wch/24456" class="uri">https://rpubs.com/wch/24456</a></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTnVtYmVycyA8LSBSNkNsYXNzKFwiTnVtYmVyc1wiLFxuICBwdWJsaWMgPSBsaXN0KFxuICAgIHggPSAxMDBcbiAgKSxcbiAgYWN0aXZlID0gbGlzdChcbiAgICB4MiA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gICAgICBpZiAobWlzc2luZyh2YWx1ZSkpIHJldHVybihzZWxmJHggKiAyKVxuICAgICAgZWxzZSBzZWxmJHggPC0gdmFsdWUvMlxuICAgIH0sXG4gICAgcmFuZCA9IGZ1bmN0aW9uKCkgcm5vcm0oMSlcbiAgKVxuKVxubiA8LSBOdW1iZXJzJG5ldygpXG5uJHhcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTnVtYmVycyA8LSBSNkNsYXNzKFwiTnVtYmVyc1wiLFxuICBwdWJsaWMgPSBsaXN0KFxuICAgIHggPSAxMDBcbiAgKSxcbiAgYWN0aXZlID0gbGlzdChcbiAgICB4MiA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gICAgICBpZiAobWlzc2luZyh2YWx1ZSkpIHJldHVybihzZWxmJHggKiAyKVxuICAgICAgZWxzZSBzZWxmJHggPC0gdmFsdWUvMlxuICAgIH0sXG4gICAgcmFuZCA9IGZ1bmN0aW9uKCkgcm5vcm0oMSlcbiAgKVxuKVxuXG5uIDwtIE51bWJlcnMkbmV3KClcbm4keFxuYGBgIn0= -->
 <pre class="r"><code>Numbers &lt;- R6Class(&quot;Numbers&quot;,
   public = list(
     x = 100
@@ -590,12 +506,10 @@ grid &lt;- Grid$new(8, 8, 1)</code></pre>
     rand = function() rnorm(1)
   )
 )
+
 n &lt;- Numbers$new()
 n$x</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEwMFxuIn0= -->
-<pre><code>[1] 100</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
