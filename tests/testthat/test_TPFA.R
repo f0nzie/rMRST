@@ -176,3 +176,24 @@ test_that("final Pressure returns correct values", {
     # print(expected_P)
     expect_equal(expected_P, P, tolerance = 1e-4)
 })
+
+
+test_that("P, V return correct values", {
+    result <- TPFA(grid, K, q)
+    # print(result)
+    # print(names(result))
+    expected_P <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                  file = "Pfinal.txt")), dim=c(8, 8, 1))
+    Vx <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                   file = "Vx.txt")), dim=c(9, 8, 1))
+    Vy <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                   file = "Vy.txt")), dim=c(8, 9, 1))
+    Vz <- zeros(8, 8, 2)
+
+    V   <- Var3d()
+    V$x <- Vx; V$y <- Vy; V$z <- Vz
+    expected_V <- V
+
+    expect_equal(expected_P, result$P, tolerance = 1e-4)
+    expect_equal(expected_V, result$V, tolerance = 1e-5)
+})
