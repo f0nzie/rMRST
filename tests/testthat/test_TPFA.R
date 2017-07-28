@@ -133,3 +133,46 @@ test_that("solving (A, q) yields result", {
     # print(expected_u)
     expect_equal(result, expected_u, tolerance = 1e-4)
 })
+
+test_that("Pressure and flux return good values", {
+    result <- TPFA09(grid, K, q)
+    # print(dim(result[["P"]]))
+    expected_P <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                  file = "P.txt")), dim=c(8, 8, 1))
+    # print(dim(expected_P))
+    expect_equal(result[["P"]], expected_P, tolerance = 1e-4)
+    # print(result[["V"]])
+    V <- result[["V"]]
+    # print(dim(V$z));    print(V$z)
+    expect_equal(V$x, zeros(9, 8, 1))
+    expect_equal(V$y, zeros(8, 9, 1))
+    expect_equal(V$z, zeros(8, 8, 2))
+})
+
+test_that("V return good values after transformation", {
+    result <- TPFA10(grid, K, q)
+    # print(result)
+    # print(dim(result))
+    # V <- result[["Grid"]]
+    # Vx <- result$x
+    V <- result
+    expected_Vx <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                  file = "Vx.txt")), dim=c(9, 8, 1))
+    expected_Vy <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                   file = "Vy.txt")), dim=c(8, 9, 1))
+    expected_Vz <- zeros(8, 8, 2)
+
+    expect_equal(expected_Vx, V$x, tolerance = 1e-5)
+    expect_equal(expected_Vy, V$y, tolerance = 1e-5)
+    expect_equal(expected_Vz, V$z)
+})
+
+test_that("final Pressure returns correct values", {
+    result <- TPFA11(grid, K, q)
+    P <- result
+    # print(P)
+    expected_P <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                          file = "Pfinal.txt")), dim=c(8, 8, 1))
+    # print(expected_P)
+    expect_equal(expected_P, P, tolerance = 1e-4)
+})

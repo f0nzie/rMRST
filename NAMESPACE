@@ -2,11 +2,13 @@
 
 export(Grid)
 export(TPFA01)
+export(Var3d)
 export(m.ones)
 export(m.spdiags)
 export(m.zeros)
 export(ones)
 export(resave)
+export(rreshape)
 export(zeros)
 importFrom(R6,R6Class)
 importFrom(RcppOctave,.CallOctave)
