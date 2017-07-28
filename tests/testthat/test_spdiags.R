@@ -1,6 +1,6 @@
 library(testthat)
 
-context("test spdiags")
+context("test m.spdiags")
 
 test_that("Example 1: test that we get nonzero diagonals and indices", {
 
@@ -28,7 +28,7 @@ test_that("Example 1: test that we get nonzero diagonals and indices", {
 
 test_that("Example 3: match a triadiagonal", {
 
-    A3 =rbind(
+    A3 = rbind(
         c(11,    0,   13,    0),
          c(0,   22,    0,   24),
          c(0,    0,   33,    0),

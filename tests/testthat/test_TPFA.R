@@ -104,20 +104,32 @@ test_that("DiagsVecs work", {
     expect_equal(result[["DiagIndx"]], expected_DiagIndx)
 })
 
-test_that("sparse matrix A returns correct values", {
+test_that("sparse matrix A returns correct A1 values", {
     result <- TPFA06(grid, K, q)
     # print(result)
     # print(dim(result))    # 64x64 sparse matrix
     # print(typeof(result)) # double
     expected_A <- array(simplify2array(read.table(header = FALSE, sep = ",",
-                                                   file = "A.txt")), dim=c(64,64))
+                                                   file = "A1.txt")), dim=c(64,64))
     # print(dim(expected_A))     # 64x64 sparse matrix
     # print(typeof(expected_A))  # integer
     expect_equal(expected_A, result)
 })
 
-test_that("permeability K and A transformed match values", {
+test_that("A transformed match A2 values", {
     result <- TPFA07(grid, K, q)
-    print(names(result))
-    print(dim(result[["K"]]))
+    expected_A <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                  file = "A2.txt")), dim=c(64,64))
+    # print(dim(expected_A))     # 64x64 sparse matrix
+    # print(typeof(expected_A))  # integer
+    expect_equal(expected_A, result)
+})
+
+test_that("solving (A, q) yields result", {
+    result <- TPFA08(grid, K, q)
+    # print(result)
+    expected_u <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                  file = "u.txt")), dim=c(64,1))
+    # print(expected_u)
+    expect_equal(result, expected_u, tolerance = 1e-4)
 })
