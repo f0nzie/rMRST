@@ -13,7 +13,7 @@ K <- ones(3, Grid.Nx, Grid.Ny)
 q <- zeros(N, 1)
 q[c(1, N)] <- c(1, -1)
 
-# grid <- Grid$new(8, 8, 1)
+# grid <- Grid$new(8, 8, 1)        # old Grid R6 class
 grid <- makeGrid(8, 8, 1)
 # print(grid)
 
