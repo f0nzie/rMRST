@@ -26,7 +26,7 @@ Var3d <- function(x = 0, y = 0, z = 0) {
 #'
 #' @export
 #' @importFrom R6 R6Class
-Grid <- R6Class("Grid",
+oGrid <- R6Class("oGrid",
         public = list(
             Nx = 0, Ny = 0, Nz = 0,
             hx = 0, hy = 0, hz = 0,
