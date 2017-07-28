@@ -22,11 +22,12 @@ test_that("Nx, Ny, Nz are assigned", {
     expect_equal(result, expected)
 })
 
-test_that("L is raised to the power of -1", {
+test_that("K is 3x8x8 and L is raised to the power of -1", {
     # L = K.^(-1);
     expected <- ones(3, 8, 8)
     result <- TPFA02(grid, K, q)
-    expect_equal(result, expected)
+    expect_equal(result[["L"]], expected)
+    expect_equal(result[["K"]], expected)
 })
 
 test_that("TX, TY, TZ return right matrices", {
@@ -103,3 +104,20 @@ test_that("DiagsVecs work", {
     expect_equal(result[["DiagIndx"]], expected_DiagIndx)
 })
 
+test_that("sparse matrix A returns correct values", {
+    result <- TPFA06(grid, K, q)
+    # print(result)
+    # print(dim(result))    # 64x64 sparse matrix
+    # print(typeof(result)) # double
+    expected_A <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                                   file = "A.txt")), dim=c(64,64))
+    # print(dim(expected_A))     # 64x64 sparse matrix
+    # print(typeof(expected_A))  # integer
+    expect_equal(expected_A, result)
+})
+
+test_that("permeability K and A transformed match values", {
+    result <- TPFA07(grid, K, q)
+    print(names(result))
+    print(dim(result[["K"]]))
+})
