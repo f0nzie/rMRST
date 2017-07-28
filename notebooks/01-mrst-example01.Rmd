@@ -44,6 +44,20 @@ filled.contour(x = Nx, y = Ny, z = P, color = rainbow,
 ```
 
 ```{r}
+# Flux in x
+Nx = seq(0, 1, length.out = Grid$Nx)
+Ny = seq(0, 1, length.out = Grid$Ny+1)
+
+
+Vx <- matrix(tpfa$V$x, nrow=9, ncol=8)
+
+filled.contour(x = Ny, y = Nx, z = Vx, color = rainbow )
+               # key.axes = axis(4, seq(0, 3, by = 0.2)))
+
+```
+
+
+```{r}
 x <- -6:16
 z <- outer(x, sqrt(abs(x)), FUN = "/")
 length(x)
@@ -128,5 +142,14 @@ contour(x, y, volcano, col = tcol[1], lty = "solid", add = TRUE,
 line.list <- contourLines(x, y, volcano)
 invisible(lapply(line.list, lines, lwd=3, col=adjustcolor(2, .3)))
 par(opar)
+```
+
+```{r}
+library(asbio)
+
+X1 <-sort(rnorm(100))
+X2 <-rexp(100)
+Y <-rgamma(100,1,2)
+loess.surf(Y, cbind(X1,X2))
 ```
 
