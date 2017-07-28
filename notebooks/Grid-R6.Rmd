@@ -25,12 +25,11 @@ Grid = R6Class("Grid",
 
 g1 <- Grid
 g1
-```
 
-```{r}
 # iniialize the class with a name
 g2 <- Grid$new("grid 2")
 ```
+
 
 ## Putting the variable in a field
 ```{r}
@@ -238,6 +237,7 @@ Grid.K = m.ones(3, Grid.Nx, Grid.Ny);
 
 
 ```{r}
+library(R6)
 library(rMRST)
 
 Grid <- R6Class("Grid",
