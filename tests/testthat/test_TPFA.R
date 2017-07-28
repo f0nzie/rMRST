@@ -1,6 +1,6 @@
 library(testthat)
 
-context("TPFA function")
+context("test TPFA function")
 
 
 # % TPFA function for global environment
