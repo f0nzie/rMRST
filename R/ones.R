@@ -1,4 +1,4 @@
-#' Fills an array with ones (Octave)
+#' Fills an array with ones as in Matlab
 #' @param x 1-D dimension
 #' @param ... additional parameters
 #' @export
@@ -19,6 +19,6 @@ ones <- function(x, ...) {
         stopifnot(sapply(args,  is.numeric))
         array(1, dim=c(x, ...))
     } else {
-        array(1, dim=x)
+        array(1, dim=c(x,x))
     }
 }

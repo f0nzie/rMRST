@@ -1,21 +1,21 @@
 ---
-title: "MRST - Example 01.1"
+title: "MRST - Example 01.2"
 output: html_notebook
 ---
 
 ```{r}
-# calling function TPFA for example 01
+# calling function TPFA for example 01.2
 
 library(rMRST)
 
-# grid <- Grid$new()
-Grid <- makeGrid(8, 8, 1)
+Grid <- makeGrid()
 
-Grid$Nx = 8; Grid$hx = 1 / Grid$Nx
-Grid$Ny = 8; Grid$hy = 1 / Grid$Ny
+Grid$Nx = 32; Grid$hx = 1 / Grid$Nx
+Grid$Ny = 32; Grid$hy = 1 / Grid$Ny
 Grid$Nz = 1; Grid$hz = 1 / Grid$Nz
 
-Grid$K = ones(3, Grid$Nx, Grid$Ny);
+#  Grid.K=exp(5∗smooth3(smooth3(randn(3,Grid.Nx,Grid.Ny))));
+Grid$K = randn(3, Grid$Nx, Grid$Ny)
 N <-  Grid$Nx * Grid$Ny * Grid$Nz
 
 q <- zeros(N, 1)
@@ -38,7 +38,7 @@ P <- tpfa$P
 Nx = seq(0, 1, length.out = Grid$Nx)
 Ny = seq(0, 1, length.out = Grid$Ny)
 
-P <- matrix(P, nrow=8, ncol=8)
+P <- matrix(P, nrow=Grid$Nx, ncol=Grid$Ny)
 filled.contour(x = Nx, y = Ny, z = P, color = rainbow, 
                key.axes = axis(4, seq(0, 3, by = 0.2)))
 ```

@@ -7,7 +7,8 @@ m.zeros <- function(x, ...) {
     .CallOctave("zeros", x, ...)
 }
 
-#' Fills an array with zeros
+#' Fills an array with zeros as in Matlab
+#'
 #' @param x 1-D dimension
 #' @param ... additional parameters
 #' @export
@@ -18,7 +19,7 @@ zeros <- function(x, ...) {
         stopifnot(sapply(args,  is.numeric))
         array(0, dim=c(x, ...))
     } else {
-        array(0, dim=x)
+        array(0, dim=c(x,x))
     }
 }
 

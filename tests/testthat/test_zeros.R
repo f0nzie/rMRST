@@ -6,7 +6,7 @@ context("test zeros")
 
 test_that("zeros match 1D", {
     N <- 5
-    expected <- array(0, N)
+    expected <- array(0, c(N, N))
     expect_equal(zeros(N), expected)
 })
 
