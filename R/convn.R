@@ -19,6 +19,13 @@ m.conv3d <- function(A, B) {
         B <- array(B, dim = c(dim(B), 1))
     }
 
+    if (any(dim(A) < dim(B))) {
+        # cat("array B bigger than A")
+        temp <- A
+        A <- B
+        B <- temp
+    }
+
     D <- array(0, dim = c(2*dim(A)[1]-1, 2*dim(A)[2]-1, 2*dim(A)[3]-1))
 
     for (i in 1:dim(A)[3]) {  # 1, 2, 3
