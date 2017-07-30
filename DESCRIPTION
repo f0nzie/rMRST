@@ -1,7 +1,7 @@
 Package: rMRST
 Type: Package
 Title: Interface from R to Octave based Matlab Reservoir Simulation Toolbox
-Version: 0.0.1
+Version: 0.0.1.9000
 Author: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
 Maintainer: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
 Description: Operate MRST (Matlab Reservoir Simulation Toolbox) from R using 
