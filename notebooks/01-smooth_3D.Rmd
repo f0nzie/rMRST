@@ -1,0 +1,20 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(asbio)
+
+X1 <-sort(rnorm(100))
+X2 <-rexp(100)
+Y <-rgamma(100, 1, 2)
+lsurf <- loess.surf(Y, cbind(X1,X2))
+```
+```{r}
+lsurf
+```
+
+
+
+

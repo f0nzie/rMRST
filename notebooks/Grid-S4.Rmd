@@ -1,0 +1,96 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+setClass("Grid", slots = c(
+    Nx = "numeric",
+    Ny = "numeric",
+    Nz = "numeric",
+    por = "numeric"
+))
+
+# setMethod("initialize", "Grid", function(.Object) {
+#     .Object
+# })
+
+setGeneric("Grid.Nx<-", function(object, value){standardGeneric("Grid.Nx<-")})
+setReplaceMethod(f="Grid.Nx", signature="Grid", 
+                 definition=function(object, value){ 
+                     object@Nx <- value
+                     return (object)
+})
+
+setGeneric("Grid.Ny<-", function(object, value){standardGeneric("Grid.Ny<-")})
+setReplaceMethod(f="Grid.Ny", signature="Grid", 
+                 definition=function(object, value){ 
+                     object@Ny <- value
+                     return (object)
+})
+
+setGeneric("Grid.Nz<-", function(object, value){standardGeneric("Grid.Nz<-")})
+setReplaceMethod(f="Grid.Nz", signature="Grid", 
+                 definition=function(object, value){ 
+                     object@Nz <- value
+                     return (object)
+})
+
+show.Grid <- function(object) {
+    tmp <- rbind(Nx = object@Nx,
+                 Ny = object@Ny,
+                 Nz = object@Nz)
+    # dimnames(tmp)[[2]] <- rep("", length(object@Nx))
+    print(tmp, quote = F)
+    invisible(object)
+}
+
+setMethod("show", "Grid", show.Grid)
+
+# Grid <- function(Nx=0, Ny=0, Nz=0, por=0) {
+#     # new("Grid", Nx = Nx, Ny = Ny, Nz, por = por)
+#     new("Grid")
+# }
+
+Grid <- function() {
+    new("Grid")
+}
+
+grid <- Grid()
+Grid.Nx(grid) <- 3
+Grid.Ny <- 8
+grid.Nz <- 4
+# grid.Nx
+# grid.Ny
+# grid.Nz
+
+grid
+
+```
+
+```{r}
+grid <- Grid()
+grid.Nx <- 3
+grid.Ny <- 8
+grid.Nz <- 4
+grid.Nx
+grid.Ny
+grid.Nz
+```
+
+
+```{r}
+show.Grid <- function(object) {
+    tmp <- rbind(Nx = object@Nx,
+                 Ny = object@Ny)
+    dimnames(tmp)[[2]] <- rep("", length(object@Nx))
+    print(tmp, quote = F)
+    invisible(object)
+}
+
+setMethod("show", "Grid", show.Grid)
+```
+
+```{r}
+field1 <- new("Grid")
+```

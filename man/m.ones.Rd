@@ -2,7 +2,7 @@
 % Please edit documentation in R/ones.R
 \name{m.ones}
 \alias{m.ones}
-\title{Fills an array with ones (Octave)}
+\title{Fills an array with ones as in Matlab}
 \usage{
 m.ones(x, ...)
 }
@@ -12,5 +12,5 @@ m.ones(x, ...)
 \item{...}{additional parameters}
 }
 \description{
-Fills an array with ones (Octave)
+Fills an array with ones as in Matlab
 }

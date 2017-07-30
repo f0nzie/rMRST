@@ -1,4 +1,4 @@
-#' Fills an array with ones (Octave)
+#' Fills an array with ones as in Matlab
 #' @param x 1-D dimension
 #' @param ... additional parameters
 #' @export
@@ -7,11 +7,6 @@ m.ones <- function(x, ...) {
     .CallOctave("ones", x, ...)
 }
 
-#' @export
-#' @importFrom RcppOctave .CallOctave
-m.zeros <- function(x, ...) {
-    .CallOctave("zeros", x, ...)
-}
 
 #' Fills an array with ones
 #' @param x 1-D dimension
@@ -21,9 +16,9 @@ ones <- function(x, ...) {
     stopifnot(is.numeric(x))
     args <- list(...)
     if (length(args)) {
-        stopifnot(is.numeric(args[[1]]), is.numeric(args[[2]]))
+        stopifnot(sapply(args,  is.numeric))
         array(1, dim=c(x, ...))
     } else {
-        array(1, dim=x)
+        array(1, dim=c(x,x))
     }
 }

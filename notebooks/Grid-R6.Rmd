@@ -1,0 +1,289 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(R6)
+
+# an empty class
+Grid <- R6Class("Grid")
+
+# instantiate class
+g <- Grid$new()
+g
+```
+
+```{r}
+Grid = R6Class("Grid", 
+               public = list( 
+                   initialize = function(name) { 
+                       print(paste("A new Grid with name '", name, "'")) 
+                   }
+                   )
+                 )
+
+g1 <- Grid
+g1
+
+# iniialize the class with a name
+g2 <- Grid$new("grid 2")
+```
+
+
+## Putting the variable in a field
+```{r}
+Grid = R6Class("Grid",
+     public = list(
+       Name = NA,
+       initialize = function(name) 
+           {self$Name = name }
+       )
+)
+# new instance
+g = Grid$new("Grid #1")
+paste("This grid is called", g$Name)
+# change it
+g$Name = "Grid #2"
+paste("This grid is now called", g$Name)
+```
+
+## Active bindings
+If you want to have getter-setter method you need to use the so-called **active bindings**. This is a get-set just like in JavaScript which returns the field if no value is provided but sets the field if one is given. If the method has no argument it’s presumed a read-only property.
+
+```{r}
+Grid = R6Class("Grid",
+                private = list(
+                  name = NA
+                  ),
+                active = list(
+                  Name = function(name){
+                    if(missing(name)) return(private$name)
+                    private$name = name
+                  }
+                  ),
+                public = list(                  
+                   initialize = function(name) {
+                       private$name = name }
+                   )
+)
+# new instance
+g = Grid$new("Grid #1")
+paste("This grid is called", g$Name)
+# change it
+g$Name = "Grid #2"
+paste("This grid is now called", g$Name)
+
+```
+
+
+## Adding methods
+```{r}
+Grid = R6Class("Grid",
+                private = list(
+                  name = NA,
+                  speakInternal = function() {
+                      print("A private message.")}
+                  ),
+                active = list(
+                  Name = function(name){
+                    if(missing(name)) return(private$name)
+                    private$name = name
+                  }
+                  ),
+                public = list(                  
+                   initialize = function(name){private$name = name },
+                   Speak = function(){ 
+                       print("A standard grid.")}
+                   )
+                 )
+g = Grid$new("grid #3")
+g$Speak()
+g$.__enclos_env__$private$speakInternal()
+```
+
+## Inheritance
+
+```{r}
+ComplexGrid <- R6Class("ComplexGrid",
+                       inherit = Grid
+                       )
+
+cg <- ComplexGrid$new("a complex grid")
+cg$Speak()
+```
+
+## Calling the parent method
+```{r}
+ComplexGrid = R6Class("ComplexGrid",
+               inherit = Grid,
+               public = list(
+                 initialize = function(){
+                   super$initialize("another complex grid")
+                 }
+                 )
+               )
+
+cg <- ComplexGrid$new()
+
+cg$Speak()
+```
+
+## 
+```{r}
+ComplexGrid = R6Class("ComplexGrid",
+               inherit = Grid,
+               public = list(
+                 initialize = function(){
+                   super$initialize("A complex grid")
+                 },
+                 Speak = function(){
+                                    print("This is a complex grid even if the base-class says,")
+                                    super$Speak()
+                                    }
+                 )
+               )
+cg <- ComplexGrid$new()
+cg$Speak()
+```
+
+## Adding methods on the fly
+
+```{r}
+# cannot run this lines twice
+ComplexGrid$set("public", "Grid30", function(){"30x30 grid"})
+
+# Error in ComplexGrid$set("public", "Grid30", function() { : Can't add Grid30 because it already present in ComplexGrid generator.
+
+cg2 <- ComplexGrid$new()
+cg2$Grid30()
+```
+
+
+```{r}
+Reservoir = R6Class("Reservoir", public = list(
+    Orient = Grid$new("Grid-East")
+  ))
+
+reservoir1 = Reservoir$new()
+print(paste("The orientation in reservoir 1 is ", reservoir1$Orient$Name))
+reservoir1 = Reservoir$new()
+print(paste("The orientation in reservoir 2 is also", reservoir1$Orient$Name))
+```
+
+```{r}
+Reservoir = R6Class("Reservoir", public = list(
+    Orient = NA,
+    initialize = function(name){self$Orient =  Grid$new(name)  }
+  ))
+
+reservoir1 = Reservoir$new("West")
+print(paste("The orientation in reservoir 1 is", reservoir1$Orient$Name))
+
+reservoir2 = Reservoir$new("South")
+print(paste("The orientation in reservoir 2 is", reservoir2$Orient$Name))
+```
+
+Source: http://www.orbifold.net/default/2015/04/24/r6-classes/
+
+# Another example
+
+```{r}
+Grid <- R6Class("Grid",
+  public = list(
+    x = NULL,
+    initialize = function(x = 1) self$x <- x,
+    getx = function() self$x,
+    inc  = function(n = 1) self$x <- self$x + n
+  )
+)
+
+g <- Grid$new()
+g$getx()
+g$inc()
+g$getx()
+
+g$inc(10)
+g$getx()
+```
+
+## Private and public members
+
+```{r}
+GridPrivate <- R6Class("GridPrivate",
+  private = list(x = NULL),
+  public = list(
+    initialize = function(x = 1) private$x <- x,
+    getx = function() private$x,
+    inc = function(n = 1) private$x <- private$x + n
+  )
+)
+
+gp <- GridPrivate$new()
+gp$getx()
+gp$inc()
+gp$getx()
+```
+
+## Actve Bindings
+
+```{r}
+Grid.Nx =8; Grid.hx=1/Grid.Nx;
+Grid.Ny =8; Grid.hy=1/Grid.Ny;
+Grid.Nz =1; Grid.hz=1/Grid.Nz;
+
+Grid.K = m.ones(3, Grid.Nx, Grid.Ny);
+```
+
+
+```{r}
+library(R6)
+library(rMRST)
+
+Grid <- R6Class("Grid",
+    public = list(
+        Nx = 0, Ny = 0, Nz = 0,
+        hx = 0, hy = 0, hz = 0,
+        K  = NA,
+        N  = NA,
+    initialize = function(Nx, Ny, Nz) { 
+        self$Nx = Nx
+        self$Ny = Ny
+        self$Nz = Nz
+        self$hx = 1 / self$Nx
+        self$hy = 1 / self$Ny
+        self$hz = 1 / self$Nz
+        self$K  = array(1, c(3, self$Nx, self$Ny))
+        self$N  = self$Nx * self$Ny * self$Nz
+        cat(sprintf("Grid of %dx%dx%d", self$Nx, self$Ny, self$Nz))
+        image(self$K[1,,])
+        }
+    )
+)
+
+grid <- Grid$new(8, 8, 1)
+# Grid of 8x8x1
+```
+
+Source: https://rpubs.com/wch/24456
+
+```{r}
+Numbers <- R6Class("Numbers",
+  public = list(
+    x = 100
+  ),
+  active = list(
+    x2 = function(value) {
+      if (missing(value)) return(self$x * 2)
+      else self$x <- value/2
+    },
+    rand = function() rnorm(1)
+  )
+)
+
+n <- Numbers$new()
+n$x
+```
+
+
+

@@ -36,7 +36,21 @@ library(RcppOctave)
 
 .CallOctave("eye", 3, 2)
 
+
+
 ```
+
+```{r}
+library(RcppOctave)
+library(rMRST)
+
+A = ones(4,3,2)
+A
+.CallOctave("prod", A)    # equivalent
+# .O$prod(A, 1)
+# A * A
+```
+
 
 
 ```

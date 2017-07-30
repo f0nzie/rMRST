@@ -1,0 +1,159 @@
+---
+title: "Example 01"
+output: html_notebook
+---
+
+
+```{r}
+library(R6)
+library(rMRST)
+
+Grid <- R6Class("Grid",
+    public = list(
+        Nx = 0, Ny = 0, Nz = 0,
+        hx = 0, hy = 0, hz = 0,
+        K  = NA,
+        N  = NA,
+    initialize = function(Nx, Ny, Nz) { 
+        self$Nx = Nx
+        self$Ny = Ny
+        self$Nz = Nz
+        self$hx = 1 / self$Nx
+        self$hy = 1 / self$Ny
+        self$hz = 1 / self$Nz
+        self$K  = array(1, c(3, self$Nx, self$Ny))
+        self$N  = self$Nx * self$Ny * self$Nz
+        cat(sprintf("Grid of %dx%dx%d \n", self$Nx, self$Ny, self$Nz))
+    },
+    getN = function() { self$N },
+    getK = function() { self$K }
+    )
+)
+
+grid <- Grid$new(8, 8, 1)
+
+N <- grid$getN()
+K <- grid$getK()
+
+q = m.zeros(N, 1) 
+q[c(N, 1)] = c(1, -1)
+dim(q)
+```
+
+
+
+
+
+
+```{r}
+library(rMRST)
+library(tibble)
+
+Grid.Nx =8; Grid.hx=1/Grid.Nx;
+Grid.Ny =8; Grid.hy=1/Grid.Ny;
+Grid.Nz =1; Grid.hz=1/Grid.Nz;
+
+Grid.K = m.ones(3, Grid.Nx, Grid.Ny);
+dim(Grid.K)
+N <-  Grid.Nx * Grid.Ny * Grid.Nz
+N
+q = m.zeros(N, 1) 
+q[c(N, 1)] = c(1, -1)
+dim(q)
+summary(q)
+```
+
+## Build the grid
+
+```{r}
+library(RcppOctave)
+
+# function to build the Grid
+o.buildGrid <- OctaveFunction("
+function[Grid] = buildGrid(Nx, Ny, Nz)
+    Grid.Nx = Nx; Grid.hx=1/Grid.Nx;
+    Grid.Ny = Ny; Grid.hy=1/Grid.Ny;
+    Grid.Nz = Nz; Grid.hz=1/Grid.Nz;
+    % Grid.K = K
+")
+
+Nx <- 8
+Ny <- 8
+Nz <- 1
+N=Nx*Ny*Nz;
+# permeability
+K = m.ones(3, Nx, Ny);
+# build the grid
+Grid <- o.buildGrid(Nx, Ny, Nz)
+# names(Grid)
+q = m.zeros(N, 1) 
+q[c(N, 1)] = c(1, -1)
+Grid
+```
+
+```{r}
+library(rMRST)
+
+# TPFA <- function(Grid, K, q) {
+    with(as.list(Grid), {
+        # Compute transmissibilities by harmonic averaging.
+        Nx = Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
+        hx = Grid.hx; hy=Grid.hy; hz=Grid.hz;
+        
+        L <- K^(-1)      # 3x8x8 array
+        
+        tx = 2*hy*hz/hx; TX <- zeros(Nx+1,Ny,Nz);
+        ty = 2*hx*hz/hy; TY = zeros(Nx,Ny+1,Nz);
+        tz = 2*hx*hy/hz; TZ = zeros(Nx,Ny,Nz+1);
+        
+        TX[2:Nx,,] = tx / (L[1, 1:(Nx-1), ] + L[1, 2:Nx, ])
+        TY[,2:Ny,] = ty / (L[2, , 1:Ny-1] + L[2, ,2:Ny])
+        TZ[,,2:Nz] = tz / (L[3,,1:(Nz-1)]   + L[3, ,2:Nz])
+        
+        x1 = pracma::Reshape(TX[1:Nx,,],N,1); x2 = pracma::Reshape(TX[2:(Nx+1),,],N,1);
+        y1 = pracma::Reshape(TY[,1:Ny,],N,1); y2 = pracma::Reshape(TY[,2:(Ny+1),],N,1);
+        z1 = pracma::Reshape(TZ[,,1:Nz],N,1); z2 = pracma::Reshape(TZ[,,2:(Nz+1)],N,1);
+        
+        DiagVecs = c(-z2,-y2,-x2,x1+x2+y1+y2+z1+z2,-x1,-y1,-z1)
+        DiagIndx = c(-Nx*Ny,-Nx,-1,0,1,Nx,Nx*Ny)
+        
+        # A = m.spdiags(DiagVecs,DiagIndx,N,N);
+        # A = m.spdiags(N,N);
+        # A[1,1] = A[1,1]+sum(Grid.K(:,1,1,1));
+                                                                   
+    })
+# }
+
+# TPFA(Grid, K, q)
+```
+
+
+
+```{r}
+library(RcppOctave)
+
+o.TPFA <- OctaveFunction("
+function [P,V] = TPFA(Grid, K, q)
+    % Compute transmissibilities by harmonic averaging.
+    Nx=Grid.Nx; Ny=Grid.Ny; Nz=Grid.Nz; N=Nx*Ny*Nz;
+    
+    hx=Grid.hx; hy=Grid.hy; hz=Grid.hz;
+    L = K.^(-1);
+    tx = 2*hy*hz/hx; TX = zeros(Nx+1,Ny,Nz);
+    ty = 2*hx*hz/hy; TY = zeros(Nx,Ny+1,Nz);
+    tz = 2*hx*hy/hz; TZ = zeros(Nx,Ny,Nz+1);
+    size(K)
+    %TX(2:Nx,:,:) = tx./(L(1,1:Nx-1,:,:)+L(1,2:Nx ,:,:));
+    P=1
+    V=1
+")
+
+
+lGrid <- list(Nx =3, Ny = 8, Nz = 8, hx = 1, hy = 1, hz =1, K = K)
+
+TPFA <- o.TPFA(lGrid, lGrid$K, q)
+```
+
+
+
+
