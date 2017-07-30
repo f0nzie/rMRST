@@ -2,7 +2,7 @@
 % Please edit documentation in R/zeros.R
 \name{zeros}
 \alias{zeros}
-\title{Fills an array with zeros}
+\title{Fills an array with zeros as in Matlab}
 \usage{
 zeros(x, ...)
 }
@@ -12,5 +12,5 @@ zeros(x, ...)
 \item{...}{additional parameters}
 }
 \description{
-Fills an array with zeros
+Fills an array with zeros as in Matlab
 }
