@@ -4,6 +4,32 @@ output: html_notebook
 ---
 
 ```{r}
+# want to test dcemriS4 package
+# calling function TPFA for example 01.2
+
+library(rMRST)
+library(dcemriS4)
+
+Grid <- makeGrid()
+
+Grid$Nx = 32; Grid$hx = 1 / Grid$Nx
+Grid$Ny = 32; Grid$hy = 1 / Grid$Ny
+Grid$Nz = 1; Grid$hz = 1 / Grid$Nz
+
+#  Grid.K=exp(5∗smooth3(smooth3(randn(3,Grid.Nx,Grid.Ny))));
+Grid$K = randn(3, Grid$Nx, Grid$Ny)
+dim(Grid$K)
+
+A = Grid$K
+B = Grid$K
+tcenter = findCenter(ifelse(A > 0, TRUE, FALSE))
+out <- convFFT(A, B, tcenter)
+dim(out)
+```
+
+
+
+```{r}
 # calling function TPFA for example 01.2
 
 library(rMRST)
