@@ -27,6 +27,13 @@ out <- convFFT(A, B, tcenter)
 dim(out)
 ```
 
+```{r}
+par(mfrow=c(2,2))  ## graphic output
+image(B[], col=oro.nifti::tim.colors(), main="Template")
+image(drop(A), col=oro.nifti::tim.colors(), main="Target")
+image(drop(out), col=oro.nifti::tim.colors(), main="Output")
+```
+
 
 
 ```{r}

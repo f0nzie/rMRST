@@ -8,8 +8,16 @@ randn <- function(..., mean = 0, sd = 1) {
     args <- list(...)
     # print(length(args))
     if (length(args)) {
-        stopifnot(sapply(args,  is.numeric))
+        stopifnot(sapply(args, is.numeric))
     }
-    if (length(args) == 1) array(rnorm(2), dim = c(args[[1]], args[[1]]))
-    else array(rnorm(2), dim = c(...))
+    print(args)
+    if (length(args) == 1) {
+        array(rnorm(args[[1]], mean, sd), dim = c(args[[1]]))
+    } else if (length(args) == 2) {
+        array(rnorm(args[[1]]*args[[1]], mean, sd), dim = c(args[[1]], args[[2]]))
+    } else if (length(args) == 3) {
+        array(rnorm(args[[1]]*args[[2]]*args[[3]], mean, sd),
+              dim = c(args[[1]], args[[2]], args[[3]]))
+    }
+    else stop("above 3D not implemented")
 }
