@@ -1,0 +1,65 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+convolution <- function(A, B) {
+  # Computes the convolution of two vectors.
+  #
+  # Args:
+  #   A, B: column vectors representing polynomial coefficients.
+  #
+  # Returns:
+  #   The coefficient vector resulting from multiplying the polynomial 
+  #   represented by A by the polynomial represented by B.
+  Ap <- c(A, B*0)
+  Bp <- c(B, A*0)
+  C <- fft(Ap) * fft(Bp)
+  D <- round(fft(C, inverse=T))
+  E <- as.numeric(D)
+  R <- E/(length(A)+length(B))
+  return(R)
+}
+
+zeroes <- function(Z) {
+  if (length(Z) == 1) {
+    return(c(1, -Z[1]))
+  }
+  ml <- length(Z) / 2
+  mr <- ml + 1
+  A <- zeroes(Z[1:ml])
+  B <- zeroes(Z[mr:length(Z)])
+  return(convolution(A, B))
+}
+
+
+# Example
+A <- c(1,2,3,4)
+B <- c(5,6,7,8)
+print(convolution(A, B))
+
+```
+
+
+```{r}
+library(rMRST)
+
+A = ones(3)
+B = ones(4,3,2)
+
+print(A)
+# print(array(convolution(A, A), dim = c(2*dim(A)[1]-1, 2*dim(A)[2]-1)))
+c1 <- convolution(A[,1], A[1,])
+c2 <- convolution(A[,1], A[2,])
+c3 <- convolution(A[2,], A[,1])
+print(c1)
+print(c2)
+print(c3)
+```
+
+```{r}
+m.conv3d(A,A)
+```
+

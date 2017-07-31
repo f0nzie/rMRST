@@ -43,5 +43,27 @@ m.conv3d <- function(A, B) {
     D
 }
 
+#' @export
+convolveArrays <- function(filter, image) {
+    result = array(0, length(image) + length(filter) + 1)
+
+    for (i in 1:length(image)) {
+        imageRow <- image[i]
+        for (j in 1:length(imageRow)) {
+            sum = 0
+            for (w in 1:length(filter())) {
+                if ((length(image) -1 ) < length(filter)) break
+                filterRow <- filter[w]
+                for (z in 1:length(filter)) {
+                    if (length(imageRow)-j < length(filterRow)) break
+                    sum = sum + image[w+1, z+j] * filter[w, z]
+                }
+            }
+            if (i < length(result) && j < length(result))
+                result[i, j] = sum
+        }
+    }
+    return(result)
+}
 
 
