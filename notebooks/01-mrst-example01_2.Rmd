@@ -3,8 +3,10 @@ title: "MRST - Example 01.2"
 output: html_notebook
 ---
 
-```{r}
-# want to test dcemriS4 package
+## 8x8x1 grid
+
+```{r fig.asp=1}
+# testing 3D convolution from dcemriS4 package
 # calling function TPFA for example 01.2
 
 library(rMRST)
@@ -12,11 +14,45 @@ library(dcemriS4)
 
 Grid <- makeGrid()
 
-Grid$Nx = 32; Grid$hx = 1 / Grid$Nx
-Grid$Ny = 32; Grid$hy = 1 / Grid$Ny
-Grid$Nz = 1; Grid$hz = 1 / Grid$Nz
+# Grid 8x8x1
+Grid$Nx =  8; Grid$hx = 1 / Grid$Nx
+Grid$Ny =  8; Grid$hy = 1 / Grid$Ny
+Grid$Nz =  1; Grid$hz = 1 / Grid$Nz
 
 #  Grid.K=exp(5∗smooth3(smooth3(randn(3,Grid.Nx,Grid.Ny))));
+# Permeabilities array 3x32x32
+Grid$K = randn(3, Grid$Nx, Grid$Ny)
+
+A = Grid$K
+B = Grid$K
+tcenter = findCenter(ifelse(A > 0, TRUE, FALSE))
+out <- convFFT(A, B, tcenter)
+
+# image only plots matrices. remove the 1st dimension of the permeabilities
+par(mfrow=c(2, 2))  ## graphic output
+image(B[1,,], col=oro.nifti::tim.colors(), main="Template")
+image(A[1,,], col=oro.nifti::tim.colors(), main="Target")
+image(out[1,,], col=oro.nifti::tim.colors(), main="Output")
+```
+
+## 32x32x1 grid
+
+```{r fig.asp=1}
+# testing 3D convolution from dcemriS4 package
+# calling function TPFA for example 01.2
+
+library(rMRST)
+library(dcemriS4)
+
+Grid <- makeGrid()
+
+# Grid 32x32x1
+Grid$Nx = 32; Grid$hx = 1 / Grid$Nx
+Grid$Ny = 32; Grid$hy = 1 / Grid$Ny
+Grid$Nz =  1; Grid$hz = 1 / Grid$Nz
+
+#  Grid.K=exp(5∗smooth3(smooth3(randn(3,Grid.Nx,Grid.Ny))));
+# Permeabilities array 3x32x32
 Grid$K = randn(3, Grid$Nx, Grid$Ny)
 dim(Grid$K)
 
@@ -25,15 +61,14 @@ B = Grid$K
 tcenter = findCenter(ifelse(A > 0, TRUE, FALSE))
 out <- convFFT(A, B, tcenter)
 dim(out)
-```
 
-```{r fig.asp=1}
-# image only plots matrices
+# image only plots matrices. remove the 1st dimension of the permeabilities
 par(mfrow=c(2, 2))  ## graphic output
 image(B[1,,], col=oro.nifti::tim.colors(), main="Template")
 image(A[1,,], col=oro.nifti::tim.colors(), main="Target")
 image(out[1,,], col=oro.nifti::tim.colors(), main="Output")
 ```
+
 
 
 

@@ -10,7 +10,6 @@ randn <- function(..., mean = 0, sd = 1) {
     if (length(args)) {
         stopifnot(sapply(args, is.numeric))
     }
-    print(args)
     if (length(args) == 1) {
         array(rnorm(args[[1]], mean, sd), dim = c(args[[1]]))
     } else if (length(args) == 2) {
