@@ -174,15 +174,17 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFkcmVwbGljYXRlIDwtIGZ1bmN0aW9uKGEsIHBhZFNpemUpIHtcbiAgICAjIFBhZCBhbiBhcnJheSBieSByZXBsaWNhdGluZyB2YWx1ZXMuXG4gICAgbnVtRGltcyA8LSBsZW5ndGgocGFkU2l6ZSlcbiAgICBpZHggPC0gdmVjdG9yKFwibGlzdFwiLCBudW1EaW1zKVxuICAgIGZvciAoayBpbiAxOm51bURpbXMpIHtcbiAgICAgICAgTSA8LSAgZGltKGEpW2tdICAgICAgICMgMzJcbiAgICAgICAgb25lc1ZlY3RvciA8LSAgb25lcygxLCBwYWRTaXplW2tdKVxuICAgICAgICBpZHhbW2tdXSA8LSBjKG9uZXNWZWN0b3IsIDE6TSwgTSAqIG9uZXNWZWN0b3IpXG4gICAgfVxuICAgIGRvLmNhbGwoIGBbYCwgYyhsaXN0KGEpLCBpZHgpKSBcbn1cbiMgcGFkIGEgbWF0cml4IDR4MyB3aXRoIGMoMSwxKVxuc2V0LnNlZWQoMTIzNDU2KVxubXggPSBtYXRyaXgoc2FtcGxlLmludCg5LCBzaXplID0gOSoxMDAsIHJlcGxhY2UgPSBUUlVFKSwgbnJvdyA9IDQsIG5jb2wgPSAzKVxubXhcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFkcmVwbGljYXRlIDwtIGZ1bmN0aW9uKGEsIHBhZFNpemUpIHtcbiAgICAjIFBhZCBhbiBhcnJheSBieSByZXBsaWNhdGluZyB2YWx1ZXMuXG4gICAgbnVtRGltcyA8LSBsZW5ndGgocGFkU2l6ZSlcbiAgICBpZHggPC0gdmVjdG9yKFwibGlzdFwiLCBudW1EaW1zKVxuICAgIGZvciAoayBpbiAxOm51bURpbXMpIHtcbiAgICAgICAgTSA8LSAgZGltKGEpW2tdICAgICAgICMgMzJcbiAgICAgICAgIyBvbmVzVmVjdG9yIDwtICBvbmVzKDEsIHBhZFNpemVba10pXG4gICAgICAgIG9uZXNWZWN0b3IgPC0gIG1hdHJpeCgxLCAxLCBwYWRTaXplW2tdKVxuICAgICAgICBpZHhbW2tdXSA8LSBjKG9uZXNWZWN0b3IsIDE6TSwgTSAqIG9uZXNWZWN0b3IpXG4gICAgICAgIHByaW50KGlkeFtba11dKVxuICAgIH1cbiAgICBkby5jYWxsKCBgW2AsIGMobGlzdChhKSwgaWR4KSkgXG59XG4jIHBhZCBhIG1hdHJpeCA0eDMgd2l0aCBjKDEsMSlcbnNldC5zZWVkKDEyMzQ1Nilcbm14ID0gbWF0cml4KHNhbXBsZS5pbnQoOSwgc2l6ZSA9IDkqMTAwLCByZXBsYWNlID0gVFJVRSksIG5yb3cgPSA0LCBuY29sID0gMylcbm14XG5gYGAifQ== -->
 <pre class="r"><code>padreplicate &lt;- function(a, padSize) {
     # Pad an array by replicating values.
     numDims &lt;- length(padSize)
     idx &lt;- vector(&quot;list&quot;, numDims)
     for (k in 1:numDims) {
         M &lt;-  dim(a)[k]       # 32
-        onesVector &lt;-  ones(1, padSize[k])
+        # onesVector &lt;-  ones(1, padSize[k])
+        onesVector &lt;-  matrix(1, 1, padSize[k])
         idx[[k]] &lt;- c(onesVector, 1:M, M * onesVector)
+        print(idx[[k]])
     }
     do.call( `[`, c(list(a), idx)) 
 }
@@ -201,6 +203,20 @@ mx</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFkcmVwbGljYXRlKG14LCBjKDEsMSkpXG5gYGAifQ== -->
 <pre class="r"><code>padreplicate(mx, c(1,1))</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEgMSAyIDMgNCA0XG5bMV0gMSAxIDIgMyAzXG4gICAgIFssMV0gWywyXSBbLDNdIFssNF0gWyw1XVxuWzEsXSAgICA4ICAgIDggICAgNCAgICA5ICAgIDlcblsyLF0gICAgOCAgICA4ICAgIDQgICAgOSAgICA5XG5bMyxdICAgIDcgICAgNyAgICAyICAgIDIgICAgMlxuWzQsXSAgICA0ICAgIDQgICAgNSAgICA4ICAgIDhcbls1LF0gICAgNCAgICA0ICAgIDEgICAgNiAgICA2XG5bNixdICAgIDQgICAgNCAgICAxICAgIDYgICAgNlxuIn0= -->
+<pre><code>[1] 1 1 2 3 4 4
+[1] 1 1 2 3 3
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    8    8    4    9    9
+[2,]    8    8    4    9    9
+[3,]    7    7    2    2    2
+[4,]    4    4    5    8    8
+[5,]    4    4    1    6    6
+[6,]    4    4    1    6    6</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXhbYygxLDEsMiwzLDQsNCksIGMoMSwxLDIsMywzKV1cbmBgYCJ9 -->
+<pre class="r"><code>mx[c(1,1,2,3,4,4), c(1,1,2,3,3)]</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gICAgOCAgICA4ICAgIDQgICAgOSAgICA5XG5bMixdICAgIDggICAgOCAgICA0ICAgIDkgICAgOVxuWzMsXSAgICA3ICAgIDcgICAgMiAgICAyICAgIDJcbls0LF0gICAgNCAgICA0ICAgIDUgICAgOCAgICA4XG5bNSxdICAgIDQgICAgNCAgICAxICAgIDYgICAgNlxuWzYsXSAgICA0ICAgIDQgICAgMSAgICA2ICAgIDZcbiJ9 -->
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    8    8    4    9    9
@@ -214,48 +230,69 @@ mx</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXIgPSBhcnJheShzYW1wbGUuaW50KDksIHNpemUgPSA5KjEwMCwgcmVwbGFjZSA9IFRSVUUpLCBkaW0gPSBjKDMsIDMsIDEpKVxuYXJcbmBgYCJ9 -->
-<pre class="r"><code>ar = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 3, 1))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0aGlzIGlzIHRoZSBtYW51YWwgb3BlcmF0aW9uIG9mIG1vZGlmeWluZyB0aGUgb3JpZ2luYWwgbWF0cml4XG5teFtjKDEsMSwyLDMsNCw0KSwgYygxLDEsMiwzLDMpXVxuYGBgIn0= -->
+<pre class="r"><code># this is the manual operation of modifying the original matrix
+mx[c(1,1,2,3,4,4), c(1,1,2,3,3)]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gICAgOCAgICA4ICAgIDQgICAgOSAgICA5XG5bMixdICAgIDggICAgOCAgICA0ICAgIDkgICAgOVxuWzMsXSAgICA3ICAgIDcgICAgMiAgICAyICAgIDJcbls0LF0gICAgNCAgICA0ICAgIDUgICAgOCAgICA4XG5bNSxdICAgIDQgICAgNCAgICAxICAgIDYgICAgNlxuWzYsXSAgICA0ICAgIDQgICAgMSAgICA2ICAgIDZcbiJ9 -->
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    8    8    4    9    9
+[2,]    8    8    4    9    9
+[3,]    7    7    2    2    2
+[4,]    4    4    5    8    8
+[5,]    4    4    1    6    6
+[6,]    4    4    1    6    6</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByb3dzOiBjKDEsMSwyLDMsNCw0KVxuYGBgIn0= -->
+<pre class="r"><code># rows: c(1,1,2,3,4,4)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoMTIzNDU2KVxuYXIgPSBhcnJheShzYW1wbGUuaW50KDksIHNpemUgPSA5KjEwMCwgcmVwbGFjZSA9IFRSVUUpLCBkaW0gPSBjKDMsIDMsIDEpKVxuYXJcbmBgYCJ9 -->
+<pre class="r"><code>set.seed(123456)
+ar = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 3, 1))
 ar</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiLCAsIDFcblxuICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgICA5ICAgIDIgICAgM1xuWzIsXSAgICA2ICAgIDYgICAgMlxuWzMsXSAgICA1ICAgIDcgICAgMlxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiLCAsIDFcblxuICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgICA4ICAgIDQgICAgNVxuWzIsXSAgICA3ICAgIDQgICAgMVxuWzMsXSAgICA0ICAgIDIgICAgOVxuIn0= -->
 <pre><code>, , 1
 
      [,1] [,2] [,3]
-[1,]    9    2    3
-[2,]    6    6    2
-[3,]    5    7    2</code></pre>
+[1,]    8    4    5
+[2,]    7    4    1
+[3,]    4    2    9</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFkcmVwbGljYXRlKGFyLCBjKDEsMSwxKSlcbmBgYCJ9 -->
 <pre class="r"><code>padreplicate(ar, c(1,1,1))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiLCAsIDFcblxuICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gICAgOSAgICA5ICAgIDIgICAgMyAgICAzXG5bMixdICAgIDkgICAgOSAgICAyICAgIDMgICAgM1xuWzMsXSAgICA2ICAgIDYgICAgNiAgICAyICAgIDJcbls0LF0gICAgNSAgICA1ICAgIDcgICAgMiAgICAyXG5bNSxdICAgIDUgICAgNSAgICA3ICAgIDIgICAgMlxuXG4sICwgMlxuXG4gICAgIFssMV0gWywyXSBbLDNdIFssNF0gWyw1XVxuWzEsXSAgICA5ICAgIDkgICAgMiAgICAzICAgIDNcblsyLF0gICAgOSAgICA5ICAgIDIgICAgMyAgICAzXG5bMyxdICAgIDYgICAgNiAgICA2ICAgIDIgICAgMlxuWzQsXSAgICA1ICAgIDUgICAgNyAgICAyICAgIDJcbls1LF0gICAgNSAgICA1ICAgIDcgICAgMiAgICAyXG5cbiwgLCAzXG5cbiAgICAgWywxXSBbLDJdIFssM10gWyw0XSBbLDVdXG5bMSxdICAgIDkgICAgOSAgICAyICAgIDMgICAgM1xuWzIsXSAgICA5ICAgIDkgICAgMiAgICAzICAgIDNcblszLF0gICAgNiAgICA2ICAgIDYgICAgMiAgICAyXG5bNCxdICAgIDUgICAgNSAgICA3ICAgIDIgICAgMlxuWzUsXSAgICA1ICAgIDUgICAgNyAgICAyICAgIDJcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiLCAsIDFcblxuICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gICAgOCAgICA4ICAgIDQgICAgNSAgICA1XG5bMixdICAgIDggICAgOCAgICA0ICAgIDUgICAgNVxuWzMsXSAgICA3ICAgIDcgICAgNCAgICAxICAgIDFcbls0LF0gICAgNCAgICA0ICAgIDIgICAgOSAgICA5XG5bNSxdICAgIDQgICAgNCAgICAyICAgIDkgICAgOVxuXG4sICwgMlxuXG4gICAgIFssMV0gWywyXSBbLDNdIFssNF0gWyw1XVxuWzEsXSAgICA4ICAgIDggICAgNCAgICA1ICAgIDVcblsyLF0gICAgOCAgICA4ICAgIDQgICAgNSAgICA1XG5bMyxdICAgIDcgICAgNyAgICA0ICAgIDEgICAgMVxuWzQsXSAgICA0ICAgIDQgICAgMiAgICA5ICAgIDlcbls1LF0gICAgNCAgICA0ICAgIDIgICAgOSAgICA5XG5cbiwgLCAzXG5cbiAgICAgWywxXSBbLDJdIFssM10gWyw0XSBbLDVdXG5bMSxdICAgIDggICAgOCAgICA0ICAgIDUgICAgNVxuWzIsXSAgICA4ICAgIDggICAgNCAgICA1ICAgIDVcblszLF0gICAgNyAgICA3ICAgIDQgICAgMSAgICAxXG5bNCxdICAgIDQgICAgNCAgICAyICAgIDkgICAgOVxuWzUsXSAgICA0ICAgIDQgICAgMiAgICA5ICAgIDlcbiJ9 -->
 <pre><code>, , 1
 
      [,1] [,2] [,3] [,4] [,5]
-[1,]    9    9    2    3    3
-[2,]    9    9    2    3    3
-[3,]    6    6    6    2    2
-[4,]    5    5    7    2    2
-[5,]    5    5    7    2    2
+[1,]    8    8    4    5    5
+[2,]    8    8    4    5    5
+[3,]    7    7    4    1    1
+[4,]    4    4    2    9    9
+[5,]    4    4    2    9    9
 
 , , 2
 
      [,1] [,2] [,3] [,4] [,5]
-[1,]    9    9    2    3    3
-[2,]    9    9    2    3    3
-[3,]    6    6    6    2    2
-[4,]    5    5    7    2    2
-[5,]    5    5    7    2    2
+[1,]    8    8    4    5    5
+[2,]    8    8    4    5    5
+[3,]    7    7    4    1    1
+[4,]    4    4    2    9    9
+[5,]    4    4    2    9    9
 
 , , 3
 
      [,1] [,2] [,3] [,4] [,5]
-[1,]    9    9    2    3    3
-[2,]    9    9    2    3    3
-[3,]    6    6    6    2    2
-[4,]    5    5    7    2    2
-[5,]    5    5    7    2    2</code></pre>
+[1,]    8    8    4    5    5
+[2,]    8    8    4    5    5
+[3,]    7    7    4    1    1
+[4,]    4    4    2    9    9
+[5,]    4    4    2    9    9</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -365,9 +402,13 @@ length(padSize)</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDJcbiJ9 -->
 <pre><code>[1] 2</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByTVJTVDo6OnBhZHJlcGxpY2F0ZShhcnIsIHBhZFNpemUpXG5gYGAifQ== -->
-<pre class="r"><code># rMRST:::padreplicate(arr, padSize)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuck1SU1Q6OjpwYWRyZXBsaWNhdGUoYXJyLCBwYWRTaXplKVxuYGBgIn0= -->
+<pre class="r"><code>rMRST:::padreplicate(arr, padSize)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gck1SU1Q6OjpwYWRyZXBsaWNhdGUoYXJyLCBwYWRTaXplKSA6IFxuICBJbmNvcnJlY3QgZGltZW5zaW9ucyBvZiBwYWRTaXplXG4ifQ== -->
+<pre><code>Error in rMRST:::padreplicate(arr, padSize) : 
+  Incorrect dimensions of padSize</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -389,8 +430,14 @@ mx</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuck1SU1Q6OjpwYWRyZXBsaWNhdGUobXgsIGMoMSwxKSlcbmBgYCJ9 -->
 <pre class="r"><code>rMRST:::padreplicate(mx, c(1,1))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gICAgOCAgICA4ICAgIDQgICAgOSAgICA5XG5bMixdICAgIDggICAgOCAgICA0ICAgIDkgICAgOVxuWzMsXSAgICA3ICAgIDcgICAgMiAgICAyICAgIDJcbls0LF0gICAgNCAgICA0ICAgIDUgICAgOCAgICA4XG5bNSxdICAgIDQgICAgNCAgICAxICAgIDYgICAgNlxuWzYsXSAgICA0ICAgIDQgICAgMSAgICA2ICAgIDZcbiJ9 -->
-<pre><code>     [,1] [,2] [,3] [,4] [,5]
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cblsxXSAxIDEgMiAzIDQgNFxuXG5bWzJdXVxuWzFdIDEgMSAyIDMgM1xuXG4gICAgIFssMV0gWywyXSBbLDNdIFssNF0gWyw1XVxuWzEsXSAgICA4ICAgIDggICAgNCAgICA5ICAgIDlcblsyLF0gICAgOCAgICA4ICAgIDQgICAgOSAgICA5XG5bMyxdICAgIDcgICAgNyAgICAyICAgIDIgICAgMlxuWzQsXSAgICA0ICAgIDQgICAgNSAgICA4ICAgIDhcbls1LF0gICAgNCAgICA0ICAgIDEgICAgNiAgICA2XG5bNixdICAgIDQgICAgNCAgICAxICAgIDYgICAgNlxuIn0= -->
+<pre><code>[[1]]
+[1] 1 1 2 3 4 4
+
+[[2]]
+[1] 1 1 2 3 3
+
+     [,1] [,2] [,3] [,4] [,5]
 [1,]    8    8    4    9    9
 [2,]    8    8    4    9    9
 [3,]    7    7    2    2    2
@@ -444,7 +491,7 @@ m[unlist(li)]</code></pre>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CnBhZHJlcGxpY2F0ZSA8LSBmdW5jdGlvbihhLCBwYWRTaXplKSB7CiAgICAjIFBhZCBhbiBhcnJheSBieSByZXBsaWNhdGluZyB2YWx1ZXMuCiAgICBudW1EaW1zIDwtIGxlbmd0aChwYWRTaXplKQogICAgaWR4IDwtIHZlY3RvcigibGlzdCIsIG51bURpbXMpCiAgICBmb3IgKGsgaW4gMTpudW1EaW1zKSB7CiAgICAgICAgTSA8LSAgZGltKGEpW2tdICAgICAgICMgMzIKICAgICAgICBvbmVzVmVjdG9yIDwtICBvbmVzKDEsIHBhZFNpemVba10pCiAgICAgICAgaWR4W1trXV0gPC0gYyhvbmVzVmVjdG9yLCAxOk0sIE0gKiBvbmVzVmVjdG9yKQogICAgfQogICAgZG8uY2FsbCggYFtgLCBjKGxpc3QoYSksIGlkeCkpIAp9CgojIHBhZCBhIG1hdHJpeCA0eDMgd2l0aCBjKDEsMSkKc2V0LnNlZWQoMTIzNDU2KQpteCA9IG1hdHJpeChzYW1wbGUuaW50KDksIHNpemUgPSA5KjEwMCwgcmVwbGFjZSA9IFRSVUUpLCBucm93ID0gNCwgbmNvbCA9IDMpCm14CgpwYWRyZXBsaWNhdGUobXgsIGMoMSwxKSkKYGBgCgpgYGB7cn0KYXIgPSBhcnJheShzYW1wbGUuaW50KDksIHNpemUgPSA5KjEwMCwgcmVwbGFjZSA9IFRSVUUpLCBkaW0gPSBjKDMsIDMsIDEpKQphcgpwYWRyZXBsaWNhdGUoYXIsIGMoMSwxLDEpKQpgYGAKCgpgYGB7cn0KIyMgRXhhbXBsZSB3aXRoIGRpZmZlcmVudCBsZW5ndGhzIGZvciBlYWNoIGNhbGwKeiA8LSBhcnJheSgxOjI0LCBkaW0gPSAyOjQpCnpzZXEgPC0gYXBwbHkoeiwgMToyLCBmdW5jdGlvbih4KSBzZXFfbGVuKG1heCh4KSkpCnpzZXEgICAgICAgICAjIyBhIDIgeCAzIG1hdHJpeAp0eXBlb2YoenNlcSkgIyMgbGlzdApkaW0oenNlcSkgIyMgMiAzCnpzZXFbMSxdCmFwcGx5KHosIDMsIGZ1bmN0aW9uKHgpIHNlcV9sZW4obWF4KHgpKSkKIyBhIGxpc3Qgd2l0aG91dCBhIGRpbSBhdHRyaWJ1dGUKCmNhdCgiTUFSR0lOPTI6M1xuIikKYXBwbHkoeiwgMjozLCBmdW5jdGlvbih4KSBzZXFfbGVuKG1heCh4KSkpCmBgYAoKCiMgZm9yIHZlY3RvcnMKCmBgYHtyfQpsaSA9IGxpc3QoYygzLDQpKQpsaQp2IDwtIGMoOSw4LDcsNiw1LDQpCnZbdW5saXN0KGxpKV0KYGBgCgpgYGB7cn0KbGlicmFyeShyTVJTVCkKc2V0LnNlZWQoMTIzNDU2KQphcnIgPSBhcnJheShzYW1wbGUuaW50KDksIHNpemUgPSA5KjEwMCwgcmVwbGFjZSA9IFRSVUUpLCBkaW0gPSBjKDMsIDQsIDIpKQojIGFycgoKcGFkU2l6ZSA9IGMoMSwxKQpsZW5ndGgocGFkU2l6ZSkKIyByTVJTVDo6OnBhZHJlcGxpY2F0ZShhcnIsIHBhZFNpemUpCmBgYAoKYGBge3J9CiMgcGFkIGEgbWF0cml4IHdpdGggYygxLDEpCmxpYnJhcnkock1SU1QpCnNldC5zZWVkKDEyMzQ1NikKbXggPSBtYXRyaXgoc2FtcGxlLmludCg5LCBzaXplID0gOSoxMDAsIHJlcGxhY2UgPSBUUlVFKSwgbnJvdyA9IDQsIG5jb2wgPSAzKQpteAoKck1SU1Q6OjpwYWRyZXBsaWNhdGUobXgsIGMoMSwxKSkKYGBgCgoKYGBge3J9CiMgIyBwYWQgYSBtYXRyaXggd2l0aCBjKDIsMikKbGlicmFyeShyTVJTVCkKc2V0LnNlZWQoMTIzNDU2KQpteCA9IG1hdHJpeChzYW1wbGUuaW50KDksIHNpemUgPSA5KjEwMCwgcmVwbGFjZSA9IFRSVUUpLCBucm93ID0gMywgbmNvbCA9IDQpCm14CgpyTVJTVDo6OnBhZHJlcGxpY2F0ZShteCwgYygyLDIpKQpgYGAKCgoKYGBge3J9CmxpID0gbGlzdChjKDMsNCksIGMoNywgOSkpCm1bdW5saXN0KGxpKV0KYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CnBhZHJlcGxpY2F0ZSA8LSBmdW5jdGlvbihhLCBwYWRTaXplKSB7CiAgICAjIFBhZCBhbiBhcnJheSBieSByZXBsaWNhdGluZyB2YWx1ZXMuCiAgICBudW1EaW1zIDwtIGxlbmd0aChwYWRTaXplKQogICAgaWR4IDwtIHZlY3RvcigibGlzdCIsIG51bURpbXMpCiAgICBmb3IgKGsgaW4gMTpudW1EaW1zKSB7CiAgICAgICAgTSA8LSAgZGltKGEpW2tdICAgICAgICMgMzIKICAgICAgICAjIG9uZXNWZWN0b3IgPC0gIG9uZXMoMSwgcGFkU2l6ZVtrXSkKICAgICAgICBvbmVzVmVjdG9yIDwtICBtYXRyaXgoMSwgMSwgcGFkU2l6ZVtrXSkKICAgICAgICBpZHhbW2tdXSA8LSBjKG9uZXNWZWN0b3IsIDE6TSwgTSAqIG9uZXNWZWN0b3IpCiAgICAgICAgcHJpbnQoaWR4W1trXV0pCiAgICB9CiAgICBkby5jYWxsKCBgW2AsIGMobGlzdChhKSwgaWR4KSkgCn0KCiMgcGFkIGEgbWF0cml4IDR4MyB3aXRoIGMoMSwxKQpzZXQuc2VlZCgxMjM0NTYpCm14ID0gbWF0cml4KHNhbXBsZS5pbnQoOSwgc2l6ZSA9IDkqMTAwLCByZXBsYWNlID0gVFJVRSksIG5yb3cgPSA0LCBuY29sID0gMykKbXgKCnBhZHJlcGxpY2F0ZShteCwgYygxLDEpKQoKYGBgCgpgYGB7cn0KIyB0aGlzIGlzIHRoZSBtYW51YWwgb3BlcmF0aW9uIG9mIG1vZGlmeWluZyB0aGUgb3JpZ2luYWwgbWF0cml4Cm14W2MoMSwxLDIsMyw0LDQpLCBjKDEsMSwyLDMsMyldCiMgaW5kZXggb2Ygcm93cyB0byBkdXBsaWNhdGU6IGMoMSwxLDIsMyw0LDQpCiMgaW5kZXggb2YgY29scyB0byBkdXBsaWNhdGU6IGMoMSwxLDIsMywzKQpgYGAKCgpgYGB7cn0Kc2V0LnNlZWQoMTIzNDU2KQphciA9IGFycmF5KHNhbXBsZS5pbnQoOSwgc2l6ZSA9IDkqMTAwLCByZXBsYWNlID0gVFJVRSksIGRpbSA9IGMoMywgMywgMSkpCmFyCnBhZHJlcGxpY2F0ZShhciwgYygxLDEsMSkpCmBgYAoKCmBgYHtyfQojIyBFeGFtcGxlIHdpdGggZGlmZmVyZW50IGxlbmd0aHMgZm9yIGVhY2ggY2FsbAp6IDwtIGFycmF5KDE6MjQsIGRpbSA9IDI6NCkKenNlcSA8LSBhcHBseSh6LCAxOjIsIGZ1bmN0aW9uKHgpIHNlcV9sZW4obWF4KHgpKSkKenNlcSAgICAgICAgICMjIGEgMiB4IDMgbWF0cml4CnR5cGVvZih6c2VxKSAjIyBsaXN0CmRpbSh6c2VxKSAjIyAyIDMKenNlcVsxLF0KYXBwbHkoeiwgMywgZnVuY3Rpb24oeCkgc2VxX2xlbihtYXgoeCkpKQojIGEgbGlzdCB3aXRob3V0IGEgZGltIGF0dHJpYnV0ZQoKY2F0KCJNQVJHSU49MjozXG4iKQphcHBseSh6LCAyOjMsIGZ1bmN0aW9uKHgpIHNlcV9sZW4obWF4KHgpKSkKYGBgCgoKIyBmb3IgdmVjdG9ycwoKYGBge3J9CmxpID0gbGlzdChjKDMsNCkpCmxpCnYgPC0gYyg5LDgsNyw2LDUsNCkKdlt1bmxpc3QobGkpXQpgYGAKCmBgYHtyfQpsaWJyYXJ5KHJNUlNUKQpzZXQuc2VlZCgxMjM0NTYpCmFyciA9IGFycmF5KHNhbXBsZS5pbnQoOSwgc2l6ZSA9IDkqMTAwLCByZXBsYWNlID0gVFJVRSksIGRpbSA9IGMoMywgNCwgMikpCiMgYXJyCgpwYWRTaXplID0gYygxLDEpCmxlbmd0aChwYWRTaXplKQpyTVJTVDo6OnBhZHJlcGxpY2F0ZShhcnIsIHBhZFNpemUpCmBgYAoKYGBge3J9CiMgcGFkIGEgbWF0cml4IHdpdGggYygxLDEpCmxpYnJhcnkock1SU1QpCnNldC5zZWVkKDEyMzQ1NikKbXggPSBtYXRyaXgoc2FtcGxlLmludCg5LCBzaXplID0gOSoxMDAsIHJlcGxhY2UgPSBUUlVFKSwgbnJvdyA9IDQsIG5jb2wgPSAzKQpteAoKck1SU1Q6OjpwYWRyZXBsaWNhdGUobXgsIGMoMSwxKSkKYGBgCgoKYGBge3J9CiMgIyBwYWQgYSBtYXRyaXggd2l0aCBjKDIsMikKbGlicmFyeShyTVJTVCkKc2V0LnNlZWQoMTIzNDU2KQpteCA9IG1hdHJpeChzYW1wbGUuaW50KDksIHNpemUgPSA5KjEwMCwgcmVwbGFjZSA9IFRSVUUpLCBucm93ID0gMywgbmNvbCA9IDQpCm14CgpyTVJTVDo6OnBhZHJlcGxpY2F0ZShteCwgYygyLDIpKQpgYGAKCgoKYGBge3J9CmxpID0gbGlzdChjKDMsNCksIGMoNywgOSkpCm1bdW5saXN0KGxpKV0KYGBgCgo=</div>
 
 
 

@@ -10,8 +10,10 @@ padreplicate <- function(a, padSize) {
     idx <- vector("list", numDims)
     for (k in 1:numDims) {
         M <-  dim(a)[k]       # 32
-        onesVector <-  ones(1, padSize[k])
+        # onesVector <-  ones(1, padSize[k])
+        onesVector <-  matrix(1, 1, padSize[k])
         idx[[k]] <- c(onesVector, 1:M, M * onesVector)
+        print(idx[[k]])
     }
     do.call( `[`, c(list(a), idx)) 
 }
@@ -22,9 +24,19 @@ mx = matrix(sample.int(9, size = 9*100, replace = TRUE), nrow = 4, ncol = 3)
 mx
 
 padreplicate(mx, c(1,1))
+
 ```
 
 ```{r}
+# this is the manual operation of modifying the original matrix
+mx[c(1,1,2,3,4,4), c(1,1,2,3,3)]
+# index of rows to duplicate: c(1,1,2,3,4,4)
+# index of cols to duplicate: c(1,1,2,3,3)
+```
+
+
+```{r}
+set.seed(123456)
 ar = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 3, 1))
 ar
 padreplicate(ar, c(1,1,1))
@@ -64,7 +76,7 @@ arr = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 4, 2))
 
 padSize = c(1,1)
 length(padSize)
-# rMRST:::padreplicate(arr, padSize)
+rMRST:::padreplicate(arr, padSize)
 ```
 
 ```{r}

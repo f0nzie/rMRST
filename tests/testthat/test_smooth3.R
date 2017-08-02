@@ -50,4 +50,23 @@ test_that("padreplicate of a matrix 4x3 pads to 5x6 with c(1, 1)", {
     expect_equal(c(6,5), dim(result))
 })
 
+test_that("padreplicate of an array 4x3 pads to 5x6 with c(1,1,1)", {
+    expected <- rbind(
+        c(8,    8,    4,    9,    9),
+        c(8,    8,    4,    9,    9),
+        c(7,    7,    2,    2,    2),
+        c(4,    4,    5,    8,    8),
+        c(4,    4,    1,    6,    6),
+        c(4,    4,    1,    6,    6)
+    )
+
+
+    set.seed(123456)
+    ar = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 3, 1))
+    result <- padreplicate(ar, c(1, 1, 1))
+    # expect_equal(expected, result)
+    # expect_equal(c(6,5), dim(result))
+    print(result)
+})
+
 

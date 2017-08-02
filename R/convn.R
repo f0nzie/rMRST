@@ -1,4 +1,4 @@
-#' @export
+
 m.convn <- function(x, y) {
     # stopifnot(is.matrix(x), is.matrix(y))
     if (is.matrix(x) & is.matrix(y)) return(.CallOctave("convn", x, y))
@@ -11,7 +11,6 @@ m.convn <- function(x, y) {
 
 
 
-#' @export
 #' @importFrom RcppOctave .O
 m.conv3d <- function(A, B) {
     if (is.matrix(A) & is.matrix(B)) {
@@ -43,7 +42,6 @@ m.conv3d <- function(A, B) {
     D
 }
 
-#' @export
 convolveArrays <- function(filter, image) {
     result = array(0, length(image) + length(filter) + 1)
 
