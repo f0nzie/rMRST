@@ -3,6 +3,32 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+```{r}
+padreplicate <- function(a, padSize) {
+    # Pad an array by replicating values.
+    numDims <- length(padSize)
+    idx <- vector("list", numDims)
+    for (k in 1:numDims) {
+        M <-  dim(a)[k]       # 32
+        onesVector <-  ones(1, padSize[k])
+        idx[[k]] <- c(onesVector, 1:M, M * onesVector)
+    }
+    do.call( `[`, c(list(a), idx)) 
+}
+
+# pad a matrix 4x3 with c(1,1)
+set.seed(123456)
+mx = matrix(sample.int(9, size = 9*100, replace = TRUE), nrow = 4, ncol = 3)
+mx
+
+padreplicate(mx, c(1,1))
+```
+
+```{r}
+ar = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 3, 1))
+ar
+padreplicate(ar, c(1,1,1))
+```
 
 
 ```{r}
@@ -34,9 +60,11 @@ v[unlist(li)]
 library(rMRST)
 set.seed(123456)
 arr = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 4, 2))
-arr
+# arr
 
-rMRST:::padreplicate(arr, c(1,1))
+padSize = c(1,1)
+length(padSize)
+# rMRST:::padreplicate(arr, padSize)
 ```
 
 ```{r}

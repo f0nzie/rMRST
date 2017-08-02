@@ -7,7 +7,7 @@ Smooth3 <- function(data, filt = "box", sz = 3) {
     if (length(sz) == 1)
         sz = c(sz, sz, sz)     # c(3,3,3)
     else if (length(sz) != 3)
-        stop("Ivalid size input.")
+        stop("Invalid size input.")
 
     padSize <- (sz - 1) / 2    # c(1, 1, 1)
 
@@ -27,6 +27,8 @@ Smooth3 <- function(data, filt = "box", sz = 3) {
 
 
 padreplicate <- function(a, padSize) {
+    if (length(padSize) != length(dim(a)))
+        stop("Incorrect dimensions of padSize")
     # Pad an array by replicating values.
     numDims <- length(padSize)
     # idx = matrix(nrow = numDims, ncol = 1)
@@ -36,8 +38,7 @@ padreplicate <- function(a, padSize) {
         onesVector <-  ones(1, padSize[k])
         idx[[k]] <- c(onesVector, 1:M, M * onesVector)
     }
-    return(a[unlist(idx[1]), unlist(idx[2])])
-    #return(a[apply(idx, 1, function(x) unlist[x])])
+    do.call( `[`, c(list(a), idx))
 }
 
 
