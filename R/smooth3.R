@@ -23,7 +23,6 @@ Smooth3 <- function(data, filt = "box", sz = 3) {
     } else {
         stop("Unknown filter")
     }
-
     #sz
     # padSize
     #smooth
