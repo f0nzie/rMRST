@@ -1,0 +1,69 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+## Example with different lengths for each call
+z <- array(1:24, dim = 2:4)
+zseq <- apply(z, 1:2, function(x) seq_len(max(x)))
+zseq         ## a 2 x 3 matrix
+typeof(zseq) ## list
+dim(zseq) ## 2 3
+zseq[1,]
+apply(z, 3, function(x) seq_len(max(x)))
+# a list without a dim attribute
+
+cat("MARGIN=2:3\n")
+apply(z, 2:3, function(x) seq_len(max(x)))
+```
+
+
+# for vectors
+
+```{r}
+li = list(c(3,4))
+li
+v <- c(9,8,7,6,5,4)
+v[unlist(li)]
+```
+
+```{r}
+library(rMRST)
+set.seed(123456)
+arr = array(sample.int(9, size = 9*100, replace = TRUE), dim = c(3, 4, 2))
+arr
+
+rMRST:::padreplicate(arr, c(1,1))
+```
+
+```{r}
+# pad a matrix with c(1,1)
+library(rMRST)
+set.seed(123456)
+mx = matrix(sample.int(9, size = 9*100, replace = TRUE), nrow = 4, ncol = 3)
+mx
+
+rMRST:::padreplicate(mx, c(1,1))
+```
+
+
+```{r}
+# # pad a matrix with c(2,2)
+library(rMRST)
+set.seed(123456)
+mx = matrix(sample.int(9, size = 9*100, replace = TRUE), nrow = 3, ncol = 4)
+mx
+
+rMRST:::padreplicate(mx, c(2,2))
+```
+
+
+
+```{r}
+li = list(c(3,4), c(7, 9))
+m[unlist(li)]
+```
+

@@ -18,7 +18,11 @@ ones <- function(x, ...) {
     if (length(args)) {
         stopifnot(sapply(args,  is.numeric))
         array(1, dim=c(x, ...))
+    } else if (length(x) > 1) {
+        # a vector supplied for dimensions
+        array(1, dim=c(x))
     } else {
-        array(1, dim=c(x,x))
+        # two dimensions given
+        array(1, dim=c(x, x))
     }
 }

@@ -1,5 +1,6 @@
 
 #' Number of dimensions of the object. As in Matlab
+#' @param X vector, matrix or array
 #' @export
 ndims <- function(X) {
     if (!is.numeric(X))
