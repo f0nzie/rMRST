@@ -2,6 +2,21 @@ library(testthat)
 
 context("test smooth3 as in Matlab")
 
+test_that("array of K 3x32x32 gives correct padded array of 5x34x34", {
+    load(file = "padreplicate_3x32x32.rda")
+    sample <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                              file = "K_3x32x32.txt")), dim=c(3,32,32))
+    # print(dim(sample))
+    #print(Smooth3(sample))
+    result <- Smooth3(sample)
+    # expected <- result; save(expected, file = "padreplicate_3x32x32.rda")
+    print(dim(result))
+    # expect_equal(expected, result)
+    # expect_equal(c(5,34,34), dim(result))
+})
+
+
+
 
 
 context("test padreplicate")

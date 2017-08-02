@@ -1,0 +1,41 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(rMRST)
+
+# pad a matrix 4x3 with c(1,1)
+set.seed(123456)
+mx = matrix(sample.int(9, size = 9*100, replace = TRUE), nrow = 4, ncol = 3)
+nx = matrix(sample.int(4, size = 9*100, replace = TRUE), nrow = 2, ncol = 2)
+convn(mx, nx)
+```
+
+```{r}
+max(dim(mx) - dim(mx) + 1, 0)
+```
+
+```{r}
+# test of convn function 
+# test the maximum dimensions of the array when shape = "valid"
+library(rMRST)
+
+sample <- array(simplify2array(read.table(header = FALSE, sep = ",",
+                                           file = "./tests/testthat/K_3x32x32.txt")), dim=c(3,32,32))
+dim(sample)
+sz <- c(3,3,3)
+smooth = ones(sz) / prod(sz)
+dim(smooth)
+padSize = c(1, 1, 1)
+padded <- padreplicate(sample, padSize)
+convn(padded, smooth)
+convn(padded, smooth, shape = "full")
+```
+
+```{r}
+# max vectorized
+pmax(dim(padded) - dim(smooth) + 1, 0)
+```
+

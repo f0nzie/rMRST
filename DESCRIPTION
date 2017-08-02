@@ -8,7 +8,7 @@ Description: Operate MRST (Matlab Reservoir Simulation Toolbox) from R using
      functions developed in Octave and native R.
 Depends: R (>= 3.2)  
 Imports: RcppOctave, 
-         pracma, R6
+         pracma, R6, dcemriS4
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

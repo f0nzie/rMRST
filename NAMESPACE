@@ -3,6 +3,7 @@
 export(Smooth3)
 export(TPFA)
 export(Var3d)
+export(convn)
 export(m.ones)
 export(m.spdiags)
 export(m.zeros)

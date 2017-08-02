@@ -23,9 +23,11 @@ Smooth3 <- function(data, filt = "box", sz = 3) {
     } else {
         stop("Unknown filter")
     }
-    #sz
-    # padSize
-    #smooth
+    # padreplicate(data, padSize)
+    tcenter = dcemriS4::findCenter(ifelse(data > 0, TRUE, FALSE))
+    pdata <- padreplicate(data, padSize)
+    out <- dcemriS4::convFFT(pdata, pdata, tcenter)
+    return(out)
 }
 
 

@@ -1,4 +1,18 @@
 
+#' @export
+convn <- function(A, B, shape = "valid") {
+    # shape = "valid"
+    # Returns only those parts of the convolution that can
+    # be computed without assuming that the array A is zero-padded. The
+    # size of the result is max(size(A)-size(B) + 1, 0)
+
+    # max vectorized
+    if (shape == "valid")
+        pmax(dim(A) - dim(B) + 1, 0)
+    else
+        dim(A)
+}
+
 m.convn <- function(x, y) {
     # stopifnot(is.matrix(x), is.matrix(y))
     if (is.matrix(x) & is.matrix(y)) return(.CallOctave("convn", x, y))
